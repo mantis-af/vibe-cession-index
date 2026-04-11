@@ -90,6 +90,12 @@ interface RawDashboard {
   }>;
   nationalCpi: { name?: string; points?: Array<{ month: string; cpi_index: number; inflation_yoy?: number }> };
   gasNational: { name?: string; points?: Array<{ week: string; price: number }> };
+  expanded: Record<string, {
+    name: string;
+    unit: string;
+    frequency: string;
+    points: Array<{ date: string; value: number }>;
+  }>;
 }
 
 function mapSignals(raw: Record<string, number>): MetroSignals {
@@ -179,3 +185,4 @@ export const NATIONAL_DRIVERS = raw.summary.nationalDrivers ?? { drivers: [], pe
 export const MACRO_DATA = raw.macro ?? {};
 export const NATIONAL_CPI = raw.nationalCpi ?? {};
 export const GAS_NATIONAL = raw.gasNational ?? {};
+export const EXPANDED_DATA = raw.expanded ?? {};

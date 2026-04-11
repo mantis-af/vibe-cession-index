@@ -1,4 +1,4 @@
-import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL } from "@/lib/load-data";
+import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { AggregateSection } from "@/components/dashboard/aggregate-section";
@@ -19,7 +19,7 @@ export default function Home() {
       <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
 
       {/* Macro Context — GDP, CPI, unemployment, rates, gas */}
-      <MacroContext macro={MACRO_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} />
+      <MacroContext macro={MACRO_DATA} expanded={EXPANDED_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} />
 
       {/* Quarterly Benchmarks — QoQ comparison cards */}
       <QuarterlySection quarterly={NATIONAL_QUARTERLY} />

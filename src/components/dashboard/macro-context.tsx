@@ -1,16 +1,24 @@
 "use client";
 
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion";
-import { TrendingUp, TrendingDown, Minus, DollarSign, Fuel, BarChart3, Users, CreditCard, Factory } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, DollarSign, Fuel, BarChart3, Users, CreditCard, Factory, Home, Building, Briefcase, PiggyBank, LineChart } from "lucide-react";
 
 interface MacroSeries {
   name: string;
   unit: string;
-  points: Array<{ date: string; value: number; raw: number | null }>;
+  points: Array<{ date: string; value: number; raw?: number | null }>;
+}
+
+interface ExpandedSeries {
+  name: string;
+  unit: string;
+  frequency: string;
+  points: Array<{ date: string; value: number }>;
 }
 
 interface Props {
   macro: Record<string, MacroSeries>;
+  expanded?: Record<string, ExpandedSeries>;
   cpi: { points?: Array<{ month: string; cpi_index: number; inflation_yoy?: number }> };
   gas: { points?: Array<{ week: string; price: number }> };
 }
@@ -26,7 +34,7 @@ interface Indicator {
   category: "growth" | "prices" | "labor" | "rates";
 }
 
-export function MacroContext({ macro, cpi, gas }: Props) {
+export function MacroContext({ macro, expanded, cpi, gas }: Props) {
   const indicators: Indicator[] = [];
 
   // GDP Growth
@@ -174,6 +182,39 @@ export function MacroContext({ macro, cpi, gas }: Props) {
       category: "growth",
     });
   }
+
+  // --- Expanded FRED data ---
+  const exp = expanded || {};
+
+  const addExpanded = (key: string, label: string, icon: React.ReactNode, cat: Indicator["category"], fmt: (v: number) => string, sublabel: string, invertChange = false) => {
+    const series = exp[key];
+    if (!series?.points?.length) return;
+    const latest = series.points[series.points.length - 1];
+    const prev = series.points.length > 1 ? series.points[series.points.length - 2] : null;
+    const diff = prev ? latest.value - prev.value : null;
+    indicators.push({
+      key,
+      label,
+      value: fmt(latest.value),
+      change: diff !== null ? `${diff > 0 ? "+" : ""}${Math.abs(diff) > 100 ? Math.round(diff).toLocaleString() : diff.toFixed(2)}` : undefined,
+      changeDirection: diff !== null ? (invertChange ? (diff < 0 ? "up" : diff > 0 ? "down" : "flat") : (diff > 0 ? "up" : diff < 0 ? "down" : "flat")) : undefined,
+      sublabel,
+      icon,
+      category: cat,
+    });
+  };
+
+  addExpanded("mortgage_30y", "30Y Mortgage", <Home className="h-4 w-4" />, "rates", v => `${v.toFixed(2)}%`, "Fixed rate");
+  addExpanded("sp500", "S&P 500", <LineChart className="h-4 w-4" />, "rates", v => v.toLocaleString(undefined, { maximumFractionDigits: 0 }), "Weekly avg");
+  addExpanded("vix", "VIX", <BarChart3 className="h-4 w-4" />, "rates", v => v.toFixed(1), "Volatility index", true);
+  addExpanded("yield_curve", "Yield Curve", <LineChart className="h-4 w-4" />, "rates", v => `${v > 0 ? "+" : ""}${v.toFixed(2)}%`, "10Y-2Y spread");
+  addExpanded("new_biz_apps", "New Businesses", <Building className="h-4 w-4" />, "growth", v => Math.round(v).toLocaleString(), "Weekly applications");
+  addExpanded("case_shiller", "Home Prices", <Home className="h-4 w-4" />, "prices", v => v.toFixed(1), "Case-Shiller index");
+  addExpanded("savings_rate", "Savings Rate", <PiggyBank className="h-4 w-4" />, "growth", v => `${v.toFixed(1)}%`, "Personal savings");
+  addExpanded("job_openings", "Job Openings", <Briefcase className="h-4 w-4" />, "labor", v => `${(v / 1000).toFixed(1)}M`, "JOLTS");
+  addExpanded("quit_rate", "Quit Rate", <Users className="h-4 w-4" />, "labor", v => `${v.toFixed(1)}%`, "JOLTS — confidence signal");
+  addExpanded("continued_claims", "Cont. Claims", <Users className="h-4 w-4" />, "labor", v => `${(v / 1000000).toFixed(2)}M`, "Ongoing unemployment", true);
+  addExpanded("vehicle_sales", "Vehicle Sales", <Factory className="h-4 w-4" />, "growth", v => `${v.toFixed(1)}M`, "Total, annualized");
 
   if (indicators.length === 0) return null;
 

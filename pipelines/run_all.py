@@ -42,8 +42,10 @@ def main():
 
     # Context / macro pipelines
     run("sources/fred_macro.py", "FRED Macro — GDP, CPI, Sentiment, Rates, Payrolls")
+    run("sources/fred_expanded.py", "FRED Expanded — Markets, Housing, Business, State-Level")
     run("sources/bls_cpi_metro.py", "BLS CPI — Metro-Level Consumer Prices")
     run("sources/eia_gas.py", "EIA — Regional Gas Prices")
+    run("sources/zillow_home_values.py", "Zillow — Metro Home Values (ZHVI)")
 
     if not skip_trends:
         run("sources/ai_impact.py", "AI Impact — AI vs Traditional Job Search Interest")

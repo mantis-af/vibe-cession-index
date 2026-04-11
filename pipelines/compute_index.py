@@ -509,11 +509,13 @@ def main():
         "nationalDrivers": national_drivers,
     }
 
-    # Load contextual data (macro indicators, CPI, gas, AI impact)
+    # Load contextual data (macro indicators, CPI, gas, AI impact, expanded, zillow)
     macro_data = load_json("fred_macro")
     cpi_data = load_json("bls_cpi_metro")
     gas_data = load_json("eia_gas")
     ai_data = load_json("ai_impact")
+    expanded_data = load_json("fred_expanded")
+    zillow_data = load_json("zillow_zhvi")
 
     context_sources = []
     if macro_data:
@@ -524,6 +526,10 @@ def main():
         context_sources.append("eia_gas")
     if ai_data:
         context_sources.append("ai_impact")
+    if expanded_data:
+        context_sources.append("fred_expanded")
+    if zillow_data:
+        context_sources.append("zillow_zhvi")
     print(f"Context sources: {context_sources}")
 
     # Attach metro-level context (CPI, gas, AI)
@@ -553,12 +559,40 @@ def main():
                 "latestAiRatio": ai_metro.get("latestAiRatio"),
                 "aiMomentum": ai_metro.get("aiMomentum"),
             }
+        if zillow_data and m["id"] in zillow_data:
+            z_points = zillow_data[m["id"]].get("points", [])
+            if z_points:
+                latest = z_points[-1]
+                metro_context["homeValue"] = {
+                    "latestMonth": latest.get("month"),
+                    "zhvi": latest.get("zhvi"),
+                    "yoyPct": latest.get("yoy_pct"),
+                }
+        if expanded_data and "metroStateData" in expanded_data and m["id"] in expanded_data["metroStateData"]:
+            state_data = expanded_data["metroStateData"][m["id"]]
+            biz_pts = state_data.get("bizApps", [])
+            if biz_pts:
+                latest = biz_pts[-1]
+                prev_4wk = biz_pts[-5] if len(biz_pts) >= 5 else None
+                metro_context["bizApps"] = {
+                    "latestWeek": latest.get("date"),
+                    "value": latest.get("value"),
+                    "change4wk": round(latest["value"] - prev_4wk["value"], 1) if prev_4wk else None,
+                }
+            coin_pts = state_data.get("coincidentIndex", [])
+            if coin_pts:
+                latest = coin_pts[-1]
+                metro_context["coincidentIndex"] = {
+                    "latestMonth": latest.get("date"),
+                    "value": latest.get("value"),
+                }
         m["context"] = metro_context
 
     dashboard = {
         "summary": summary,
         "metros": metros_output,
         "macro": macro_data or {},
+        "expanded": expanded_data.get("national", {}) if expanded_data else {},
         "nationalCpi": cpi_data.get("_national", {}) if cpi_data else {},
         "gasNational": gas_data.get("regions", {}).get("national", {}) if gas_data else {},
     }
