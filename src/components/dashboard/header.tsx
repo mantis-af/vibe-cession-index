@@ -24,6 +24,9 @@ export function Header() {
               <Link href="/" className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
                 Overview
               </Link>
+              <Link href="/compare" className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
+                Compare
+              </Link>
               <Link href="/methodology" className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
                 Methodology
               </Link>
