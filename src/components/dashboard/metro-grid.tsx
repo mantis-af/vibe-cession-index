@@ -15,7 +15,7 @@ function TrendIcon({ trend }: { trend: Metro["trend"] }) {
 }
 
 function MiniSparkline({ history }: { history: Metro["history"] }) {
-  const scores = history.slice(-26).map((h) => h.compositeScore); // last 6 months
+  const scores = history.slice(-26).map((h) => h.compositeScore);
   const min = Math.min(...scores) - 3;
   const max = Math.max(...scores) + 3;
   const range = max - min || 1;
@@ -31,7 +31,6 @@ function MiniSparkline({ history }: { history: Metro["history"] }) {
   const lastScore = scores[scores.length - 1];
   const color = scoreColor(lastScore);
 
-  // Create area fill path
   const areaPath = `M0,${h} ${points.map((p) => `L${p}`).join(" ")} L${w},${h} Z`;
   const linePath = points.join(" ");
 
@@ -60,21 +59,21 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
   const sorted = [...metros].sort((a, b) => b.currentScore - a.currentScore);
 
   return (
-    <section className="relative px-6 lg:px-8 py-24 max-w-7xl mx-auto">
+    <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">
       <FadeIn>
         <div className="flex items-center gap-3 mb-2">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
         </div>
-        <h2 className="text-3xl md:text-4xl tracking-tight text-foreground mb-2">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
           <span className="font-[family-name:var(--font-instrument)] italic">Metro Rankings</span>
         </h2>
-        <p className="text-muted-foreground max-w-xl mb-12">
-          Click any metro to explore its detailed breakdown — signals, trends, and the sentiment gap.
+        <p className="text-sm sm:text-base text-muted-foreground max-w-xl mb-8 md:mb-12">
+          Tap any metro to explore its detailed breakdown — signals, trends, and the sentiment gap.
         </p>
       </FadeIn>
 
-      <StaggerContainer className="space-y-2" staggerDelay={0.04}>
-        {/* Table header */}
+      {/* Desktop table — hidden on mobile */}
+      <StaggerContainer className="hidden md:block space-y-2" staggerDelay={0.04}>
         <div className="grid grid-cols-[3rem_1fr_5rem_6rem_5rem_5rem_5rem_2rem] gap-4 items-center px-5 py-2 text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground">
           <span>Rank</span>
           <span>Metro</span>
@@ -82,7 +81,7 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
           <span className="text-right">Trend</span>
           <span className="text-right">WoW</span>
           <span className="text-right">Gap</span>
-          <span className="text-right">8W</span>
+          <span className="text-right">6M</span>
           <span />
         </div>
 
@@ -92,59 +91,92 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
               href={`/metro/${metro.id}`}
               className="group grid grid-cols-[3rem_1fr_5rem_6rem_5rem_5rem_5rem_2rem] gap-4 items-center glass rounded-xl px-5 py-4 hover:bg-white/[0.04] hover:border-violet-500/20 transition-all duration-300"
             >
-              {/* Rank */}
               <span className="text-sm font-mono text-muted-foreground">
                 {String(idx + 1).padStart(2, "0")}
               </span>
-
-              {/* Metro name */}
               <div>
                 <span className="text-sm font-semibold text-foreground group-hover:text-violet-300 transition-colors">
                   {metro.name}
                 </span>
                 <span className="text-xs text-muted-foreground ml-2">{metro.state}</span>
               </div>
-
-              {/* Score */}
               <div className="text-right">
-                <span
-                  className="text-lg font-mono font-bold tabular-nums"
-                  style={{ color: scoreColor(metro.currentScore) }}
-                >
+                <span className="text-lg font-mono font-bold tabular-nums" style={{ color: scoreColor(metro.currentScore) }}>
                   {metro.currentScore}
                 </span>
               </div>
-
-              {/* Trend */}
               <div className={`flex items-center justify-end gap-1 text-xs ${trendColor(metro.trend)}`}>
                 <TrendIcon trend={metro.trend} />
                 <span className="capitalize">{metro.trend}</span>
               </div>
-
-              {/* WoW Change */}
               <div className={`flex items-center justify-end gap-0.5 text-sm font-mono tabular-nums ${changeColor(metro.weekOverWeekChange)}`}>
-                {metro.weekOverWeekChange > 0 ? (
-                  <ArrowUpRight className="h-3 w-3" />
-                ) : metro.weekOverWeekChange < 0 ? (
-                  <ArrowDownRight className="h-3 w-3" />
-                ) : (
-                  <Minus className="h-3 w-3" />
-                )}
+                {metro.weekOverWeekChange > 0 ? <ArrowUpRight className="h-3 w-3" /> : metro.weekOverWeekChange < 0 ? <ArrowDownRight className="h-3 w-3" /> : <Minus className="h-3 w-3" />}
                 {metro.weekOverWeekChange > 0 ? "+" : ""}{metro.weekOverWeekChange}
               </div>
-
-              {/* Gap */}
               <div className={`text-right text-sm font-mono tabular-nums ${gapColor(metro.vibesGap)}`}>
                 {metro.vibesGap > 0 ? "+" : ""}{metro.vibesGap}
               </div>
-
-              {/* Sparkline */}
               <div className="flex justify-end">
                 <MiniSparkline history={metro.history} />
               </div>
-
-              {/* Arrow */}
               <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all" />
+            </Link>
+          </StaggerItem>
+        ))}
+      </StaggerContainer>
+
+      {/* Mobile cards — hidden on desktop */}
+      <StaggerContainer className="md:hidden space-y-3" staggerDelay={0.04}>
+        {sorted.map((metro, idx) => (
+          <StaggerItem key={metro.id}>
+            <Link
+              href={`/metro/${metro.id}`}
+              className="group glass rounded-xl p-4 block hover:bg-white/[0.04] hover:border-violet-500/20 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-mono text-muted-foreground w-6">
+                    #{idx + 1}
+                  </span>
+                  <div>
+                    <span className="text-sm font-semibold text-foreground group-hover:text-violet-300 transition-colors">
+                      {metro.name}
+                    </span>
+                    <span className="text-xs text-muted-foreground ml-1.5">{metro.state}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MiniSparkline history={metro.history} />
+                  <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-violet-400 transition-colors" />
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground">Score</div>
+                    <span className="text-xl font-mono font-bold tabular-nums" style={{ color: scoreColor(metro.currentScore) }}>
+                      {metro.currentScore}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground">WoW</div>
+                    <span className={`text-sm font-mono tabular-nums flex items-center gap-0.5 ${changeColor(metro.weekOverWeekChange)}`}>
+                      {metro.weekOverWeekChange > 0 ? <ArrowUpRight className="h-3 w-3" /> : metro.weekOverWeekChange < 0 ? <ArrowDownRight className="h-3 w-3" /> : <Minus className="h-3 w-3" />}
+                      {metro.weekOverWeekChange > 0 ? "+" : ""}{metro.weekOverWeekChange}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground">Gap</div>
+                    <span className={`text-sm font-mono tabular-nums ${gapColor(metro.vibesGap)}`}>
+                      {metro.vibesGap > 0 ? "+" : ""}{metro.vibesGap}
+                    </span>
+                  </div>
+                </div>
+                <div className={`flex items-center gap-1 text-xs ${trendColor(metro.trend)}`}>
+                  <TrendIcon trend={metro.trend} />
+                  <span className="capitalize">{metro.trend}</span>
+                </div>
+              </div>
             </Link>
           </StaggerItem>
         ))}

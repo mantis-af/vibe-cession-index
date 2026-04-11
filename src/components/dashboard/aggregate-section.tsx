@@ -40,13 +40,13 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
   const nationalHistory = computeNationalHistory(metros);
 
   return (
-    <section className="relative px-6 lg:px-8 py-24 max-w-7xl mx-auto">
+    <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">
       {/* Section header */}
       <FadeIn>
         <div className="flex items-center gap-3 mb-2">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
         </div>
-        <h2 className="text-3xl md:text-4xl tracking-tight text-foreground mb-2">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
           <span className="font-[family-name:var(--font-instrument)] italic">National Pulse</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mb-12">

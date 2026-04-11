@@ -9,7 +9,7 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
   const color = scoreColor(summary.averageScore);
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex flex-col items-center justify-center text-center px-4 sm:px-6 overflow-hidden">
       {/* Background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-violet-500/[0.04] blur-[120px]" />
@@ -37,15 +37,15 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
 
         {/* Main headline */}
         <FadeIn delay={0.1}>
-          <h1 className="text-5xl md:text-7xl tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl tracking-tight leading-[1.05] mb-4 sm:mb-6">
             <span className="font-[family-name:var(--font-playfair)] italic gradient-text">Undercurrent</span>
             <br />
-            <span className="text-foreground font-bold text-4xl md:text-5xl">The economy beneath the economy</span>
+            <span className="text-foreground font-bold text-2xl sm:text-4xl md:text-5xl">The economy beneath the economy</span>
           </h1>
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed">
             A real-time behavioral index surfacing how Americans actually experience the economy — beneath the headline numbers, across 20 metros, updated weekly.
           </p>
         </FadeIn>

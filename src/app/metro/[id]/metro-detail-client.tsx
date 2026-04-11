@@ -20,7 +20,7 @@ interface NeighborMetro {
 
 export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbors: NeighborMetro[] }) {
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
       {/* Quick stats row */}
       <FadeIn>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.03] rounded-2xl overflow-hidden">
