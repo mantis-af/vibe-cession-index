@@ -15,7 +15,7 @@ export default function Home() {
       <HeroSection summary={NATIONAL_SUMMARY} />
 
       {/* Aggregate US section — national trend + sentiment gap + signal highlights */}
-      <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} />
+      <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
 
       {/* Quarterly Benchmarks — QoQ comparison cards */}
       <QuarterlySection quarterly={NATIONAL_QUARTERLY} />

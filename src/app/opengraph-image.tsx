@@ -7,15 +7,11 @@ export const contentType = "image/png";
 export default function OGImage() {
   const score = NATIONAL_SUMMARY.averageScore;
   const gap = NATIONAL_SUMMARY.averageVibesGap;
-  const top3 = [...METROS]
-    .sort((a, b) => b.currentScore - a.currentScore)
-    .slice(0, 3);
-  const bottom3 = [...METROS]
-    .sort((a, b) => a.currentScore - b.currentScore)
-    .slice(0, 3);
+  const top3 = [...METROS].sort((a, b) => b.currentScore - a.currentScore).slice(0, 3);
+  const bottom3 = [...METROS].sort((a, b) => a.currentScore - b.currentScore).slice(0, 3);
 
   const scoreColor =
-    score >= 70 ? "#22c55e" : score >= 60 ? "#84cc16" : score >= 50 ? "#eab308" : score >= 40 ? "#f97316" : "#ef4444";
+    score >= 70 ? "#16a34a" : score >= 60 ? "#65a30d" : score >= 50 ? "#ca8a04" : score >= 40 ? "#ea580c" : "#dc2626";
 
   return new ImageResponse(
     (
@@ -25,42 +21,45 @@ export default function OGImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          background: "linear-gradient(145deg, #0c0a14 0%, #12101f 50%, #0e0b18 100%)",
-          padding: "60px 70px",
-          fontFamily: "system-ui, sans-serif",
+          background: "#fafafa",
+          padding: "56px 64px",
+          fontFamily: "system-ui, -apple-system, sans-serif",
         }}
       >
         {/* Header */}
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "40px" }}>
-          <div style={{ display: "flex", width: "8px", height: "8px", borderRadius: "50%", background: "#a78bfa" }} />
-          <div style={{ display: "flex", fontSize: "18px", color: "#a1a1aa", letterSpacing: "0.15em", textTransform: "uppercase" as const }}>
-            Undercurrent Index
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "36px" }}>
+          <div style={{ display: "flex", width: "10px", height: "10px", borderRadius: "50%", background: "#6366f1" }} />
+          <div style={{ display: "flex", fontSize: "20px", color: "#18181b", fontWeight: 600, fontStyle: "italic" }}>
+            Undercurrent
           </div>
-          <div style={{ display: "flex", fontSize: "14px", color: "#52525b", marginLeft: "auto" }}>
+          <div style={{ display: "flex", fontSize: "14px", color: "#a1a1aa", marginLeft: "auto" }}>
             Week of {NATIONAL_SUMMARY.weekOf}
           </div>
         </div>
 
         {/* Main content */}
-        <div style={{ display: "flex", flex: "1", gap: "60px", alignItems: "center" }}>
+        <div style={{ display: "flex", flex: "1", gap: "56px", alignItems: "center" }}>
           {/* Left: Score */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: "280px" }}>
-            <div style={{ display: "flex", fontSize: "14px", color: "#71717a", textTransform: "uppercase" as const, letterSpacing: "0.2em", marginBottom: "12px" }}>
+            <div style={{ display: "flex", fontSize: "13px", color: "#71717a", textTransform: "uppercase" as const, letterSpacing: "0.2em", marginBottom: "12px" }}>
               National Score
             </div>
             <div style={{ display: "flex", fontSize: "140px", fontWeight: 900, color: scoreColor, lineHeight: "1", fontFamily: "monospace" }}>
               {score}
             </div>
-            <div style={{ display: "flex", fontSize: "16px", color: "#71717a", marginTop: "8px" }}>
+            <div style={{ display: "flex", fontSize: "15px", color: "#a1a1aa", marginTop: "8px" }}>
               out of 100
             </div>
             <div
               style={{
                 display: "flex",
                 marginTop: "20px",
-                fontSize: "20px",
+                padding: "6px 16px",
+                borderRadius: "8px",
+                background: gap >= 0 ? "#f0fdf4" : "#fef2f2",
+                fontSize: "18px",
                 fontWeight: 700,
-                color: gap >= 0 ? "#4ade80" : "#f87171",
+                color: gap >= 0 ? "#16a34a" : "#dc2626",
                 fontFamily: "monospace",
               }}
             >
@@ -69,22 +68,22 @@ export default function OGImage() {
           </div>
 
           {/* Right: Top/Bottom metros */}
-          <div style={{ display: "flex", flexDirection: "column", flex: "1", gap: "16px" }}>
-            <div style={{ display: "flex", fontSize: "13px", color: "#71717a", textTransform: "uppercase" as const, letterSpacing: "0.15em" }}>
+          <div style={{ display: "flex", flexDirection: "column", flex: "1", gap: "14px" }}>
+            <div style={{ display: "flex", fontSize: "12px", color: "#a1a1aa", textTransform: "uppercase" as const, letterSpacing: "0.15em" }}>
               Strongest Metros
             </div>
             {top3.map((m) => (
-              <div key={m.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ display: "flex", fontSize: "22px", color: "#e4e4e7", fontWeight: 600 }}>
+              <div key={m.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 16px", background: "#ffffff", borderRadius: "10px", border: "1px solid #e4e4e7" }}>
+                <div style={{ display: "flex", fontSize: "20px", color: "#18181b", fontWeight: 600 }}>
                   {m.name}, {m.state}
                 </div>
                 <div
                   style={{
                     display: "flex",
-                    fontSize: "28px",
+                    fontSize: "26px",
                     fontWeight: 800,
                     fontFamily: "monospace",
-                    color: m.currentScore >= 60 ? "#84cc16" : m.currentScore >= 50 ? "#eab308" : "#f97316",
+                    color: m.currentScore >= 60 ? "#65a30d" : m.currentScore >= 50 ? "#ca8a04" : "#ea580c",
                   }}
                 >
                   {m.currentScore}
@@ -92,23 +91,23 @@ export default function OGImage() {
               </div>
             ))}
 
-            <div style={{ display: "flex", height: "1px", background: "rgba(255,255,255,0.06)", width: "100%" }} />
+            <div style={{ display: "flex", height: "1px", background: "#e4e4e7", width: "100%", margin: "4px 0" }} />
 
-            <div style={{ display: "flex", fontSize: "13px", color: "#71717a", textTransform: "uppercase" as const, letterSpacing: "0.15em" }}>
+            <div style={{ display: "flex", fontSize: "12px", color: "#a1a1aa", textTransform: "uppercase" as const, letterSpacing: "0.15em" }}>
               Most Stressed
             </div>
             {bottom3.map((m) => (
-              <div key={m.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ display: "flex", fontSize: "22px", color: "#a1a1aa", fontWeight: 600 }}>
+              <div key={m.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 16px", background: "#ffffff", borderRadius: "10px", border: "1px solid #e4e4e7" }}>
+                <div style={{ display: "flex", fontSize: "20px", color: "#71717a", fontWeight: 600 }}>
                   {m.name}, {m.state}
                 </div>
                 <div
                   style={{
                     display: "flex",
-                    fontSize: "28px",
+                    fontSize: "26px",
                     fontWeight: 800,
                     fontFamily: "monospace",
-                    color: m.currentScore >= 50 ? "#eab308" : m.currentScore >= 40 ? "#f97316" : "#ef4444",
+                    color: m.currentScore >= 50 ? "#ca8a04" : m.currentScore >= 40 ? "#ea580c" : "#dc2626",
                   }}
                 >
                   {m.currentScore}
@@ -119,11 +118,11 @@ export default function OGImage() {
         </div>
 
         {/* Footer */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "30px" }}>
-          <div style={{ display: "flex", fontSize: "16px", color: "#52525b" }}>
-            20 US metros tracked weekly
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "24px", paddingTop: "16px", borderTop: "1px solid #e4e4e7" }}>
+          <div style={{ display: "flex", fontSize: "14px", color: "#a1a1aa" }}>
+            20 US metros &middot; Updated weekly
           </div>
-          <div style={{ display: "flex", fontSize: "16px", color: "#52525b" }}>
+          <div style={{ display: "flex", fontSize: "14px", color: "#a1a1aa" }}>
             Google Trends + BLS + FRED + Redfin
           </div>
         </div>

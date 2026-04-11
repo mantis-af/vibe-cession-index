@@ -1,11 +1,48 @@
 "use client";
 
 import { Metro, NationalSummary } from "@/lib/types";
+import { SentimentDrivers } from "@/lib/load-data";
 import { scoreColor, gapColor, gapLabel } from "@/lib/colors";
 import { FadeIn, StaggerContainer, StaggerItem, CountUp } from "@/components/motion";
 import { CompositeTrendChart } from "@/components/charts/composite-trend-chart";
 import { VibesGapChart } from "@/components/charts/vibes-gap-chart";
 import { MetroWeeklySnapshot } from "@/lib/types";
+
+const SIGNAL_NAMES: Record<string, string> = {
+  google_trends_anxiety: "Search Anxiety",
+  unemployment_rate: "Unemployment",
+  initial_claims: "Jobless Claims",
+  housing_inventory: "Housing Supply",
+  housing_dom: "Days on Market",
+  housing_price_drops: "Price Drops",
+};
+
+const SIGNAL_DETAIL: Record<string, { up: string; down: string }> = {
+  google_trends_anxiety: {
+    up: "Fewer distress searches — people searching less for unemployment benefits, food stamps, and payday loans relative to job and business terms",
+    down: "Rising economic anxiety in search behavior — more people looking up unemployment benefits, debt relief, and side hustle opportunities",
+  },
+  unemployment_rate: {
+    up: "Metro unemployment rates are declining — labor markets strengthening across tracked areas",
+    down: "Unemployment edging higher — labor demand softening in key metropolitan areas",
+  },
+  initial_claims: {
+    up: "Fewer initial unemployment claims filed this period — layoff activity decelerating",
+    down: "Rising weekly jobless claims — more workers filing for unemployment insurance",
+  },
+  housing_inventory: {
+    up: "Housing inventory tightening — available homes being absorbed by active buyers",
+    down: "Inventory building — more homes sitting on the market as buyer demand cools",
+  },
+  housing_dom: {
+    up: "Homes selling faster — declining days on market signals confident, active buyers",
+    down: "Homes lingering longer — rising days on market as buyers pull back or negotiate harder",
+  },
+  housing_price_drops: {
+    up: "Fewer sellers cutting their asking prices — market confidence holding",
+    down: "More sellers reducing prices — a leading indicator that price corrections are spreading",
+  },
+};
 
 function computeNationalHistory(metros: Metro[]): MetroWeeklySnapshot[] {
   if (metros.length === 0) return [];
@@ -36,7 +73,7 @@ function computeNationalHistory(metros: Metro[]): MetroWeeklySnapshot[] {
   return result;
 }
 
-export function AggregateSection({ metros, summary }: { metros: Metro[]; summary: NationalSummary }) {
+export function AggregateSection({ metros, summary, drivers }: { metros: Metro[]; summary: NationalSummary; drivers: SentimentDrivers }) {
   const nationalHistory = computeNationalHistory(metros);
 
   return (
@@ -104,38 +141,27 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
         </FadeIn>
       </div>
 
-      {/* Signal Highlights - 3 horizontal stat cards */}
+      {/* Signal Highlights — driven by real data */}
       <FadeIn delay={0.15}>
-        <h3 className="text-lg font-semibold text-foreground mb-4">Key Signals This Week</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-4">Key Signal Movers</h3>
       </FadeIn>
       <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4" staggerDelay={0.1}>
-        <StaggerItem>
-          <SignalHighlight
-            title="Search Anxiety"
-            description="Google Trends distress-to-aspiration ratio is elevated in 12 of 20 metros"
-            metric="12/20"
-            metricLabel="metros elevated"
-            tone="warn"
-          />
-        </StaggerItem>
-        <StaggerItem>
-          <SignalHighlight
-            title="Job Postings"
-            description="Week-over-week job posting velocity is positive in Texas metros, negative on both coasts"
-            metric="+3.2%"
-            metricLabel="TX avg growth"
-            tone="good"
-          />
-        </StaggerItem>
-        <StaggerItem>
-          <SignalHighlight
-            title="Housing Market"
-            description="Days-on-market rising in 14 metros — inventory building as buyer confidence softens"
-            metric="14/20"
-            metricLabel="metros rising DOM"
-            tone="warn"
-          />
-        </StaggerItem>
+        {drivers.drivers.slice(0, 3).map((d) => {
+          const name = SIGNAL_NAMES[d.signal] || d.signal;
+          const tone: "good" | "warn" | "bad" = d.scoreImpact > 0.3 ? "good" : d.scoreImpact < -0.3 ? "bad" : "warn";
+          const detail = SIGNAL_DETAIL[d.signal]?.[d.direction === "up" ? "up" : "down"] || "";
+          return (
+            <StaggerItem key={d.signal}>
+              <SignalHighlight
+                title={name}
+                description={detail}
+                metric={`${d.scoreImpact > 0 ? "+" : ""}${d.scoreImpact} pts`}
+                metricLabel="index impact"
+                tone={tone}
+              />
+            </StaggerItem>
+          );
+        })}
       </StaggerContainer>
     </section>
   );
@@ -155,18 +181,18 @@ function SignalHighlight({
   tone: "good" | "warn" | "bad";
 }) {
   const toneColors = {
-    good: "text-emerald-600 bg-green-400/10 border-green-400/10",
-    warn: "text-amber-600 bg-amber-400/10 border-amber-400/10",
-    bad: "text-red-600 bg-red-400/10 border-red-400/10",
+    good: "text-emerald-700",
+    warn: "text-amber-700",
+    bad: "text-red-700",
   };
   const dotColor = {
-    good: "bg-green-400",
-    warn: "bg-amber-400",
-    bad: "bg-red-400",
+    good: "bg-emerald-500",
+    warn: "bg-amber-500",
+    bad: "bg-red-500",
   };
 
   return (
-    <div className="surface rounded-xl p-5 group hover:border-white/10 transition-all duration-300">
+    <div className="surface rounded-xl p-5 group hover:border-zinc-300 transition-all duration-300">
       <div className="flex items-center gap-2 mb-3">
         <span className={`w-1.5 h-1.5 rounded-full ${dotColor[tone]}`} />
         <span className="text-sm font-semibold text-foreground">{title}</span>
