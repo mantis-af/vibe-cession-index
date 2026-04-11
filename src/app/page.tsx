@@ -1,4 +1,4 @@
-import { METROS, NATIONAL_SUMMARY } from "@/lib/seed-data";
+import { METROS, NATIONAL_SUMMARY } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { AggregateSection } from "@/components/dashboard/aggregate-section";
@@ -33,7 +33,7 @@ export default function Home() {
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400/60" />
                 All signals operational
               </span>
-              <span>Seed data v1.0</span>
+              <span>BLS + FRED real data</span>
             </div>
           </div>
         </div>

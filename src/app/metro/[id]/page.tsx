@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { METROS } from "@/lib/seed-data";
+import { METROS } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { MetroDetailClient } from "./metro-detail-client";
 import { scoreColor, scoreLabel, gapLabel } from "@/lib/colors";

@@ -1,0 +1,4 @@
+pytrends>=4.9
+pandas>=2.0
+requests>=2.30
+fredapi>=0.5

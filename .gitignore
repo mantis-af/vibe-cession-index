@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# pipeline venv and raw output (dashboard.json is committed)
+pipelines/.venv/
+pipelines/output/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+__pycache__/
