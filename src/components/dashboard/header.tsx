@@ -16,11 +16,8 @@ export function Header() {
                 <Activity className="h-5 w-5 text-violet-400 group-hover:text-violet-300 transition-colors" />
                 <div className="absolute inset-0 blur-md bg-violet-400/30 group-hover:bg-violet-300/40 transition-colors" />
               </div>
-              <span className="font-semibold text-foreground tracking-tight text-[15px]">
-                Vibe-cession
-              </span>
-              <span className="text-[10px] font-mono text-violet-400/80 bg-violet-400/10 px-1.5 py-0.5 rounded-full uppercase tracking-widest">
-                Index
+              <span className="font-[family-name:var(--font-instrument)] text-lg text-foreground tracking-tight italic">
+                Undercurrent
               </span>
             </Link>
             <nav className="flex items-center gap-1 text-sm">

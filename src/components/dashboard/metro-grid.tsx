@@ -65,11 +65,11 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
         <div className="flex items-center gap-3 mb-2">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
-          Metro Rankings
+        <h2 className="text-3xl md:text-4xl tracking-tight text-foreground mb-2">
+          <span className="font-[family-name:var(--font-instrument)] italic">Metro Rankings</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mb-12">
-          Click any metro to explore its detailed breakdown — signals, trends, and the vibes gap story.
+          Click any metro to explore its detailed breakdown — signals, trends, and the sentiment gap.
         </p>
       </FadeIn>
 

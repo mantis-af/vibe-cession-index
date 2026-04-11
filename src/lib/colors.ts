@@ -49,9 +49,9 @@ export function gapColor(gap: number): string {
 
 export function gapLabel(gap: number): string {
   if (gap > 10) return "Hidden strength";
-  if (gap > 5) return "Vibes ahead";
+  if (gap > 5) return "Sentiment ahead";
   if (gap > -5) return "Aligned";
-  if (gap > -10) return "Vibes lagging";
+  if (gap > -10) return "Sentiment lagging";
   return "Severe disconnect";
 }
 

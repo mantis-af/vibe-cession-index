@@ -61,7 +61,7 @@ function GapTooltip({ active, payload, label }: { active?: boolean; payload?: Ar
     <div className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 shadow-xl">
       <div className="text-xs text-zinc-400 mb-1">{label}</div>
       <div className="text-sm">
-        <span className="text-zinc-300">Vibes Gap: </span>
+        <span className="text-zinc-300">Sentiment Gap: </span>
         <span className={`font-mono font-semibold ${gap >= 0 ? "text-green-400" : "text-red-400"}`}>
           {gap > 0 ? "+" : ""}{gap}
         </span>

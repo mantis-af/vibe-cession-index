@@ -24,7 +24,7 @@ export function NationalSummaryBar({ summary }: { summary: NationalSummary }) {
         sublabel={summary.lowestMetro.name}
       />
       <SummaryCard
-        label="Vibes Gap"
+        label="Sentiment Gap"
         value={formatGap(summary.averageVibesGap)}
         color={summary.averageVibesGap >= 0 ? "#22c55e" : "#ef4444"}
         sublabel={gapLabel(summary.averageVibesGap)}

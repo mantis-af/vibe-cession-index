@@ -37,16 +37,16 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
 
         {/* Main headline */}
         <FadeIn delay={0.1}>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
-            <span className="text-foreground">The economy </span>
-            <span className="gradient-text">through vibes</span>
-            <span className="text-foreground">, not just data</span>
+          <h1 className="text-5xl md:text-7xl tracking-tight leading-[1.05] mb-6">
+            <span className="font-[family-name:var(--font-instrument)] italic gradient-text">Undercurrent</span>
+            <br />
+            <span className="text-foreground font-bold text-4xl md:text-5xl">The economy beneath the economy</span>
           </h1>
         </FadeIn>
 
         <FadeIn delay={0.2}>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
-            A real-time behavioral index measuring how Americans actually experience the economy — across 20 metros, updated weekly.
+            A real-time behavioral index surfacing how Americans actually experience the economy — beneath the headline numbers, across 20 metros, updated weekly.
           </p>
         </FadeIn>
 
@@ -67,7 +67,7 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
         <FadeIn delay={0.5}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.04] rounded-2xl overflow-hidden max-w-3xl mx-auto">
             <MetricCell
-              label="Vibes Gap"
+              label="Sentiment Gap"
               value={summary.averageVibesGap}
               format="gap"
             />

@@ -93,7 +93,7 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
       ))}
       {payload.length >= 2 && (
         <div className="mt-1.5 pt-1.5 border-t border-zinc-700 text-xs">
-          <span className="text-zinc-400">Vibes Gap: </span>
+          <span className="text-zinc-400">Sentiment Gap: </span>
           <span className={`font-mono font-semibold ${payload[0].value - payload[1].value >= 0 ? "text-green-400" : "text-red-400"}`}>
             {payload[0].value - payload[1].value > 0 ? "+" : ""}
             {payload[0].value - payload[1].value}

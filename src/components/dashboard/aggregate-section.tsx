@@ -46,15 +46,15 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
         <div className="flex items-center gap-3 mb-2">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
-          National Pulse
+        <h2 className="text-3xl md:text-4xl tracking-tight text-foreground mb-2">
+          <span className="font-[family-name:var(--font-instrument)] italic">National Pulse</span>
         </h2>
         <p className="text-muted-foreground max-w-xl mb-12">
           Aggregate behavioral signals across all 20 tracked metros — how does America feel right now?
         </p>
       </FadeIn>
 
-      {/* Two-column: Trend chart + Vibes Gap */}
+      {/* Two-column: Trend chart + Sentiment Gap */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-16">
         <FadeIn delay={0.1} className="lg:col-span-3">
           <div className="glass rounded-2xl p-6">
@@ -81,7 +81,7 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
         <FadeIn delay={0.2} className="lg:col-span-2">
           <div className="glass rounded-2xl p-6 h-full flex flex-col">
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-foreground">The Vibes Gap</h3>
+              <h3 className="text-sm font-semibold text-foreground">The Sentiment Gap</h3>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Behavioral minus Official. Are people feeling better or worse than the numbers say?
               </p>

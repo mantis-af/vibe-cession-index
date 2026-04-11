@@ -23,9 +23,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <div className="text-sm font-semibold text-foreground mb-1">Vibe-cession Index</div>
+              <div className="text-sm font-semibold text-foreground mb-1 font-[family-name:var(--font-instrument)] italic">Undercurrent</div>
               <div className="text-xs text-muted-foreground">
-                Behavioral economic tracking for 20 US metros. Updated weekly.
+                Behavioral economic intelligence for 20 US metros. Updated weekly.
               </div>
             </div>
             <div className="flex items-center gap-6 text-xs text-muted-foreground">

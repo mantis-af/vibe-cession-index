@@ -24,11 +24,11 @@ export default function MethodologyPage() {
             Back to Overview
           </Link>
 
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Methodology
+          <h1 className="text-4xl md:text-5xl tracking-tight text-foreground mb-4">
+            <span className="font-[family-name:var(--font-instrument)] italic">Methodology</span>
           </h1>
           <p className="text-lg text-muted-foreground mb-16 leading-relaxed">
-            How we measure what traditional indicators miss.
+            How we surface what traditional indicators miss.
           </p>
 
           <div className="space-y-16">
@@ -36,17 +36,17 @@ export default function MethodologyPage() {
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
                 <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">01</span>
-                What is the Vibe-cession Index?
+                What is Undercurrent?
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                The Vibe-cession Index is a composite behavioral economic indicator
-                that tracks how people actually experience the economy at the metro
+                Undercurrent is a composite behavioral economic indicator
+                that surfaces how people actually experience the economy at the metro
                 level. Traditional indicators like GDP, unemployment rate, and CPI
-                are lagging, nationally aggregated, and survey-based. Our index
+                are lagging, nationally aggregated, and survey-based. Undercurrent
                 uses high-frequency behavioral signals — what people search for,
                 whether businesses are opening or closing, what rents are doing in
-                real-time — to create a more timely, localized picture of economic
-                reality.
+                real-time — to reveal the economic reality flowing beneath the
+                headline numbers.
               </p>
             </section>
 
@@ -117,16 +117,16 @@ export default function MethodologyPage() {
 
             <div className="section-divider" />
 
-            {/* The Vibes Gap */}
+            {/* The Sentiment Gap */}
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
                 <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">04</span>
-                The Vibes Gap
+                The Sentiment Gap
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 We separately compute an &ldquo;Official Index&rdquo; from government
                 data (LAUS unemployment, CPI). The difference between the Behavioral
-                Index and the Official Index is the <strong className="text-foreground">Vibes Gap</strong>.
+                Index and the Official Index is the <strong className="text-foreground">Sentiment Gap</strong>.
               </p>
               <div className="glass rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="text-center py-4">
@@ -135,7 +135,7 @@ export default function MethodologyPage() {
                 </div>
                 <div className="text-center py-4">
                   <div className="text-3xl font-mono font-bold text-red-400 mb-1">- Negative</div>
-                  <div className="text-sm text-muted-foreground">Vibes recession. People feel worse than official numbers show.</div>
+                  <div className="text-sm text-muted-foreground">Sentiment recession. People feel worse than official numbers show.</div>
                 </div>
               </div>
             </section>

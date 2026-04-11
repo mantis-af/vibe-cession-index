@@ -78,7 +78,7 @@ export default async function MetroPage(props: { params: Promise<{ id: string }>
               </div>
               <div className="text-right pb-1">
                 <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                  Vibes Gap
+                  Sentiment Gap
                 </div>
                 <div className={`text-3xl font-mono font-bold ${metro.vibesGap >= 0 ? "text-green-400" : "text-red-400"}`}>
                   {metro.vibesGap > 0 ? "+" : ""}{metro.vibesGap}

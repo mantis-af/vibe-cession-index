@@ -42,7 +42,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
             icon={metro.trend === "improving" ? "up" : metro.trend === "declining" ? "down" : "flat"}
           />
           <QuickStat
-            label="Vibes Gap"
+            label="Sentiment Gap"
             value={`${metro.vibesGap > 0 ? "+" : ""}${metro.vibesGap}`}
             color={metro.vibesGap >= 0 ? "#4ade80" : "#f87171"}
           />
@@ -82,11 +82,11 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
         </FadeIn>
       </div>
 
-      {/* Charts row 2: Vibes Gap + Signal Bars */}
+      {/* Charts row 2: Sentiment Gap + Signal Bars */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <FadeIn delay={0.15} className="lg:col-span-3">
           <div className="glass rounded-2xl p-6">
-            <h3 className="text-sm font-semibold text-foreground mb-1">Vibes Gap History</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Sentiment Gap History</h3>
             <p className="text-xs text-muted-foreground mb-6">
               Positive = people feel better than official stats suggest
             </p>
