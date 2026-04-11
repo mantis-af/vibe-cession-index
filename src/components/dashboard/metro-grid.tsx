@@ -15,7 +15,7 @@ function TrendIcon({ trend }: { trend: Metro["trend"] }) {
 }
 
 function MiniSparkline({ history }: { history: Metro["history"] }) {
-  const scores = history.slice(-8).map((h) => h.compositeScore);
+  const scores = history.slice(-26).map((h) => h.compositeScore); // last 6 months
   const min = Math.min(...scores) - 3;
   const max = Math.max(...scores) + 3;
   const range = max - min || 1;

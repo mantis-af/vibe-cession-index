@@ -16,7 +16,7 @@ export function Header() {
                 <Activity className="h-5 w-5 text-violet-400 group-hover:text-violet-300 transition-colors" />
                 <div className="absolute inset-0 blur-md bg-violet-400/30 group-hover:bg-violet-300/40 transition-colors" />
               </div>
-              <span className="font-[family-name:var(--font-instrument)] text-lg text-foreground tracking-tight italic">
+              <span className="font-[family-name:var(--font-playfair)] text-lg text-foreground tracking-tight italic">
                 Undercurrent
               </span>
             </Link>

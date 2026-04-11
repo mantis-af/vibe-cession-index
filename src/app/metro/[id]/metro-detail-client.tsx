@@ -56,7 +56,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-sm font-semibold text-foreground">Index Trend</h3>
-                <p className="text-xs text-muted-foreground mt-0.5">Behavioral vs. official over 14 weeks</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Behavioral vs. official — rolling 12 months</p>
               </div>
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">

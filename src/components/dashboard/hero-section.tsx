@@ -38,7 +38,7 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
         {/* Main headline */}
         <FadeIn delay={0.1}>
           <h1 className="text-5xl md:text-7xl tracking-tight leading-[1.05] mb-6">
-            <span className="font-[family-name:var(--font-instrument)] italic gradient-text">Undercurrent</span>
+            <span className="font-[family-name:var(--font-playfair)] italic gradient-text">Undercurrent</span>
             <br />
             <span className="text-foreground font-bold text-4xl md:text-5xl">The economy beneath the economy</span>
           </h1>

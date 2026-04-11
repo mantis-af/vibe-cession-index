@@ -43,9 +43,12 @@ export function CompositeTrendChart({ history, showOfficial = true }: Props) {
         <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
         <XAxis
           dataKey="week"
-          tick={{ fill: "#71717a", fontSize: 11 }}
+          tick={{ fill: "#71717a", fontSize: 10 }}
           tickLine={false}
           axisLine={{ stroke: "#27272a" }}
+          interval={Math.max(0, Math.floor(data.length / 8) - 1)}
+          angle={-30}
+          dy={8}
         />
         <YAxis
           domain={[0, 100]}

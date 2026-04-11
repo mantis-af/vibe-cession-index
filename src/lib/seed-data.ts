@@ -88,7 +88,7 @@ function generateHistory(seed: MetroSeed, weeks: number): MetroWeeklySnapshot[] 
   let currentBehavioral = seed.baseBehavioral;
   let currentOfficial = seed.baseOfficial;
 
-  const startDate = new Date("2026-01-05"); // first Monday of 2026
+  const startDate = new Date("2025-04-14"); // 52 weeks back from April 2026
 
   for (let w = 0; w < weeks; w++) {
     const weekDate = new Date(startDate);
@@ -132,7 +132,7 @@ function getTrend(history: MetroWeeklySnapshot[]): "improving" | "declining" | "
   return "stable";
 }
 
-const WEEKS_OF_HISTORY = 14; // ~3.5 months of weekly data
+const WEEKS_OF_HISTORY = 52; // Rolling 12 months of weekly data
 
 export function generateAllMetros(): Metro[] {
   return METRO_SEEDS.map((seed) => {
