@@ -84,37 +84,37 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.09 0.005 270);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.13 0.005 270);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.13 0.005 270);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.75 0.15 280);
+  --primary-foreground: oklch(0.13 0.005 270);
+  --secondary: oklch(0.18 0.008 270);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.18 0.008 270);
+  --muted-foreground: oklch(0.55 0.01 270);
+  --accent: oklch(0.18 0.015 280);
+  --accent-foreground: oklch(0.95 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(0.2 0.01 270);
+  --input: oklch(0.22 0.01 270);
+  --ring: oklch(0.65 0.15 280);
+  --chart-1: oklch(0.75 0.15 280);
+  --chart-2: oklch(0.7 0.15 200);
+  --chart-3: oklch(0.7 0.15 330);
+  --chart-4: oklch(0.7 0.15 150);
+  --chart-5: oklch(0.7 0.15 50);
+  --sidebar: oklch(0.11 0.005 270);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.75 0.15 280);
+  --sidebar-primary-foreground: oklch(0.95 0 0);
+  --sidebar-accent: oklch(0.18 0.008 270);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.2 0.01 270);
+  --sidebar-ring: oklch(0.65 0.15 280);
 }
 
 @layer base {
@@ -125,6 +125,68 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
   }
+}
+
+/* Noise grain overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Glass card utility */
+.glass {
+  background: oklch(0.13 0.005 270 / 0.6);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid oklch(1 0 0 / 0.06);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, oklch(0.8 0.18 280), oklch(0.75 0.2 330), oklch(0.8 0.15 200));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle glow behind key elements */
+.glow-violet {
+  box-shadow: 0 0 80px -20px oklch(0.6 0.2 280 / 0.3);
+}
+
+.glow-green {
+  box-shadow: 0 0 60px -20px oklch(0.6 0.2 150 / 0.25);
+}
+
+.glow-red {
+  box-shadow: 0 0 60px -20px oklch(0.6 0.2 25 / 0.25);
+}
+
+/* Section divider gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.5 0.1 280 / 0.3), transparent);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.01 270);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.4 0.01 270);
 }

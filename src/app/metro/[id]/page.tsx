@@ -2,10 +2,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { METROS } from "@/lib/seed-data";
 import { Header } from "@/components/dashboard/header";
-import { ScoreBadge } from "@/components/dashboard/score-badge";
-import { MetroDetailCharts } from "./metro-detail-charts";
-import { scoreColor, changeColor, trendColor, gapColor, gapLabel } from "@/lib/colors";
-import { ArrowLeft, TrendingUp, TrendingDown, Minus, ArrowUpRight, ArrowDownRight, Users } from "lucide-react";
+import { MetroDetailClient } from "./metro-detail-client";
+import { scoreColor, scoreLabel, gapLabel } from "@/lib/colors";
+import { ArrowLeft } from "lucide-react";
 
 export function generateStaticParams() {
   return METROS.map((m) => ({ id: m.id }));
@@ -17,69 +16,89 @@ export default async function MetroPage(props: { params: Promise<{ id: string }>
   if (!metro) notFound();
 
   const rank = [...METROS].sort((a, b) => b.currentScore - a.currentScore).findIndex((m) => m.id === id) + 1;
-  const latestWeek = metro.history[metro.history.length - 1];
+  const color = scoreColor(metro.currentScore);
+
+  // Neighboring metros for context
+  const sorted = [...METROS].sort((a, b) => b.currentScore - a.currentScore);
+  const myIndex = sorted.findIndex((m) => m.id === id);
+  const neighbors = sorted
+    .filter((_, i) => Math.abs(i - myIndex) <= 2 && i !== myIndex)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+      <main className="pt-20 pb-24">
         {/* Breadcrumb */}
-        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
-          <ArrowLeft className="h-4 w-4" />
-          Back to Overview
-        </Link>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-8">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Overview
+          </Link>
+        </div>
 
-        {/* Metro Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-3xl font-bold text-foreground tracking-tight">
-                {metro.name}, {metro.state}
+        {/* Metro Hero */}
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+          {/* Background glow */}
+          <div className="absolute -top-20 left-1/4 w-[400px] h-[300px] rounded-full blur-[120px] opacity-[0.06]" style={{ backgroundColor: color }} />
+
+          <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-xs font-mono text-muted-foreground bg-white/[0.04] border border-white/[0.06] rounded-full px-3 py-1">
+                  #{String(rank).padStart(2, "0")} of 20
+                </span>
+                <span className="text-xs font-mono text-muted-foreground bg-white/[0.04] border border-white/[0.06] rounded-full px-3 py-1">
+                  Pop. {(metro.population / 1_000_000).toFixed(1)}M
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2">
+                {metro.name}
+                <span className="text-muted-foreground font-normal">, {metro.state}</span>
               </h1>
-              <ScoreBadge score={metro.currentScore} size="lg" />
+              <p className="text-muted-foreground max-w-lg">
+                Current behavioral index score and signal analysis for the {metro.name} metropolitan area.
+              </p>
             </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Users className="h-3.5 w-3.5" />
-                Pop. {(metro.population / 1_000_000).toFixed(1)}M
-              </span>
-              <span className="font-mono">Rank #{rank} / 20</span>
-              <span className={`flex items-center gap-1 ${trendColor(metro.trend)}`}>
-                {metro.trend === "improving" ? <TrendingUp className="h-3.5 w-3.5" /> : metro.trend === "declining" ? <TrendingDown className="h-3.5 w-3.5" /> : <Minus className="h-3.5 w-3.5" />}
-                {metro.trend}
-              </span>
-            </div>
-          </div>
 
-          {/* Quick Stats */}
-          <div className="flex gap-6">
-            <div className="text-right">
-              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Score</div>
-              <div className="text-2xl font-mono font-bold" style={{ color: scoreColor(metro.currentScore) }}>
-                {metro.currentScore}
+            {/* Score display */}
+            <div className="flex items-end gap-8">
+              <div className="text-right">
+                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                  Composite Score
+                </div>
+                <div className="relative">
+                  <div className="absolute inset-0 blur-2xl opacity-20 rounded-full" style={{ backgroundColor: color }} />
+                  <div className="relative text-6xl font-mono font-black tabular-nums" style={{ color }}>
+                    {metro.currentScore}
+                  </div>
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">{scoreLabel(metro.currentScore)}</div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">WoW Change</div>
-              <div className={`text-2xl font-mono font-bold flex items-center justify-end gap-1 ${changeColor(metro.weekOverWeekChange)}`}>
-                {metro.weekOverWeekChange > 0 ? <ArrowUpRight className="h-5 w-5" /> : metro.weekOverWeekChange < 0 ? <ArrowDownRight className="h-5 w-5" /> : <Minus className="h-5 w-5" />}
-                {metro.weekOverWeekChange > 0 ? "+" : ""}{metro.weekOverWeekChange}
+              <div className="text-right pb-1">
+                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                  Vibes Gap
+                </div>
+                <div className={`text-3xl font-mono font-bold ${metro.vibesGap >= 0 ? "text-green-400" : "text-red-400"}`}>
+                  {metro.vibesGap > 0 ? "+" : ""}{metro.vibesGap}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">{gapLabel(metro.vibesGap)}</div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Vibes Gap</div>
-              <div className={`text-2xl font-mono font-bold ${gapColor(metro.vibesGap)}`}>
-                {metro.vibesGap > 0 ? "+" : ""}{metro.vibesGap}
-              </div>
-              <div className="text-[10px] text-muted-foreground">{gapLabel(metro.vibesGap)}</div>
             </div>
           </div>
         </div>
 
-        {/* Charts — client component */}
-        <MetroDetailCharts
-          history={metro.history}
-          signals={metro.currentSignals}
+        {/* Charts and details — client component */}
+        <MetroDetailClient
+          metro={metro}
+          neighbors={neighbors.map((n) => ({
+            id: n.id,
+            name: n.name,
+            state: n.state,
+            score: n.currentScore,
+            rank: sorted.findIndex((m) => m.id === n.id) + 1,
+          }))}
         />
       </main>
     </div>
