@@ -41,6 +41,31 @@ interface RawMetro {
   }>;
 }
 
+export interface QuarterlyBenchmark {
+  quarter: string;
+  avgScore: number;
+  weeksInQuarter: number;
+  high: number;
+  low: number;
+  qoqChange: number | null;
+}
+
+export interface SentimentDriver {
+  signal: string;
+  zScoreChange: number;
+  weight: number;
+  scoreImpact: number;
+  direction: "up" | "down" | "flat";
+  currentZScore: number;
+}
+
+export interface SentimentDrivers {
+  drivers: SentimentDriver[];
+  periodChange: number;
+  recentAvg: number;
+  priorAvg: number;
+}
+
 interface RawDashboard {
   summary: {
     generatedAt: string;
@@ -48,6 +73,9 @@ interface RawDashboard {
     weekRange: { start: string; end: string };
     metroCount: number;
     nationalAverage: number;
+    nationalQuarterly: QuarterlyBenchmark[];
+    nationalQuarterlySignals: Record<string, Array<{ quarter: string; avgZScore: number; qoqChange: number | null }>>;
+    nationalDrivers: SentimentDrivers;
   };
   metros: RawMetro[];
 }
@@ -129,3 +157,8 @@ function loadNationalSummary(metros: Metro[]): NationalSummary {
 
 export const METROS = loadMetros();
 export const NATIONAL_SUMMARY = loadNationalSummary(METROS);
+
+const raw = dashboardJson as unknown as RawDashboard;
+export const NATIONAL_QUARTERLY = raw.summary.nationalQuarterly ?? [];
+export const NATIONAL_QUARTERLY_SIGNALS = raw.summary.nationalQuarterlySignals ?? {};
+export const NATIONAL_DRIVERS = raw.summary.nationalDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 };

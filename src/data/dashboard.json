@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generatedAt": "2026-04-11T13:57:36.021720",
+    "generatedAt": "2026-04-11T14:07:55.088542",
     "sourcesUsed": [
       "google_trends",
       "bls_unemployment",
@@ -12,7 +12,268 @@
       "end": "2026-04-06"
     },
     "metroCount": 20,
-    "nationalAverage": 54.5
+    "nationalAverage": 54.5,
+    "nationalQuarterly": [
+      {
+        "quarter": "2025-Q2",
+        "avgScore": 47.8,
+        "weeksInQuarter": 12,
+        "high": 53,
+        "low": 42,
+        "qoqChange": null
+      },
+      {
+        "quarter": "2025-Q3",
+        "avgScore": 45.8,
+        "weeksInQuarter": 13,
+        "high": 49,
+        "low": 41,
+        "qoqChange": -2.0
+      },
+      {
+        "quarter": "2025-Q4",
+        "avgScore": 49.1,
+        "weeksInQuarter": 13,
+        "high": 62,
+        "low": 36,
+        "qoqChange": 3.3
+      },
+      {
+        "quarter": "2026-Q1",
+        "avgScore": 56.8,
+        "weeksInQuarter": 13,
+        "high": 61,
+        "low": 50,
+        "qoqChange": 7.7
+      },
+      {
+        "quarter": "2026-Q2",
+        "avgScore": 54.0,
+        "weeksInQuarter": 1,
+        "high": 54,
+        "low": 54,
+        "qoqChange": -2.8
+      }
+    ],
+    "nationalQuarterlySignals": {
+      "google_trends_anxiety": [
+        {
+          "quarter": "2025-Q2",
+          "avgZScore": -0.238,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgZScore": -0.128,
+          "qoqChange": 0.11
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgZScore": -0.439,
+          "qoqChange": -0.311
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgZScore": 0.796,
+          "qoqChange": 1.235
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgZScore": -0.117,
+          "qoqChange": -0.913
+        }
+      ],
+      "housing_dom": [
+        {
+          "quarter": "2025-Q2",
+          "avgZScore": 0.868,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgZScore": 0.113,
+          "qoqChange": -0.755
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgZScore": -0.339,
+          "qoqChange": -0.452
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgZScore": -0.541,
+          "qoqChange": -0.202
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgZScore": -0.432,
+          "qoqChange": 0.109
+        }
+      ],
+      "housing_price_drops": [
+        {
+          "quarter": "2025-Q2",
+          "avgZScore": -0.565,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgZScore": -0.326,
+          "qoqChange": 0.239
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgZScore": 0.515,
+          "qoqChange": 0.841
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgZScore": 0.314,
+          "qoqChange": -0.201
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgZScore": 0.231,
+          "qoqChange": -0.083
+        }
+      ],
+      "unemployment_rate": [
+        {
+          "quarter": "2025-Q2",
+          "avgZScore": 0.327,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgZScore": -0.821,
+          "qoqChange": -1.148
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgZScore": -0.05,
+          "qoqChange": 0.771
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgZScore": 0.529,
+          "qoqChange": 0.579
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgZScore": 0.529,
+          "qoqChange": 0.0
+        }
+      ],
+      "housing_inventory": [
+        {
+          "quarter": "2025-Q2",
+          "avgZScore": -0.806,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgZScore": -0.622,
+          "qoqChange": 0.184
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgZScore": 0.356,
+          "qoqChange": 0.978
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgZScore": 0.937,
+          "qoqChange": 0.581
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgZScore": 0.965,
+          "qoqChange": 0.028
+        }
+      ],
+      "initial_claims": [
+        {
+          "quarter": "2025-Q2",
+          "avgZScore": -0.023,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgZScore": 0.178,
+          "qoqChange": 0.201
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgZScore": -0.147,
+          "qoqChange": -0.325
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgZScore": -0.04,
+          "qoqChange": 0.107
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgZScore": 0.388,
+          "qoqChange": 0.428
+        }
+      ]
+    },
+    "nationalDrivers": {
+      "drivers": [
+        {
+          "signal": "google_trends_anxiety",
+          "zScoreChange": -0.522,
+          "weight": 0.248,
+          "scoreImpact": -2.2,
+          "direction": "down",
+          "currentZScore": 0.446
+        },
+        {
+          "signal": "initial_claims",
+          "zScoreChange": 0.287,
+          "weight": 0.185,
+          "scoreImpact": 0.9,
+          "direction": "up",
+          "currentZScore": 0.626
+        },
+        {
+          "signal": "unemployment_rate",
+          "zScoreChange": 0.0,
+          "weight": 0.176,
+          "scoreImpact": 0.0,
+          "direction": "flat",
+          "currentZScore": 0.529
+        },
+        {
+          "signal": "housing_inventory",
+          "zScoreChange": 0.0,
+          "weight": 0.185,
+          "scoreImpact": 0.0,
+          "direction": "flat",
+          "currentZScore": 0.965
+        },
+        {
+          "signal": "housing_dom",
+          "zScoreChange": 0.0,
+          "weight": 0.124,
+          "scoreImpact": 0.0,
+          "direction": "flat",
+          "currentZScore": -0.432
+        },
+        {
+          "signal": "housing_price_drops",
+          "zScoreChange": 0.0,
+          "weight": 0.124,
+          "scoreImpact": 0.0,
+          "direction": "flat",
+          "currentZScore": 0.231
+        }
+      ],
+      "periodChange": -1.0,
+      "recentAvg": 57.8,
+      "priorAvg": 58.8
+    }
   },
   "metros": [
     {
@@ -765,7 +1026,268 @@
             "housing_price_drops": 0.135
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 51.8,
+          "weeksInQuarter": 12,
+          "high": 56,
+          "low": 45,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 45.1,
+          "weeksInQuarter": 13,
+          "high": 53,
+          "low": 37,
+          "qoqChange": -6.6
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 50.3,
+          "weeksInQuarter": 13,
+          "high": 65,
+          "low": 30,
+          "qoqChange": 5.2
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 52.7,
+          "weeksInQuarter": 13,
+          "high": 58,
+          "low": 45,
+          "qoqChange": 2.4
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 52.0,
+          "weeksInQuarter": 1,
+          "high": 52,
+          "low": 52,
+          "qoqChange": -0.7
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.143,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.089,
+            "qoqChange": 0.054
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.446,
+            "qoqChange": -0.357
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.714,
+            "qoqChange": 1.16
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.61,
+            "qoqChange": -1.324
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.009,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.617,
+            "qoqChange": -0.392
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.818,
+            "qoqChange": -1.435
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.682,
+            "qoqChange": 0.136
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.625,
+            "qoqChange": 0.057
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.58,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.384,
+            "qoqChange": 0.196
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.894,
+            "qoqChange": 1.278
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.015,
+            "qoqChange": -0.879
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.135,
+            "qoqChange": 0.12
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.1,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.235,
+            "qoqChange": -2.335
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.277,
+            "qoqChange": 0.958
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.461,
+            "qoqChange": 0.738
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.461,
+            "qoqChange": -0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.865,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.808,
+            "qoqChange": 0.057
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.855,
+            "qoqChange": 1.663
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.694,
+            "qoqChange": -0.161
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.755,
+            "qoqChange": 0.061
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.302,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.341,
+            "qoqChange": 0.039
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.053,
+            "qoqChange": -0.288
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.726,
+            "qoqChange": -0.779
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.706,
+            "qoqChange": 1.432
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 1.122,
+            "weight": 0.176,
+            "scoreImpact": 3.3,
+            "direction": "up",
+            "currentZScore": 0.586
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.577,
+            "weight": 0.235,
+            "scoreImpact": -2.3,
+            "direction": "down",
+            "currentZScore": 0.151
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.461
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.755
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.625
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.135
+          }
+        ],
+        "periodChange": 1.2,
+        "recentAvg": 55.0,
+        "priorAvg": 53.8
+      }
     },
     {
       "id": "lax",
@@ -1517,7 +2039,268 @@
             "housing_price_drops": -1.036
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 47.5,
+          "weeksInQuarter": 12,
+          "high": 53,
+          "low": 39,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 43.5,
+          "weeksInQuarter": 13,
+          "high": 54,
+          "low": 38,
+          "qoqChange": -4.0
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 52.6,
+          "weeksInQuarter": 13,
+          "high": 67,
+          "low": 40,
+          "qoqChange": 9.1
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 55.8,
+          "weeksInQuarter": 13,
+          "high": 60,
+          "low": 50,
+          "qoqChange": 3.2
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 54.0,
+          "weeksInQuarter": 1,
+          "high": 54,
+          "low": 54,
+          "qoqChange": -1.8
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.319,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.191,
+            "qoqChange": 0.128
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.37,
+            "qoqChange": -0.179
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.86,
+            "qoqChange": 1.23
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.059,
+            "qoqChange": -0.919
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.174,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.396,
+            "qoqChange": -1.57
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.173,
+            "qoqChange": 0.223
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.48,
+            "qoqChange": -0.307
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.468,
+            "qoqChange": 0.012
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.335,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.372,
+            "qoqChange": -0.037
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 1.399,
+            "qoqChange": 1.771
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.638,
+            "qoqChange": -2.037
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.036,
+            "qoqChange": -0.398
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.066,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.25,
+            "qoqChange": -1.316
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.136,
+            "qoqChange": 1.386
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.978,
+            "qoqChange": 0.842
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.978,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.921,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.858,
+            "qoqChange": 0.063
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.753,
+            "qoqChange": 1.611
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.883,
+            "qoqChange": 0.13
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.949,
+            "qoqChange": 0.066
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.14,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.659,
+            "qoqChange": 0.799
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.33,
+            "qoqChange": -0.989
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.244,
+            "qoqChange": 0.086
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.57,
+            "qoqChange": 0.814
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.908,
+            "weight": 0.176,
+            "scoreImpact": 2.7,
+            "direction": "up",
+            "currentZScore": 0.936
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.557,
+            "weight": 0.235,
+            "scoreImpact": -2.2,
+            "direction": "down",
+            "currentZScore": 0.493
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.978
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.949
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.468
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.036
+          }
+        ],
+        "periodChange": 0.2,
+        "recentAvg": 57.2,
+        "priorAvg": 57.0
+      }
     },
     {
       "id": "chi",
@@ -2269,7 +3052,268 @@
             "housing_price_drops": 1.559
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 47.0,
+          "weeksInQuarter": 12,
+          "high": 52,
+          "low": 40,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 46.9,
+          "weeksInQuarter": 13,
+          "high": 57,
+          "low": 37,
+          "qoqChange": -0.1
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 47.2,
+          "weeksInQuarter": 13,
+          "high": 56,
+          "low": 39,
+          "qoqChange": 0.3
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 58.2,
+          "weeksInQuarter": 13,
+          "high": 63,
+          "low": 49,
+          "qoqChange": 11.0
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 56.0,
+          "weeksInQuarter": 1,
+          "high": 56,
+          "low": 56,
+          "qoqChange": -2.2
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.136,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.166,
+            "qoqChange": -0.03
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.483,
+            "qoqChange": -0.317
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.771,
+            "qoqChange": 1.254
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.048,
+            "qoqChange": -0.723
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.405,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.709,
+            "qoqChange": 0.304
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.373,
+            "qoqChange": -0.336
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -1.316,
+            "qoqChange": -1.689
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.811,
+            "qoqChange": -0.495
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.185,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.011,
+            "qoqChange": -0.826
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.111,
+            "qoqChange": 0.9
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.174,
+            "qoqChange": 1.285
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.559,
+            "qoqChange": 0.385
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.823,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.039,
+            "qoqChange": 0.784
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.629,
+            "qoqChange": 0.668
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.157,
+            "qoqChange": -0.472
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.157,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.334,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.62,
+            "qoqChange": -0.286
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.362,
+            "qoqChange": 0.258
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.165,
+            "qoqChange": 1.527
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.623,
+            "qoqChange": 0.458
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.182,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.058,
+            "qoqChange": -0.124
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.725,
+            "qoqChange": -0.783
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.482,
+            "qoqChange": 1.207
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.199,
+            "qoqChange": -0.283
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.46,
+            "weight": 0.235,
+            "scoreImpact": -1.8,
+            "direction": "down",
+            "currentZScore": 0.472
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.292,
+            "weight": 0.176,
+            "scoreImpact": -0.9,
+            "direction": "down",
+            "currentZScore": 0.916
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.157
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.623
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.811
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.559
+          }
+        ],
+        "periodChange": -2.5,
+        "recentAvg": 59.5,
+        "priorAvg": 62.0
+      }
     },
     {
       "id": "hou",
@@ -3021,7 +4065,268 @@
             "housing_price_drops": -1.197
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 48.4,
+          "weeksInQuarter": 12,
+          "high": 58,
+          "low": 42,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 41.4,
+          "weeksInQuarter": 13,
+          "high": 49,
+          "low": 31,
+          "qoqChange": -7.0
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 51.6,
+          "weeksInQuarter": 13,
+          "high": 65,
+          "low": 38,
+          "qoqChange": 10.2
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 58.0,
+          "weeksInQuarter": 13,
+          "high": 61,
+          "low": 51,
+          "qoqChange": 6.4
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 53.0,
+          "weeksInQuarter": 1,
+          "high": 53,
+          "low": 53,
+          "qoqChange": -5.0
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.57,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.223,
+            "qoqChange": 0.347
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.207,
+            "qoqChange": 0.016
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.989,
+            "qoqChange": 1.196
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.424,
+            "qoqChange": -1.413
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.291,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.373,
+            "qoqChange": 0.082
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.898,
+            "qoqChange": -1.271
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.24,
+            "qoqChange": 1.138
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.215,
+            "qoqChange": -0.025
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.201,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.094,
+            "qoqChange": 0.107
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 1.279,
+            "qoqChange": 1.373
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.907,
+            "qoqChange": -2.186
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.197,
+            "qoqChange": -0.29
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.783,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.206,
+            "qoqChange": -1.989
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.241,
+            "qoqChange": 0.965
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.673,
+            "qoqChange": 0.914
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.673,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.729,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.046,
+            "qoqChange": -0.317
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.591,
+            "qoqChange": 1.637
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.04,
+            "qoqChange": 0.449
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.129,
+            "qoqChange": 0.089
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.113,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.544,
+            "qoqChange": -0.657
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.231,
+            "qoqChange": 0.775
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.185,
+            "qoqChange": -0.046
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.311,
+            "qoqChange": 0.126
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.74,
+            "weight": 0.235,
+            "scoreImpact": -2.9,
+            "direction": "down",
+            "currentZScore": 0.44
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.225,
+            "weight": 0.176,
+            "scoreImpact": -0.7,
+            "direction": "down",
+            "currentZScore": 0.307
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.673
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.129
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.215
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.197
+          }
+        ],
+        "periodChange": -3.5,
+        "recentAvg": 56.0,
+        "priorAvg": 59.5
+      }
     },
     {
       "id": "phx",
@@ -3773,7 +5078,268 @@
             "housing_price_drops": -1.122
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 42.0,
+          "weeksInQuarter": 12,
+          "high": 51,
+          "low": 36,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 43.6,
+          "weeksInQuarter": 13,
+          "high": 50,
+          "low": 34,
+          "qoqChange": 1.6
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 54.2,
+          "weeksInQuarter": 13,
+          "high": 66,
+          "low": 38,
+          "qoqChange": 10.6
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 59.2,
+          "weeksInQuarter": 13,
+          "high": 62,
+          "low": 56,
+          "qoqChange": 5.0
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 54.0,
+          "weeksInQuarter": 1,
+          "high": 54,
+          "low": 54,
+          "qoqChange": -5.2
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.171,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.2,
+            "qoqChange": -0.029
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.501,
+            "qoqChange": -0.301
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.841,
+            "qoqChange": 1.342
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.239,
+            "qoqChange": -0.602
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.486,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.406,
+            "qoqChange": -1.892
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.138,
+            "qoqChange": 1.544
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.754,
+            "qoqChange": 0.616
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.853,
+            "qoqChange": 0.099
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.865,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.695,
+            "qoqChange": 1.56
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.922,
+            "qoqChange": 0.227
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.733,
+            "qoqChange": -1.655
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.122,
+            "qoqChange": -0.389
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.29,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.141,
+            "qoqChange": -1.431
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.03,
+            "qoqChange": 1.111
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.839,
+            "qoqChange": 0.869
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.839,
+            "qoqChange": -0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.365,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.167,
+            "qoqChange": 1.532
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.591,
+            "qoqChange": 0.424
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.468,
+            "qoqChange": -0.123
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.436,
+            "qoqChange": -0.032
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.19,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.446,
+            "qoqChange": 0.744
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.842,
+            "qoqChange": 1.288
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.695,
+            "qoqChange": -0.147
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.106,
+            "qoqChange": -0.589
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.308,
+            "weight": 0.235,
+            "scoreImpact": -1.2,
+            "direction": "down",
+            "currentZScore": 0.596
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.273,
+            "weight": 0.176,
+            "scoreImpact": -0.8,
+            "direction": "down",
+            "currentZScore": 0.518
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.839
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.436
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.853
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.122
+          }
+        ],
+        "periodChange": -2.0,
+        "recentAvg": 57.0,
+        "priorAvg": 59.0
+      }
     },
     {
       "id": "phl",
@@ -4525,7 +6091,268 @@
             "housing_price_drops": 1.647
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 48.0,
+          "weeksInQuarter": 12,
+          "high": 56,
+          "low": 40,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 46.1,
+          "weeksInQuarter": 13,
+          "high": 52,
+          "low": 40,
+          "qoqChange": -1.9
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 46.2,
+          "weeksInQuarter": 13,
+          "high": 53,
+          "low": 33,
+          "qoqChange": 0.1
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 58.9,
+          "weeksInQuarter": 13,
+          "high": 64,
+          "low": 49,
+          "qoqChange": 12.7
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 58.0,
+          "weeksInQuarter": 1,
+          "high": 58,
+          "low": 58,
+          "qoqChange": -0.9
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.125,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.119,
+            "qoqChange": 0.006
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.611,
+            "qoqChange": -0.492
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.833,
+            "qoqChange": 1.444
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.172,
+            "qoqChange": -0.661
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.998,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.483,
+            "qoqChange": -0.515
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.113,
+            "qoqChange": -0.37
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -1.406,
+            "qoqChange": -1.519
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.431,
+            "qoqChange": -0.025
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.965,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.488,
+            "qoqChange": 0.477
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.12,
+            "qoqChange": 0.368
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.371,
+            "qoqChange": 1.491
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.647,
+            "qoqChange": 0.276
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.434,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.355,
+            "qoqChange": -1.789
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.067,
+            "qoqChange": 1.422
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.825,
+            "qoqChange": 0.758
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.825,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.896,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.459,
+            "qoqChange": 0.437
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.231,
+            "qoqChange": 0.228
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.409,
+            "qoqChange": 1.64
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.414,
+            "qoqChange": 0.005
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.037,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.636,
+            "qoqChange": 0.673
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.302,
+            "qoqChange": -0.938
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.321,
+            "qoqChange": -0.019
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.278,
+            "qoqChange": 0.599
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.291,
+            "weight": 0.235,
+            "scoreImpact": -1.1,
+            "direction": "down",
+            "currentZScore": 0.749
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.212,
+            "weight": 0.176,
+            "scoreImpact": 0.6,
+            "direction": "up",
+            "currentZScore": 0.702
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.825
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.414
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.431
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.647
+          }
+        ],
+        "periodChange": -0.8,
+        "recentAvg": 62.0,
+        "priorAvg": 62.8
+      }
     },
     {
       "id": "sat",
@@ -5277,7 +7104,268 @@
             "housing_price_drops": -1.348
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 52.0,
+          "weeksInQuarter": 12,
+          "high": 60,
+          "low": 47,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 43.5,
+          "weeksInQuarter": 13,
+          "high": 53,
+          "low": 32,
+          "qoqChange": -8.5
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 48.5,
+          "weeksInQuarter": 13,
+          "high": 67,
+          "low": 31,
+          "qoqChange": 5.0
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 56.2,
+          "weeksInQuarter": 13,
+          "high": 61,
+          "low": 49,
+          "qoqChange": 7.7
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 52.0,
+          "weeksInQuarter": 1,
+          "high": 52,
+          "low": 52,
+          "qoqChange": -4.2
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.059,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.183,
+            "qoqChange": -0.124
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.61,
+            "qoqChange": -0.427
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.87,
+            "qoqChange": 1.48
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.301,
+            "qoqChange": -1.171
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.367,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.027,
+            "qoqChange": -1.34
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.713,
+            "qoqChange": -0.74
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.557,
+            "qoqChange": 0.156
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.242,
+            "qoqChange": 0.315
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.102,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.478,
+            "qoqChange": 0.58
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.714,
+            "qoqChange": 0.236
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.994,
+            "qoqChange": -1.708
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.348,
+            "qoqChange": -0.354
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.778,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.134,
+            "qoqChange": -1.912
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.285,
+            "qoqChange": 0.849
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.651,
+            "qoqChange": 0.936
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.651,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.977,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.627,
+            "qoqChange": 0.35
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.299,
+            "qoqChange": 0.926
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.143,
+            "qoqChange": 0.844
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.129,
+            "qoqChange": -0.014
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.113,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.544,
+            "qoqChange": -0.657
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.231,
+            "qoqChange": 0.775
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.185,
+            "qoqChange": -0.046
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.311,
+            "qoqChange": 0.126
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -1.214,
+            "weight": 0.235,
+            "scoreImpact": -4.8,
+            "direction": "down",
+            "currentZScore": 0.124
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.225,
+            "weight": 0.176,
+            "scoreImpact": -0.7,
+            "direction": "down",
+            "currentZScore": 0.307
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.651
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.129
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.242
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.348
+          }
+        ],
+        "periodChange": -5.2,
+        "recentAvg": 53.8,
+        "priorAvg": 59.0
+      }
     },
     {
       "id": "sdg",
@@ -6029,7 +8117,268 @@
             "housing_price_drops": 0.784
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 47.7,
+          "weeksInQuarter": 12,
+          "high": 55,
+          "low": 36,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 45.0,
+          "weeksInQuarter": 13,
+          "high": 56,
+          "low": 32,
+          "qoqChange": -2.7
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 48.9,
+          "weeksInQuarter": 13,
+          "high": 65,
+          "low": 31,
+          "qoqChange": 3.9
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 57.7,
+          "weeksInQuarter": 13,
+          "high": 68,
+          "low": 48,
+          "qoqChange": 8.8
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 57.0,
+          "weeksInQuarter": 1,
+          "high": 57,
+          "low": 57,
+          "qoqChange": -0.7
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.242,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.214,
+            "qoqChange": 0.028
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.197,
+            "qoqChange": 0.017
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.653,
+            "qoqChange": 0.85
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.236,
+            "qoqChange": -0.889
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.274,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.124,
+            "qoqChange": -1.398
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.882,
+            "qoqChange": -0.758
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.187,
+            "qoqChange": 0.695
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.222,
+            "qoqChange": 0.409
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.95,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.465,
+            "qoqChange": 0.485
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.552,
+            "qoqChange": 1.017
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.73,
+            "qoqChange": 0.178
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.784,
+            "qoqChange": 0.054
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.618,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.153,
+            "qoqChange": -1.771
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.082,
+            "qoqChange": 1.071
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.618,
+            "qoqChange": 0.7
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.618,
+            "qoqChange": -0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.173,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.528,
+            "qoqChange": 0.645
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.563,
+            "qoqChange": 1.091
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.974,
+            "qoqChange": 0.411
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.964,
+            "qoqChange": -0.01
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.14,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.659,
+            "qoqChange": 0.799
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.33,
+            "qoqChange": -0.989
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.244,
+            "qoqChange": 0.086
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.57,
+            "qoqChange": 0.814
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.908,
+            "weight": 0.176,
+            "scoreImpact": 2.7,
+            "direction": "up",
+            "currentZScore": 0.936
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.314,
+            "weight": 0.235,
+            "scoreImpact": -1.2,
+            "direction": "down",
+            "currentZScore": 0.465
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.618
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.964
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.222
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.784
+          }
+        ],
+        "periodChange": 1.2,
+        "recentAvg": 61.2,
+        "priorAvg": 60.0
+      }
     },
     {
       "id": "dal",
@@ -6781,7 +9130,268 @@
             "housing_price_drops": -1.067
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 48.6,
+          "weeksInQuarter": 12,
+          "high": 56,
+          "low": 44,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 43.1,
+          "weeksInQuarter": 13,
+          "high": 50,
+          "low": 35,
+          "qoqChange": -5.5
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 50.9,
+          "weeksInQuarter": 13,
+          "high": 68,
+          "low": 34,
+          "qoqChange": 7.8
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 57.1,
+          "weeksInQuarter": 13,
+          "high": 62,
+          "low": 50,
+          "qoqChange": 6.2
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 50.0,
+          "weeksInQuarter": 1,
+          "high": 50,
+          "low": 50,
+          "qoqChange": -7.1
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.357,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.244,
+            "qoqChange": 0.113
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.298,
+            "qoqChange": -0.054
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.919,
+            "qoqChange": 1.217
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.6,
+            "qoqChange": -1.519
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.288,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.06,
+            "qoqChange": -1.228
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.317,
+            "qoqChange": -0.377
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.892,
+            "qoqChange": -0.575
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.528,
+            "qoqChange": 0.364
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.616,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.385,
+            "qoqChange": 1.001
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.701,
+            "qoqChange": 0.316
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.436,
+            "qoqChange": -1.137
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.067,
+            "qoqChange": -0.631
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.548,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.234,
+            "qoqChange": -1.782
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.209,
+            "qoqChange": 1.025
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.87,
+            "qoqChange": 1.079
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.87,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.096,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.557,
+            "qoqChange": 0.539
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.439,
+            "qoqChange": 0.996
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.066,
+            "qoqChange": 0.627
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.83,
+            "qoqChange": -0.236
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.113,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.544,
+            "qoqChange": -0.657
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.231,
+            "qoqChange": 0.775
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.185,
+            "qoqChange": -0.046
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.311,
+            "qoqChange": 0.126
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -1.089,
+            "weight": 0.235,
+            "scoreImpact": -4.3,
+            "direction": "down",
+            "currentZScore": 0.111
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.225,
+            "weight": 0.176,
+            "scoreImpact": -0.7,
+            "direction": "down",
+            "currentZScore": 0.307
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.87
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.83
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.528
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.067
+          }
+        ],
+        "periodChange": -4.8,
+        "recentAvg": 53.0,
+        "priorAvg": 57.8
+      }
     },
     {
       "id": "sjc",
@@ -7479,7 +10089,233 @@
             "housing_price_drops": -0.936
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 44.2,
+          "weeksInQuarter": 12,
+          "high": 49,
+          "low": 39,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 50.0,
+          "weeksInQuarter": 13,
+          "high": 58,
+          "low": 40,
+          "qoqChange": 5.8
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 53.5,
+          "weeksInQuarter": 13,
+          "high": 70,
+          "low": 41,
+          "qoqChange": 3.5
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 52.0,
+          "weeksInQuarter": 13,
+          "high": 59,
+          "low": 49,
+          "qoqChange": -1.5
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 48.0,
+          "weeksInQuarter": 1,
+          "high": 48,
+          "low": 48,
+          "qoqChange": -4.0
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.636,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.041,
+            "qoqChange": 0.677
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.284,
+            "qoqChange": -0.325
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.856,
+            "qoqChange": 1.14
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.32,
+            "qoqChange": -1.176
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.269,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.045,
+            "qoqChange": -0.314
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.252,
+            "qoqChange": -0.207
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.013,
+            "qoqChange": 0.239
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.784,
+            "qoqChange": 0.797
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.278,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.426,
+            "qoqChange": -0.148
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.949,
+            "qoqChange": 1.375
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.195,
+            "qoqChange": -1.144
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.936,
+            "qoqChange": -0.741
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.623,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.403,
+            "qoqChange": 0.22
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 1.232,
+            "qoqChange": 1.635
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.206,
+            "qoqChange": -1.438
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.607,
+            "qoqChange": -0.401
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.14,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.659,
+            "qoqChange": 0.799
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.33,
+            "qoqChange": -0.989
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.244,
+            "qoqChange": 0.086
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.57,
+            "qoqChange": 0.814
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.908,
+            "weight": 0.214,
+            "scoreImpact": 3.2,
+            "direction": "up",
+            "currentZScore": 0.936
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.28,
+            "weight": 0.286,
+            "scoreImpact": -1.3,
+            "direction": "down",
+            "currentZScore": 0.534
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.214,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.607
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.784
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.936
+          }
+        ],
+        "periodChange": 2.2,
+        "recentAvg": 53.5,
+        "priorAvg": 51.2
+      }
     },
     {
       "id": "aus",
@@ -8177,7 +11013,233 @@
             "housing_price_drops": 1.24
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 45.9,
+          "weeksInQuarter": 12,
+          "high": 51,
+          "low": 40,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 46.0,
+          "weeksInQuarter": 13,
+          "high": 56,
+          "low": 28,
+          "qoqChange": 0.1
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 49.6,
+          "weeksInQuarter": 13,
+          "high": 63,
+          "low": 34,
+          "qoqChange": 3.6
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 57.8,
+          "weeksInQuarter": 13,
+          "high": 65,
+          "low": 49,
+          "qoqChange": 8.2
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 54.0,
+          "weeksInQuarter": 1,
+          "high": 54,
+          "low": 54,
+          "qoqChange": -3.8
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.243,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.117,
+            "qoqChange": 0.126
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.324,
+            "qoqChange": -0.207
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.696,
+            "qoqChange": 1.02
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.392,
+            "qoqChange": -1.088
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.919,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.286,
+            "qoqChange": -0.633
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.097,
+            "qoqChange": -0.189
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -1.113,
+            "qoqChange": -1.21
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.526,
+            "qoqChange": -0.413
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.862,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.222,
+            "qoqChange": 0.64
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.03,
+            "qoqChange": 0.192
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.952,
+            "qoqChange": 0.982
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.24,
+            "qoqChange": 0.288
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.923,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.47,
+            "qoqChange": 0.453
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.032,
+            "qoqChange": 0.502
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.172,
+            "qoqChange": 1.14
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.543,
+            "qoqChange": 0.371
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.113,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.544,
+            "qoqChange": -0.657
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.231,
+            "qoqChange": 0.775
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.185,
+            "qoqChange": -0.046
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.311,
+            "qoqChange": 0.126
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -1.163,
+            "weight": 0.286,
+            "scoreImpact": -5.5,
+            "direction": "down",
+            "currentZScore": -0.041
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.225,
+            "weight": 0.214,
+            "scoreImpact": -0.8,
+            "direction": "down",
+            "currentZScore": 0.307
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.214,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.543
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.526
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.24
+          }
+        ],
+        "periodChange": -6.2,
+        "recentAvg": 55.8,
+        "priorAvg": 62.0
+      }
     },
     {
       "id": "jax",
@@ -8875,7 +11937,233 @@
             "housing_price_drops": 0.255
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 42.3,
+          "weeksInQuarter": 12,
+          "high": 52,
+          "low": 30,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 43.2,
+          "weeksInQuarter": 13,
+          "high": 48,
+          "low": 36,
+          "qoqChange": 0.9
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 52.5,
+          "weeksInQuarter": 13,
+          "high": 69,
+          "low": 40,
+          "qoqChange": 9.3
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 60.7,
+          "weeksInQuarter": 13,
+          "high": 65,
+          "low": 50,
+          "qoqChange": 8.2
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 58.0,
+          "weeksInQuarter": 1,
+          "high": 58,
+          "low": 58,
+          "qoqChange": -2.7
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.118,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.375,
+            "qoqChange": -0.493
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.596,
+            "qoqChange": -0.221
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.863,
+            "qoqChange": 1.459
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.027,
+            "qoqChange": -0.89
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.627,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.397,
+            "qoqChange": -1.024
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.312,
+            "qoqChange": 0.085
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.078,
+            "qoqChange": 0.39
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.674,
+            "qoqChange": 0.596
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.069,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.387,
+            "qoqChange": 0.682
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.897,
+            "qoqChange": 1.284
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.458,
+            "qoqChange": -0.439
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.255,
+            "qoqChange": -0.203
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.118,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.643,
+            "qoqChange": 0.475
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.421,
+            "qoqChange": 1.064
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.167,
+            "qoqChange": 0.746
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.139,
+            "qoqChange": -0.028
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.889,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.244,
+            "qoqChange": 0.645
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.677,
+            "qoqChange": 0.921
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.355,
+            "qoqChange": -0.322
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.413,
+            "qoqChange": 0.058
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.478,
+            "weight": 0.286,
+            "scoreImpact": -2.3,
+            "direction": "down",
+            "currentZScore": 0.512
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.19,
+            "weight": 0.214,
+            "scoreImpact": 0.7,
+            "direction": "up",
+            "currentZScore": 0.637
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.214,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.139
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.674
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.255
+          }
+        ],
+        "periodChange": -1.5,
+        "recentAvg": 61.0,
+        "priorAvg": 62.5
+      }
     },
     {
       "id": "sfo",
@@ -9627,7 +12915,268 @@
             "housing_price_drops": 1.286
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 43.9,
+          "weeksInQuarter": 12,
+          "high": 51,
+          "low": 37,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 44.7,
+          "weeksInQuarter": 13,
+          "high": 50,
+          "low": 37,
+          "qoqChange": 0.8
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 49.2,
+          "weeksInQuarter": 13,
+          "high": 63,
+          "low": 36,
+          "qoqChange": 4.5
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 61.1,
+          "weeksInQuarter": 13,
+          "high": 69,
+          "low": 51,
+          "qoqChange": 11.9
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 60.0,
+          "weeksInQuarter": 1,
+          "high": 60,
+          "low": 60,
+          "qoqChange": -1.1
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.636,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.041,
+            "qoqChange": 0.677
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.284,
+            "qoqChange": -0.325
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.856,
+            "qoqChange": 1.14
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.32,
+            "qoqChange": -1.176
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.05,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.294,
+            "qoqChange": -0.244
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.069,
+            "qoqChange": 0.363
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.192,
+            "qoqChange": 0.123
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.017,
+            "qoqChange": 0.825
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.759,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.633,
+            "qoqChange": 0.126
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.104,
+            "qoqChange": 0.529
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.339,
+            "qoqChange": 1.443
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.286,
+            "qoqChange": -0.053
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.371,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.2,
+            "qoqChange": -1.571
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.049,
+            "qoqChange": 1.249
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.751,
+            "qoqChange": 0.702
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.751,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.892,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.696,
+            "qoqChange": 0.196
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.395,
+            "qoqChange": 1.091
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.053,
+            "qoqChange": 0.658
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.921,
+            "qoqChange": -0.132
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.14,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.659,
+            "qoqChange": 0.799
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.33,
+            "qoqChange": -0.989
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.244,
+            "qoqChange": 0.086
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.57,
+            "qoqChange": 0.814
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.908,
+            "weight": 0.176,
+            "scoreImpact": 2.7,
+            "direction": "up",
+            "currentZScore": 0.936
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.28,
+            "weight": 0.235,
+            "scoreImpact": -1.1,
+            "direction": "down",
+            "currentZScore": 0.534
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.751
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.921
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.017
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.286
+          }
+        ],
+        "periodChange": 1.8,
+        "recentAvg": 64.5,
+        "priorAvg": 62.8
+      }
     },
     {
       "id": "cmh",
@@ -10325,7 +13874,233 @@
             "housing_price_drops": 0.606
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 52.7,
+          "weeksInQuarter": 12,
+          "high": 58,
+          "low": 40,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 46.5,
+          "weeksInQuarter": 13,
+          "high": 58,
+          "low": 32,
+          "qoqChange": -6.2
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 46.0,
+          "weeksInQuarter": 13,
+          "high": 57,
+          "low": 31,
+          "qoqChange": -0.5
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 54.6,
+          "weeksInQuarter": 13,
+          "high": 63,
+          "low": 46,
+          "qoqChange": 8.6
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 55.0,
+          "weeksInQuarter": 1,
+          "high": 55,
+          "low": 55,
+          "qoqChange": 0.4
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.123,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.092,
+            "qoqChange": 0.031
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.527,
+            "qoqChange": -0.435
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.722,
+            "qoqChange": 1.249
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.129,
+            "qoqChange": -0.593
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.121,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.535,
+            "qoqChange": -0.586
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.662,
+            "qoqChange": -1.197
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.835,
+            "qoqChange": -0.173
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.946,
+            "qoqChange": -0.111
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.057,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.048,
+            "qoqChange": -1.105
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.343,
+            "qoqChange": 1.391
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.606,
+            "qoqChange": 0.263
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.606,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.152,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -1.134,
+            "qoqChange": -0.982
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.309,
+            "qoqChange": 1.443
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.895,
+            "qoqChange": 0.586
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.918,
+            "qoqChange": 0.023
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.252,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.6,
+            "qoqChange": 0.348
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.505,
+            "qoqChange": -1.105
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.368,
+            "qoqChange": 0.137
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.52,
+            "qoqChange": 0.888
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.192,
+            "weight": 0.286,
+            "scoreImpact": -0.9,
+            "direction": "down",
+            "currentZScore": 0.664
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.252,
+            "weight": 0.214,
+            "scoreImpact": 0.9,
+            "direction": "up",
+            "currentZScore": 0.624
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.214,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.918
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.946
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.606
+          }
+        ],
+        "periodChange": 0.0,
+        "recentAvg": 57.8,
+        "priorAvg": 57.8
+      }
     },
     {
       "id": "clt",
@@ -11077,7 +14852,268 @@
             "housing_price_drops": -0.649
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 46.2,
+          "weeksInQuarter": 12,
+          "high": 59,
+          "low": 35,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 48.0,
+          "weeksInQuarter": 13,
+          "high": 53,
+          "low": 44,
+          "qoqChange": 1.8
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 49.7,
+          "weeksInQuarter": 13,
+          "high": 73,
+          "low": 37,
+          "qoqChange": 1.7
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 55.8,
+          "weeksInQuarter": 13,
+          "high": 64,
+          "low": 49,
+          "qoqChange": 6.1
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 53.0,
+          "weeksInQuarter": 1,
+          "high": 53,
+          "low": 53,
+          "qoqChange": -2.8
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.359,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.041,
+            "qoqChange": 0.318
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.531,
+            "qoqChange": -0.49
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.908,
+            "qoqChange": 1.439
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.06,
+            "qoqChange": -0.968
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.3,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.142,
+            "qoqChange": -1.158
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.303,
+            "qoqChange": -0.445
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.988,
+            "qoqChange": -0.685
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.662,
+            "qoqChange": 0.326
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.874,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.312,
+            "qoqChange": 1.186
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.618,
+            "qoqChange": 0.306
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.073,
+            "qoqChange": -0.691
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.649,
+            "qoqChange": -0.576
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.233,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.683,
+            "qoqChange": -0.916
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.341,
+            "qoqChange": 0.342
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.751,
+            "qoqChange": 1.092
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.751,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.042,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.236,
+            "qoqChange": 0.806
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.344,
+            "qoqChange": 0.58
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.833,
+            "qoqChange": 0.489
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.274,
+            "qoqChange": -0.559
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.258,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.006,
+            "qoqChange": 0.264
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.361,
+            "qoqChange": 0.355
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.194,
+            "qoqChange": -0.555
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.852,
+            "qoqChange": 1.046
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.715,
+            "weight": 0.176,
+            "scoreImpact": 2.1,
+            "direction": "up",
+            "currentZScore": 0.915
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.433,
+            "weight": 0.235,
+            "scoreImpact": -1.7,
+            "direction": "down",
+            "currentZScore": 0.6
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.751
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.274
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.662
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.649
+          }
+        ],
+        "periodChange": 0.5,
+        "recentAvg": 55.8,
+        "priorAvg": 55.2
+      }
     },
     {
       "id": "ind",
@@ -11775,7 +15811,233 @@
             "housing_price_drops": 0.008
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 54.2,
+          "weeksInQuarter": 12,
+          "high": 60,
+          "low": 47,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 47.3,
+          "weeksInQuarter": 13,
+          "high": 54,
+          "low": 43,
+          "qoqChange": -6.9
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 45.4,
+          "weeksInQuarter": 13,
+          "high": 62,
+          "low": 31,
+          "qoqChange": -1.9
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 53.0,
+          "weeksInQuarter": 13,
+          "high": 61,
+          "low": 31,
+          "qoqChange": 7.6
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 56.0,
+          "weeksInQuarter": 1,
+          "high": 56,
+          "low": 56,
+          "qoqChange": 3.0
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.261,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.034,
+            "qoqChange": -0.227
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.751,
+            "qoqChange": -0.785
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.448,
+            "qoqChange": 1.199
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.367,
+            "qoqChange": -0.081
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.184,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.016,
+            "qoqChange": -1.168
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.604,
+            "qoqChange": -0.62
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.464,
+            "qoqChange": 0.14
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.532,
+            "qoqChange": -0.068
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.264,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.506,
+            "qoqChange": -0.242
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.694,
+            "qoqChange": 1.2
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.055,
+            "qoqChange": -0.639
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.008,
+            "qoqChange": -0.047
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.104,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.826,
+            "qoqChange": -0.722
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.205,
+            "qoqChange": 0.621
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.038,
+            "qoqChange": 1.243
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.166,
+            "qoqChange": 0.128
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.318,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.384,
+            "qoqChange": 0.066
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.145,
+            "qoqChange": -0.529
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.554,
+            "qoqChange": -0.409
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.269,
+            "qoqChange": 0.823
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.138,
+            "weight": 0.214,
+            "scoreImpact": 0.5,
+            "direction": "up",
+            "currentZScore": 0.522
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.082,
+            "weight": 0.286,
+            "scoreImpact": -0.4,
+            "direction": "down",
+            "currentZScore": 0.694
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.214,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.166
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.532
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.143,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.008
+          }
+        ],
+        "periodChange": 0.2,
+        "recentAvg": 58.2,
+        "priorAvg": 58.0
+      }
     },
     {
       "id": "sea",
@@ -12527,7 +16789,268 @@
             "housing_price_drops": 0.977
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 52.1,
+          "weeksInQuarter": 12,
+          "high": 55,
+          "low": 44,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 51.2,
+          "weeksInQuarter": 13,
+          "high": 56,
+          "low": 43,
+          "qoqChange": -0.9
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 45.2,
+          "weeksInQuarter": 13,
+          "high": 55,
+          "low": 35,
+          "qoqChange": -6.0
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 51.5,
+          "weeksInQuarter": 13,
+          "high": 55,
+          "low": 36,
+          "qoqChange": 6.3
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 51.0,
+          "weeksInQuarter": 1,
+          "high": 51,
+          "low": 51,
+          "qoqChange": -0.5
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.393,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.04,
+            "qoqChange": 0.353
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.404,
+            "qoqChange": -0.364
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.8,
+            "qoqChange": 1.204
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.087,
+            "qoqChange": -0.713
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.85,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.266,
+            "qoqChange": -0.584
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.89,
+            "qoqChange": -1.156
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.146,
+            "qoqChange": 0.744
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.175,
+            "qoqChange": -0.029
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.424,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.479,
+            "qoqChange": -0.055
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.1,
+            "qoqChange": 0.579
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.695,
+            "qoqChange": 0.595
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.977,
+            "qoqChange": 0.282
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.169,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.513,
+            "qoqChange": -0.656
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.128,
+            "qoqChange": -0.641
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -1.359,
+            "qoqChange": -1.231
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.359,
+            "qoqChange": 0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.65,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.656,
+            "qoqChange": -0.006
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.542,
+            "qoqChange": 1.198
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.648,
+            "qoqChange": 0.106
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.873,
+            "qoqChange": 0.225
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.443,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.744,
+            "qoqChange": 0.301
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.98,
+            "qoqChange": -1.724
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.177,
+            "qoqChange": 0.803
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.065,
+            "qoqChange": 0.242
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.535,
+            "weight": 0.235,
+            "scoreImpact": -2.1,
+            "direction": "down",
+            "currentZScore": 0.451
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.141,
+            "weight": 0.176,
+            "scoreImpact": 0.4,
+            "direction": "up",
+            "currentZScore": 0.319
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.359
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.873
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.175
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.977
+          }
+        ],
+        "periodChange": -1.8,
+        "recentAvg": 52.8,
+        "priorAvg": 54.5
+      }
     },
     {
       "id": "den",
@@ -13279,7 +17802,268 @@
             "housing_price_drops": 0.847
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 43.2,
+          "weeksInQuarter": 12,
+          "high": 48,
+          "low": 38,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 49.8,
+          "weeksInQuarter": 13,
+          "high": 54,
+          "low": 45,
+          "qoqChange": 6.5
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 49.2,
+          "weeksInQuarter": 13,
+          "high": 64,
+          "low": 32,
+          "qoqChange": -0.6
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 57.0,
+          "weeksInQuarter": 13,
+          "high": 63,
+          "low": 47,
+          "qoqChange": 7.8
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 51.0,
+          "weeksInQuarter": 1,
+          "high": 51,
+          "low": 51,
+          "qoqChange": -6.0
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.063,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.077,
+            "qoqChange": -0.014
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.54,
+            "qoqChange": -0.463
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.722,
+            "qoqChange": 1.262
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.604,
+            "qoqChange": -1.326
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 1.318,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.28,
+            "qoqChange": -1.038
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.663,
+            "qoqChange": -0.943
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.794,
+            "qoqChange": -0.131
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.504,
+            "qoqChange": 0.29
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.879,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.65,
+            "qoqChange": 0.229
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.584,
+            "qoqChange": 1.234
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.813,
+            "qoqChange": 0.229
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.847,
+            "qoqChange": 0.034
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.687,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.136,
+            "qoqChange": 1.823
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.549,
+            "qoqChange": 0.413
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.81,
+            "qoqChange": 0.261
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.81,
+            "qoqChange": -0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -1.02,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.68,
+            "qoqChange": 0.34
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.566,
+            "qoqChange": 1.246
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.984,
+            "qoqChange": 0.418
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.934,
+            "qoqChange": -0.05
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.219,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.824,
+            "qoqChange": 0.605
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.616,
+            "qoqChange": -1.44
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.347,
+            "qoqChange": 0.269
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -0.829,
+            "qoqChange": -0.482
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.582,
+            "weight": 0.235,
+            "scoreImpact": -2.3,
+            "direction": "down",
+            "currentZScore": 0.306
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.225,
+            "weight": 0.176,
+            "scoreImpact": 0.7,
+            "direction": "up",
+            "currentZScore": 0.435
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.81
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.934
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -0.504
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.847
+          }
+        ],
+        "periodChange": -1.2,
+        "recentAvg": 58.5,
+        "priorAvg": 59.8
+      }
     },
     {
       "id": "dca",
@@ -14031,7 +18815,268 @@
             "housing_price_drops": 1.669
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 49.2,
+          "weeksInQuarter": 12,
+          "high": 55,
+          "low": 39,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 45.6,
+          "weeksInQuarter": 13,
+          "high": 52,
+          "low": 40,
+          "qoqChange": -3.6
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 43.3,
+          "weeksInQuarter": 13,
+          "high": 60,
+          "low": 23,
+          "qoqChange": -2.3
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 61.2,
+          "weeksInQuarter": 13,
+          "high": 65,
+          "low": 54,
+          "qoqChange": 17.9
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 61.0,
+          "weeksInQuarter": 1,
+          "high": 61,
+          "low": 61,
+          "qoqChange": -0.2
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.395,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.29,
+            "qoqChange": 0.105
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.289,
+            "qoqChange": 0.001
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.917,
+            "qoqChange": 1.206
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.331,
+            "qoqChange": -0.586
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.896,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.328,
+            "qoqChange": -0.568
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.011,
+            "qoqChange": -0.317
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -1.064,
+            "qoqChange": -1.075
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.329,
+            "qoqChange": -0.265
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.5,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.459,
+            "qoqChange": 0.041
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.495,
+            "qoqChange": -0.036
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.287,
+            "qoqChange": 1.782
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.669,
+            "qoqChange": 0.382
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.804,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.634,
+            "qoqChange": -1.438
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.661,
+            "qoqChange": -0.027
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.514,
+            "qoqChange": 1.175
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.514,
+            "qoqChange": -0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.711,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.53,
+            "qoqChange": 0.18
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.238,
+            "qoqChange": 0.292
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.299,
+            "qoqChange": 1.537
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.638,
+            "qoqChange": 0.339
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.036,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.115,
+            "qoqChange": 0.151
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.761,
+            "qoqChange": -0.876
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.614,
+            "qoqChange": 1.375
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.843,
+            "qoqChange": 0.229
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "initial_claims",
+            "zScoreChange": 0.611,
+            "weight": 0.176,
+            "scoreImpact": 1.8,
+            "direction": "up",
+            "currentZScore": 1.046
+          },
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.298,
+            "weight": 0.235,
+            "scoreImpact": -1.2,
+            "direction": "down",
+            "currentZScore": 0.623
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.514
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.638
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.329
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.669
+          }
+        ],
+        "periodChange": 0.5,
+        "recentAvg": 62.5,
+        "priorAvg": 62.0
+      }
     },
     {
       "id": "bna",
@@ -14783,7 +19828,268 @@
             "housing_price_drops": 0.97
           }
         }
-      ]
+      ],
+      "quarterly": [
+        {
+          "quarter": "2025-Q2",
+          "avgScore": 49.4,
+          "weeksInQuarter": 12,
+          "high": 62,
+          "low": 38,
+          "qoqChange": null
+        },
+        {
+          "quarter": "2025-Q3",
+          "avgScore": 45.7,
+          "weeksInQuarter": 13,
+          "high": 54,
+          "low": 30,
+          "qoqChange": -3.7
+        },
+        {
+          "quarter": "2025-Q4",
+          "avgScore": 48.2,
+          "weeksInQuarter": 13,
+          "high": 64,
+          "low": 29,
+          "qoqChange": 2.5
+        },
+        {
+          "quarter": "2026-Q1",
+          "avgScore": 56.0,
+          "weeksInQuarter": 13,
+          "high": 61,
+          "low": 47,
+          "qoqChange": 7.8
+        },
+        {
+          "quarter": "2026-Q2",
+          "avgScore": 57.0,
+          "weeksInQuarter": 1,
+          "high": 57,
+          "low": 57,
+          "qoqChange": 1.0
+        }
+      ],
+      "quarterlySignals": {
+        "google_trends_anxiety": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.163,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.021,
+            "qoqChange": 0.142
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.523,
+            "qoqChange": -0.502
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.676,
+            "qoqChange": 1.199
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.232,
+            "qoqChange": -0.444
+          }
+        ],
+        "housing_dom": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.631,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.797,
+            "qoqChange": 0.166
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.101,
+            "qoqChange": -0.898
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -1.153,
+            "qoqChange": -1.052
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": -1.629,
+            "qoqChange": -0.476
+          }
+        ],
+        "housing_price_drops": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.646,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.759,
+            "qoqChange": -0.113
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.515,
+            "qoqChange": 1.274
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.765,
+            "qoqChange": 0.25
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.97,
+            "qoqChange": 0.205
+          }
+        ],
+        "unemployment_rate": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.22,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.702,
+            "qoqChange": -0.922
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.073,
+            "qoqChange": 0.775
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 0.394,
+            "qoqChange": 0.321
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.394,
+            "qoqChange": -0.0
+          }
+        ],
+        "housing_inventory": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": -0.528,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": -0.827,
+            "qoqChange": -0.299
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": 0.214,
+            "qoqChange": 1.041
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": 1.003,
+            "qoqChange": 0.789
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 1.262,
+            "qoqChange": 0.259
+          }
+        ],
+        "initial_claims": [
+          {
+            "quarter": "2025-Q2",
+            "avgZScore": 0.342,
+            "qoqChange": null
+          },
+          {
+            "quarter": "2025-Q3",
+            "avgZScore": 0.086,
+            "qoqChange": -0.256
+          },
+          {
+            "quarter": "2025-Q4",
+            "avgZScore": -0.439,
+            "qoqChange": -0.525
+          },
+          {
+            "quarter": "2026-Q1",
+            "avgZScore": -0.024,
+            "qoqChange": 0.415
+          },
+          {
+            "quarter": "2026-Q2",
+            "avgZScore": 0.806,
+            "qoqChange": 0.83
+          }
+        ]
+      },
+      "sentimentDrivers": {
+        "drivers": [
+          {
+            "signal": "google_trends_anxiety",
+            "zScoreChange": -0.58,
+            "weight": 0.235,
+            "scoreImpact": -2.3,
+            "direction": "down",
+            "currentZScore": 0.438
+          },
+          {
+            "signal": "initial_claims",
+            "zScoreChange": -0.027,
+            "weight": 0.176,
+            "scoreImpact": -0.1,
+            "direction": "down",
+            "currentZScore": 0.323
+          },
+          {
+            "signal": "unemployment_rate",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.394
+          },
+          {
+            "signal": "housing_inventory",
+            "zScoreChange": 0.0,
+            "weight": 0.176,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 1.262
+          },
+          {
+            "signal": "housing_dom",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": -1.629
+          },
+          {
+            "signal": "housing_price_drops",
+            "zScoreChange": 0.0,
+            "weight": 0.118,
+            "scoreImpact": 0.0,
+            "direction": "flat",
+            "currentZScore": 0.97
+          }
+        ],
+        "periodChange": -2.0,
+        "recentAvg": 56.5,
+        "priorAvg": 58.5
+      }
     }
   ]
 }

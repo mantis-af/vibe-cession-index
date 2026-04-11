@@ -252,6 +252,10 @@ def compute_metro_index(metro_id: str, weeks: list[str],
             "signals": sig_snapshot,
         })
 
+    quarterly = compute_quarterly_benchmarks(history)
+    quarterly_signals = compute_quarterly_signal_averages(history)
+    drivers = compute_sentiment_drivers(history, norm_weights)
+
     return {
         "id": metro.id,
         "name": metro.name,
@@ -260,6 +264,9 @@ def compute_metro_index(metro_id: str, weeks: list[str],
         "signalsAvailable": list(signals.keys()),
         "signalWeights": {k: round(v, 3) for k, v in norm_weights.items()},
         "history": history,
+        "quarterly": quarterly,
+        "quarterlySignals": quarterly_signals,
+        "sentimentDrivers": drivers,
     }
 
 
@@ -272,6 +279,142 @@ def fill_forward(values: list) -> list:
             last = v
         result.append(last)
     return result
+
+
+def week_to_quarter(week_str: str) -> str:
+    """Convert 'YYYY-MM-DD' to 'YYYY-Q1' etc."""
+    month = int(week_str[5:7])
+    year = week_str[:4]
+    q = (month - 1) // 3 + 1
+    return f"{year}-Q{q}"
+
+
+def compute_quarterly_benchmarks(history: list[dict]) -> list[dict]:
+    """Compute quarterly averages from weekly history."""
+    quarters: dict[str, list[int]] = {}
+    for h in history:
+        q = week_to_quarter(h["week"])
+        if q not in quarters:
+            quarters[q] = []
+        quarters[q].append(h["compositeScore"])
+
+    result = []
+    sorted_qs = sorted(quarters.keys())
+    for i, q in enumerate(sorted_qs):
+        scores = quarters[q]
+        avg = round(sum(scores) / len(scores), 1)
+        qoq_change = None
+        if i > 0:
+            prev_scores = quarters[sorted_qs[i - 1]]
+            prev_avg = sum(prev_scores) / len(prev_scores)
+            qoq_change = round(avg - prev_avg, 1)
+        result.append({
+            "quarter": q,
+            "avgScore": avg,
+            "weeksInQuarter": len(scores),
+            "high": max(scores),
+            "low": min(scores),
+            "qoqChange": qoq_change,
+        })
+    return result
+
+
+def compute_quarterly_signal_averages(history: list[dict]) -> dict[str, list[dict]]:
+    """Compute quarterly averages per signal for driver analysis."""
+    quarters: dict[str, dict[str, list[float]]] = {}
+    for h in history:
+        q = week_to_quarter(h["week"])
+        if q not in quarters:
+            quarters[q] = {}
+        for sig_name, z_val in h["signals"].items():
+            if sig_name not in quarters[q]:
+                quarters[q][sig_name] = []
+            quarters[q][sig_name].append(z_val)
+
+    result = {}
+    sorted_qs = sorted(quarters.keys())
+    for sig_name in set(k for qdata in quarters.values() for k in qdata):
+        sig_quarters = []
+        for i, q in enumerate(sorted_qs):
+            values = quarters[q].get(sig_name, [])
+            if not values:
+                continue
+            avg_z = round(sum(values) / len(values), 3)
+            qoq = None
+            if i > 0:
+                prev_vals = quarters[sorted_qs[i - 1]].get(sig_name, [])
+                if prev_vals:
+                    prev_avg = sum(prev_vals) / len(prev_vals)
+                    qoq = round(avg_z - prev_avg, 3)
+            sig_quarters.append({
+                "quarter": q,
+                "avgZScore": avg_z,
+                "qoqChange": qoq,
+            })
+        result[sig_name] = sig_quarters
+    return result
+
+
+def compute_sentiment_drivers(history: list[dict], signal_weights: dict[str, float]) -> dict:
+    """
+    Identify which signals are driving sentiment up or down.
+    Compares the latest 4 weeks vs the prior 4 weeks.
+    Returns ranked list of drivers with their contribution to the change.
+    """
+    if len(history) < 8:
+        return {"drivers": [], "periodChange": 0}
+
+    recent = history[-4:]
+    prior = history[-8:-4]
+
+    # Compute average z-score per signal for each period
+    def avg_signals(period: list[dict]) -> dict[str, float]:
+        sums: dict[str, float] = {}
+        counts: dict[str, int] = {}
+        for h in period:
+            for sig, val in h["signals"].items():
+                sums[sig] = sums.get(sig, 0) + val
+                counts[sig] = counts.get(sig, 0) + 1
+        return {sig: sums[sig] / counts[sig] for sig in sums}
+
+    recent_avg = avg_signals(recent)
+    prior_avg = avg_signals(prior)
+
+    # Compute weighted contribution of each signal to the overall change
+    drivers = []
+    total_composite_change = 0
+    for sig_name in recent_avg:
+        if sig_name not in prior_avg:
+            continue
+        z_change = recent_avg[sig_name] - prior_avg[sig_name]
+        weight = signal_weights.get(sig_name, 0)
+        # Contribution to composite (in z-score terms, weighted)
+        contribution = z_change * weight
+        # Convert to approximate score-point impact (z of 1 ≈ 16.67 score points)
+        score_impact = round(contribution * (100 / 6), 1)
+        total_composite_change += score_impact
+        drivers.append({
+            "signal": sig_name,
+            "zScoreChange": round(z_change, 3),
+            "weight": round(weight, 3),
+            "scoreImpact": score_impact,
+            "direction": "up" if score_impact > 0 else "down" if score_impact < 0 else "flat",
+            "currentZScore": round(recent_avg[sig_name], 3),
+        })
+
+    # Sort by absolute impact (biggest movers first)
+    drivers.sort(key=lambda d: abs(d["scoreImpact"]), reverse=True)
+
+    # Period composite change
+    recent_composite = sum(h["compositeScore"] for h in recent) / len(recent)
+    prior_composite = sum(h["compositeScore"] for h in prior) / len(prior)
+
+    return {
+        "drivers": drivers,
+        "periodChange": round(recent_composite - prior_composite, 1),
+        "recentAvg": round(recent_composite, 1),
+        "priorAvg": round(prior_composite, 1),
+    }
 
 
 def main():
@@ -314,7 +457,46 @@ def main():
         else:
             print("SKIP (no data)")
 
-    # Compute national summary
+    # Compute national-level aggregates by averaging across metros
+    national_history = []
+    for w_idx in range(len(weeks)):
+        composites = []
+        officials = []
+        sig_sums: dict[str, list[float]] = {}
+        for m in metros_output:
+            if w_idx < len(m["history"]):
+                h = m["history"][w_idx]
+                composites.append(h["compositeScore"])
+                officials.append(h["officialIndex"])
+                for sig, val in h["signals"].items():
+                    if sig not in sig_sums:
+                        sig_sums[sig] = []
+                    sig_sums[sig].append(val)
+        if composites:
+            avg_composite = round(mean(composites))
+            avg_official = round(mean(officials))
+            avg_signals = {sig: round(mean(vals), 3) for sig, vals in sig_sums.items()}
+            national_history.append({
+                "week": weeks[w_idx],
+                "compositeScore": avg_composite,
+                "officialIndex": avg_official,
+                "vibesGap": avg_composite - avg_official,
+                "signals": avg_signals,
+            })
+
+    # Compute national average signal weights (average across metros)
+    all_weights: dict[str, list[float]] = {}
+    for m in metros_output:
+        for sig, w in m["signalWeights"].items():
+            if sig not in all_weights:
+                all_weights[sig] = []
+            all_weights[sig].append(w)
+    avg_weights = {sig: round(mean(vals), 3) for sig, vals in all_weights.items()}
+
+    national_quarterly = compute_quarterly_benchmarks(national_history)
+    national_quarterly_signals = compute_quarterly_signal_averages(national_history)
+    national_drivers = compute_sentiment_drivers(national_history, avg_weights)
+
     latest_scores = [m["history"][-1]["compositeScore"] for m in metros_output if m["history"]]
     summary = {
         "generatedAt": datetime.now().isoformat(),
@@ -322,6 +504,9 @@ def main():
         "weekRange": {"start": weeks[0], "end": weeks[-1]},
         "metroCount": len(metros_output),
         "nationalAverage": round(mean(latest_scores), 1) if latest_scores else 0,
+        "nationalQuarterly": national_quarterly,
+        "nationalQuarterlySignals": national_quarterly_signals,
+        "nationalDrivers": national_drivers,
     }
 
     dashboard = {
