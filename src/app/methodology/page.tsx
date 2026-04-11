@@ -35,7 +35,7 @@ export default function MethodologyPage() {
             {/* What is it */}
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">01</span>
+                <span className="text-xs font-mono text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">01</span>
                 What is Undercurrent?
               </h2>
               <p className="text-muted-foreground leading-relaxed">
@@ -55,23 +55,23 @@ export default function MethodologyPage() {
             {/* Component Signals */}
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">02</span>
+                <span className="text-xs font-mono text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">02</span>
                 Component Signals
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 The index composites 8 signals into a single score per metro, updated weekly.
               </p>
-              <div className="glass rounded-2xl overflow-hidden">
+              <div className="surface rounded-2xl overflow-hidden">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-white/[0.06]">
+                    <tr className="border-b border-zinc-200">
                       <th className="text-left px-5 py-3 text-foreground font-medium text-xs uppercase tracking-wider">Signal</th>
                       <th className="text-right px-5 py-3 text-foreground font-medium text-xs uppercase tracking-wider">Weight</th>
                     </tr>
                   </thead>
                   <tbody>
                     {sorted.map((key, i) => (
-                      <tr key={key} className="border-b border-white/[0.03] last:border-0">
+                      <tr key={key} className="border-b border-zinc-100 last:border-0">
                         <td className="px-5 py-4">
                           <div className="text-foreground font-medium">{SIGNAL_LABELS[key]}</div>
                           <div className="text-xs text-muted-foreground mt-0.5">
@@ -80,9 +80,9 @@ export default function MethodologyPage() {
                         </td>
                         <td className="text-right px-5 py-4">
                           <div className="flex items-center justify-end gap-2">
-                            <div className="w-16 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+                            <div className="w-16 h-1.5 bg-zinc-100 rounded-full overflow-hidden">
                               <div
-                                className="h-full rounded-full bg-violet-400/60"
+                                className="h-full rounded-full bg-indigo-400"
                                 style={{ width: `${SIGNAL_WEIGHTS[key] * 500}%` }}
                               />
                             </div>
@@ -103,7 +103,7 @@ export default function MethodologyPage() {
             {/* Normalization */}
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">03</span>
+                <span className="text-xs font-mono text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">03</span>
                 Normalization
               </h2>
               <p className="text-muted-foreground leading-relaxed">
@@ -120,7 +120,7 @@ export default function MethodologyPage() {
             {/* The Sentiment Gap */}
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">04</span>
+                <span className="text-xs font-mono text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">04</span>
                 The Sentiment Gap
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
@@ -128,13 +128,13 @@ export default function MethodologyPage() {
                 data (LAUS unemployment, CPI). The difference between the Behavioral
                 Index and the Official Index is the <strong className="text-foreground">Sentiment Gap</strong>.
               </p>
-              <div className="glass rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="surface rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="text-center py-4">
-                  <div className="text-3xl font-mono font-bold text-green-400 mb-1">+ Positive</div>
+                  <div className="text-3xl font-mono font-bold text-emerald-600 mb-1">+ Positive</div>
                   <div className="text-sm text-muted-foreground">Hidden economic strength. People feel better than the data suggests.</div>
                 </div>
                 <div className="text-center py-4">
-                  <div className="text-3xl font-mono font-bold text-red-400 mb-1">- Negative</div>
+                  <div className="text-3xl font-mono font-bold text-red-600 mb-1">- Negative</div>
                   <div className="text-sm text-muted-foreground">Sentiment recession. People feel worse than official numbers show.</div>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default function MethodologyPage() {
             {/* Data Sources */}
             <section>
               <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                <span className="text-xs font-mono text-violet-400 bg-violet-400/10 px-2 py-0.5 rounded-full">05</span>
+                <span className="text-xs font-mono text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">05</span>
                 Data Sources
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
@@ -160,7 +160,7 @@ export default function MethodologyPage() {
                   { name: "Indeed Hiring Lab", detail: "Free, metro-level job posting trends and velocity" },
                   { name: "Yelp / Google Places", detail: "Business openings and closings by category" },
                 ].map((source) => (
-                  <div key={source.name} className="glass rounded-xl px-5 py-3.5 flex items-center justify-between">
+                  <div key={source.name} className="surface rounded-xl px-5 py-3.5 flex items-center justify-between">
                     <span className="text-sm font-medium text-foreground">{source.name}</span>
                     <span className="text-xs text-muted-foreground">{source.detail}</span>
                   </div>

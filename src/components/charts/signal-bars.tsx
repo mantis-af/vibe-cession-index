@@ -13,11 +13,9 @@ export function SignalBars({ signals }: Props) {
     description: SIGNAL_DESCRIPTIONS[key],
     weight: SIGNAL_WEIGHTS[key],
     zScore: signals[key],
-    // Convert z-score to 0-100 for bar width
     normalizedValue: Math.round(((signals[key] + 3) / 6) * 100),
   }));
 
-  // Sort by weight (highest first)
   entries.sort((a, b) => b.weight - a.weight);
 
   return (
@@ -27,7 +25,7 @@ export function SignalBars({ signals }: Props) {
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2">
               <span className="text-sm text-foreground">{entry.label}</span>
-              <span className="text-[10px] font-mono text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+              <span className="text-[10px] font-mono text-muted-foreground bg-zinc-100 px-1.5 py-0.5 rounded">
                 {Math.round(entry.weight * 100)}%
               </span>
             </div>
@@ -35,7 +33,7 @@ export function SignalBars({ signals }: Props) {
               {entry.zScore > 0 ? "+" : ""}{entry.zScore.toFixed(2)}
             </span>
           </div>
-          <div className="relative h-2 bg-zinc-800 rounded-full overflow-hidden">
+          <div className="relative h-2 bg-zinc-100 rounded-full overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
               style={{
@@ -43,8 +41,7 @@ export function SignalBars({ signals }: Props) {
                 backgroundColor: barColor(entry.normalizedValue),
               }}
             />
-            {/* Center line at 50% (z=0) */}
-            <div className="absolute inset-y-0 left-1/2 w-px bg-zinc-600" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-zinc-300" />
           </div>
           <div className="text-xs text-muted-foreground mt-0.5">{entry.description}</div>
         </div>
@@ -54,17 +51,17 @@ export function SignalBars({ signals }: Props) {
 }
 
 function zScoreColor(z: number): string {
-  if (z >= 1) return "text-green-400";
-  if (z >= 0.3) return "text-green-400/70";
-  if (z >= -0.3) return "text-zinc-400";
-  if (z >= -1) return "text-red-400/70";
-  return "text-red-400";
+  if (z >= 1) return "text-emerald-600";
+  if (z >= 0.3) return "text-emerald-600/70";
+  if (z >= -0.3) return "text-zinc-500";
+  if (z >= -1) return "text-red-600/70";
+  return "text-red-600";
 }
 
 function barColor(normalized: number): string {
-  if (normalized >= 65) return "#22c55e";
-  if (normalized >= 55) return "#84cc16";
-  if (normalized >= 45) return "#eab308";
-  if (normalized >= 35) return "#f97316";
-  return "#ef4444";
+  if (normalized >= 65) return "#16a34a";
+  if (normalized >= 55) return "#65a30d";
+  if (normalized >= 45) return "#ca8a04";
+  if (normalized >= 35) return "#ea580c";
+  return "#dc2626";
 }

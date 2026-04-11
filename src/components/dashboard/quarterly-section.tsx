@@ -20,7 +20,7 @@ export function QuarterlySection({ quarterly }: Props) {
     <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">
       <FadeIn>
         <div className="flex items-center gap-3 mb-2">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
           <span className="font-[family-name:var(--font-instrument)] italic">Quarterly Benchmarks</span>
@@ -36,13 +36,13 @@ export function QuarterlySection({ quarterly }: Props) {
           const isCurrent = q.quarter === current.quarter;
           return (
             <StaggerItem key={q.quarter}>
-              <div className={`glass rounded-xl p-4 sm:p-5 ${isCurrent ? "ring-1 ring-violet-500/30" : ""}`}>
+              <div className={`surface rounded-xl p-4 sm:p-5 ${isCurrent ? "ring-1 ring-indigo-200" : ""}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
                     {q.quarter}
                   </span>
                   {isCurrent && (
-                    <span className="text-[9px] font-mono text-violet-400 bg-violet-400/10 px-1.5 py-0.5 rounded-full uppercase">
+                    <span className="text-[9px] font-mono text-indigo-500 bg-indigo-50 px-1.5 py-0.5 rounded-full uppercase">
                       Current
                     </span>
                   )}
@@ -52,7 +52,7 @@ export function QuarterlySection({ quarterly }: Props) {
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   {q.qoqChange !== null ? (
-                    <span className={`flex items-center gap-0.5 font-mono ${q.qoqChange > 0 ? "text-green-400" : q.qoqChange < 0 ? "text-red-400" : "text-zinc-500"}`}>
+                    <span className={`flex items-center gap-0.5 font-mono ${q.qoqChange > 0 ? "text-emerald-600" : q.qoqChange < 0 ? "text-red-600" : "text-zinc-500"}`}>
                       {q.qoqChange > 0 ? <ArrowUpRight className="h-3 w-3" /> : q.qoqChange < 0 ? <ArrowDownRight className="h-3 w-3" /> : <Minus className="h-3 w-3" />}
                       {q.qoqChange > 0 ? "+" : ""}{q.qoqChange}
                     </span>
@@ -72,7 +72,7 @@ export function QuarterlySection({ quarterly }: Props) {
       {/* Quarter-over-quarter narrative */}
       {previous && current.qoqChange !== null && (
         <FadeIn delay={0.3}>
-          <div className="glass rounded-2xl p-5 sm:p-6">
+          <div className="surface rounded-2xl p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
               <div className="flex items-center gap-4">
                 <div className="text-center">
@@ -81,7 +81,7 @@ export function QuarterlySection({ quarterly }: Props) {
                     {previous.avgScore}
                   </div>
                 </div>
-                <div className={`text-xl font-mono font-bold ${current.qoqChange > 0 ? "text-green-400" : "text-red-400"}`}>
+                <div className={`text-xl font-mono font-bold ${current.qoqChange > 0 ? "text-emerald-600" : "text-red-600"}`}>
                   →
                 </div>
                 <div className="text-center">
@@ -92,7 +92,7 @@ export function QuarterlySection({ quarterly }: Props) {
                 </div>
               </div>
               <div className="flex-1">
-                <div className={`text-lg font-semibold ${current.qoqChange > 0 ? "text-green-400" : "text-red-400"}`}>
+                <div className={`text-lg font-semibold ${current.qoqChange > 0 ? "text-emerald-600" : "text-red-600"}`}>
                   {current.qoqChange > 0 ? "+" : ""}{current.qoqChange} points quarter-over-quarter
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">

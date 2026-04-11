@@ -44,7 +44,7 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
       {/* Section header */}
       <FadeIn>
         <div className="flex items-center gap-3 mb-2">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
           <span className="font-[family-name:var(--font-instrument)] italic">National Pulse</span>
@@ -57,7 +57,7 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
       {/* Two-column: Trend chart + Sentiment Gap */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-16">
         <FadeIn delay={0.1} className="lg:col-span-3">
-          <div className="glass rounded-2xl p-6">
+          <div className="surface rounded-2xl p-6">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-sm font-semibold text-foreground">Behavioral vs. Official Index</h3>
@@ -65,11 +65,11 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
               </div>
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-6 h-[2px] rounded bg-violet-400" />
+                  <span className="w-6 h-[2px] rounded bg-indigo-500" />
                   Behavioral
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-6 h-[2px] rounded bg-blue-400 opacity-50" style={{ borderTop: "2px dashed", background: "transparent" }} />
+                  <span className="w-6 h-[2px] rounded bg-slate-400 opacity-50" style={{ borderTop: "2px dashed", background: "transparent" }} />
                   Official
                 </span>
               </div>
@@ -79,7 +79,7 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
         </FadeIn>
 
         <FadeIn delay={0.2} className="lg:col-span-2">
-          <div className="glass rounded-2xl p-6 h-full flex flex-col">
+          <div className="surface rounded-2xl p-6 h-full flex flex-col">
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-foreground">The Sentiment Gap</h3>
               <p className="text-xs text-muted-foreground mt-0.5">
@@ -89,7 +89,7 @@ export function AggregateSection({ metros, summary }: { metros: Metro[]; summary
             <div className="flex-1">
               <VibesGapChart history={nationalHistory} />
             </div>
-            <div className="mt-4 pt-4 border-t border-white/[0.04]">
+            <div className="mt-4 pt-4 border-t border-zinc-200">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-muted-foreground">Current gap</span>
                 <span className={`text-lg font-mono font-bold ${gapColor(summary.averageVibesGap)}`}>
@@ -155,9 +155,9 @@ function SignalHighlight({
   tone: "good" | "warn" | "bad";
 }) {
   const toneColors = {
-    good: "text-green-400 bg-green-400/10 border-green-400/10",
-    warn: "text-amber-400 bg-amber-400/10 border-amber-400/10",
-    bad: "text-red-400 bg-red-400/10 border-red-400/10",
+    good: "text-emerald-600 bg-green-400/10 border-green-400/10",
+    warn: "text-amber-600 bg-amber-400/10 border-amber-400/10",
+    bad: "text-red-600 bg-red-400/10 border-red-400/10",
   };
   const dotColor = {
     good: "bg-green-400",
@@ -166,7 +166,7 @@ function SignalHighlight({
   };
 
   return (
-    <div className="glass rounded-xl p-5 group hover:border-white/10 transition-all duration-300">
+    <div className="surface rounded-xl p-5 group hover:border-white/10 transition-all duration-300">
       <div className="flex items-center gap-2 mb-3">
         <span className={`w-1.5 h-1.5 rounded-full ${dotColor[tone]}`} />
         <span className="text-sm font-semibold text-foreground">{title}</span>

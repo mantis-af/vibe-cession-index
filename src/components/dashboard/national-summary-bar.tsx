@@ -46,7 +46,7 @@ export function NationalSummaryBar({ summary }: { summary: NationalSummary }) {
       <div className="bg-card border border-border rounded-lg p-4">
         <div className="text-xs text-muted-foreground mb-2">Metros Tracked</div>
         <div className="flex items-center gap-2">
-          <Activity className="h-4 w-4 text-violet-400" />
+          <Activity className="h-4 w-4 text-indigo-500" />
           <span className="text-2xl font-mono font-bold text-foreground">20</span>
         </div>
         <div className="text-xs text-muted-foreground mt-1">Updated weekly</div>

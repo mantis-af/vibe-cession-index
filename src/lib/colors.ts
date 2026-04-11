@@ -1,20 +1,20 @@
 /** Map a 0-100 composite score to a color for the index. */
 export function scoreColor(score: number): string {
-  if (score >= 70) return "#22c55e"; // green-500
-  if (score >= 60) return "#84cc16"; // lime-500
-  if (score >= 50) return "#eab308"; // yellow-500
-  if (score >= 40) return "#f97316"; // orange-500
-  if (score >= 30) return "#ef4444"; // red-500
-  return "#dc2626"; // red-600
+  if (score >= 70) return "#16a34a"; // green-600
+  if (score >= 60) return "#65a30d"; // lime-600
+  if (score >= 50) return "#ca8a04"; // yellow-600
+  if (score >= 40) return "#ea580c"; // orange-600
+  if (score >= 30) return "#dc2626"; // red-600
+  return "#b91c1c"; // red-700
 }
 
 export function scoreBg(score: number): string {
-  if (score >= 70) return "bg-green-500/15 text-green-400";
-  if (score >= 60) return "bg-lime-500/15 text-lime-400";
-  if (score >= 50) return "bg-yellow-500/15 text-yellow-400";
-  if (score >= 40) return "bg-orange-500/15 text-orange-400";
-  if (score >= 30) return "bg-red-500/15 text-red-400";
-  return "bg-red-600/15 text-red-500";
+  if (score >= 70) return "bg-green-50 text-green-700";
+  if (score >= 60) return "bg-lime-50 text-lime-700";
+  if (score >= 50) return "bg-yellow-50 text-yellow-700";
+  if (score >= 40) return "bg-orange-50 text-orange-700";
+  if (score >= 30) return "bg-red-50 text-red-700";
+  return "bg-red-100 text-red-800";
 }
 
 export function scoreLabel(score: number): string {
@@ -28,23 +28,23 @@ export function scoreLabel(score: number): string {
 
 export function trendColor(trend: "improving" | "declining" | "stable"): string {
   switch (trend) {
-    case "improving": return "text-green-400";
-    case "declining": return "text-red-400";
-    case "stable": return "text-zinc-400";
+    case "improving": return "text-emerald-600";
+    case "declining": return "text-red-600";
+    case "stable": return "text-zinc-500";
   }
 }
 
 export function changeColor(change: number): string {
-  if (change > 0) return "text-green-400";
-  if (change < 0) return "text-red-400";
-  return "text-zinc-400";
+  if (change > 0) return "text-emerald-600";
+  if (change < 0) return "text-red-600";
+  return "text-zinc-500";
 }
 
 export function gapColor(gap: number): string {
-  if (gap > 5) return "text-green-400";
-  if (gap > 0) return "text-green-400/60";
-  if (gap > -5) return "text-red-400/60";
-  return "text-red-400";
+  if (gap > 5) return "text-emerald-600";
+  if (gap > 0) return "text-emerald-600/70";
+  if (gap > -5) return "text-red-600/70";
+  return "text-red-600";
 }
 
 export function gapLabel(gap: number): string {
@@ -56,15 +56,15 @@ export function gapLabel(gap: number): string {
 }
 
 export const CHART_COLORS = {
-  composite: "#a78bfa",    // violet-400
-  official: "#60a5fa",     // blue-400
-  vibesGap: "#f472b6",     // pink-400
-  jobPostings: "#34d399",  // emerald-400
-  wageToRent: "#fbbf24",   // amber-400
-  smallBiz: "#fb923c",     // orange-400
-  googleTrends: "#a78bfa", // violet-400
-  housing: "#38bdf8",      // sky-400
-  unemployment: "#f87171", // red-400
-  restaurant: "#4ade80",   // green-400
-  permits: "#94a3b8",      // slate-400
+  composite: "#6366f1",    // indigo-500
+  official: "#94a3b8",     // slate-400
+  vibesGap: "#8b5cf6",     // violet-500
+  jobPostings: "#10b981",  // emerald-500
+  wageToRent: "#f59e0b",   // amber-500
+  smallBiz: "#f97316",     // orange-500
+  googleTrends: "#6366f1", // indigo-500
+  housing: "#0ea5e9",      // sky-500
+  unemployment: "#ef4444", // red-500
+  restaurant: "#22c55e",   // green-500
+  permits: "#64748b",      // slate-500
 };

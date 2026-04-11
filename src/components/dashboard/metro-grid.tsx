@@ -62,7 +62,7 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
     <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">
       <FadeIn>
         <div className="flex items-center gap-3 mb-2">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
           <span className="font-[family-name:var(--font-instrument)] italic">Metro Rankings</span>
@@ -89,13 +89,13 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
           <StaggerItem key={metro.id}>
             <Link
               href={`/metro/${metro.id}`}
-              className="group grid grid-cols-[3rem_1fr_5rem_6rem_5rem_5rem_5rem_2rem] gap-4 items-center glass rounded-xl px-5 py-4 hover:bg-white/[0.04] hover:border-violet-500/20 transition-all duration-300"
+              className="group grid grid-cols-[3rem_1fr_5rem_6rem_5rem_5rem_5rem_2rem] gap-4 items-center surface rounded-xl px-5 py-4 hover:bg-zinc-100 hover:border-indigo-300 transition-all duration-300"
             >
               <span className="text-sm font-mono text-muted-foreground">
                 {String(idx + 1).padStart(2, "0")}
               </span>
               <div>
-                <span className="text-sm font-semibold text-foreground group-hover:text-violet-300 transition-colors">
+                <span className="text-sm font-semibold text-foreground group-hover:text-indigo-600 transition-colors">
                   {metro.name}
                 </span>
                 <span className="text-xs text-muted-foreground ml-2">{metro.state}</span>
@@ -119,7 +119,7 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
               <div className="flex justify-end">
                 <MiniSparkline history={metro.history} />
               </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all" />
+              <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition-all" />
             </Link>
           </StaggerItem>
         ))}
@@ -131,7 +131,7 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
           <StaggerItem key={metro.id}>
             <Link
               href={`/metro/${metro.id}`}
-              className="group glass rounded-xl p-4 block hover:bg-white/[0.04] hover:border-violet-500/20 transition-all duration-300"
+              className="group surface rounded-xl p-4 block hover:bg-zinc-100 hover:border-indigo-300 transition-all duration-300"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2.5">
@@ -139,7 +139,7 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
                     #{idx + 1}
                   </span>
                   <div>
-                    <span className="text-sm font-semibold text-foreground group-hover:text-violet-300 transition-colors">
+                    <span className="text-sm font-semibold text-foreground group-hover:text-indigo-600 transition-colors">
                       {metro.name}
                     </span>
                     <span className="text-xs text-muted-foreground ml-1.5">{metro.state}</span>
@@ -147,7 +147,7 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
                 </div>
                 <div className="flex items-center gap-3">
                   <MiniSparkline history={metro.history} />
-                  <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-violet-400 transition-colors" />
+                  <ChevronRight className="h-4 w-4 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
                 </div>
               </div>
               <div className="flex items-center justify-between">

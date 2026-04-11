@@ -57,7 +57,7 @@ export function DriversSection({ drivers }: Props) {
     <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">
       <FadeIn>
         <div className="flex items-center gap-3 mb-2">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
           <span className="font-[family-name:var(--font-instrument)] italic">What&apos;s Driving Sentiment</span>
@@ -69,21 +69,21 @@ export function DriversSection({ drivers }: Props) {
 
       {/* Period summary */}
       <FadeIn delay={0.05}>
-        <div className="glass rounded-2xl p-5 sm:p-6 mb-8">
+        <div className="surface rounded-2xl p-5 sm:p-6 mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
             <div className="flex items-center gap-4">
               <div className="text-center">
                 <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1">Prior 4 wk</div>
                 <div className="text-2xl font-mono font-bold text-muted-foreground">{drivers.priorAvg}</div>
               </div>
-              <div className={`text-xl ${drivers.periodChange >= 0 ? "text-green-400" : "text-red-400"}`}>→</div>
+              <div className={`text-xl ${drivers.periodChange >= 0 ? "text-emerald-600" : "text-red-600"}`}>→</div>
               <div className="text-center">
                 <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1">Last 4 wk</div>
                 <div className="text-2xl font-mono font-bold text-foreground">{drivers.recentAvg}</div>
               </div>
             </div>
             <div className="flex-1">
-              <div className={`text-lg font-semibold flex items-center gap-2 ${drivers.periodChange >= 0 ? "text-green-400" : "text-red-400"}`}>
+              <div className={`text-lg font-semibold flex items-center gap-2 ${drivers.periodChange >= 0 ? "text-emerald-600" : "text-red-600"}`}>
                 {drivers.periodChange >= 0 ? <TrendingUp className="h-5 w-5" /> : <TrendingDown className="h-5 w-5" />}
                 {drivers.periodChange > 0 ? "+" : ""}{drivers.periodChange} points over the period
               </div>
@@ -101,8 +101,8 @@ export function DriversSection({ drivers }: Props) {
         {draggers.length > 0 && (
           <StaggerItem>
             <div className="flex items-center gap-2 mb-2 mt-2">
-              <AlertTriangle className="h-3.5 w-3.5 text-red-400" />
-              <span className="text-xs font-mono uppercase tracking-wider text-red-400">Dragging sentiment down</span>
+              <AlertTriangle className="h-3.5 w-3.5 text-red-600" />
+              <span className="text-xs font-mono uppercase tracking-wider text-red-600">Dragging sentiment down</span>
             </div>
           </StaggerItem>
         )}
@@ -116,8 +116,8 @@ export function DriversSection({ drivers }: Props) {
         {boosters.length > 0 && (
           <StaggerItem>
             <div className="flex items-center gap-2 mb-2 mt-6">
-              <TrendingUp className="h-3.5 w-3.5 text-green-400" />
-              <span className="text-xs font-mono uppercase tracking-wider text-green-400">Boosting sentiment</span>
+              <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="text-xs font-mono uppercase tracking-wider text-emerald-600">Boosting sentiment</span>
             </div>
           </StaggerItem>
         )}
@@ -150,20 +150,20 @@ function DriverCard({ driver }: { driver: SentimentDrivers["drivers"][0] }) {
   const name = SIGNAL_DISPLAY_NAMES[driver.signal] || driver.signal;
   const explanation = SIGNAL_EXPLANATIONS[driver.signal]?.[driver.direction === "up" ? "up" : "down"]
     || (driver.direction === "up" ? "Improving" : driver.direction === "down" ? "Deteriorating" : "Stable");
-  const impactColor = driver.scoreImpact > 0 ? "text-green-400" : driver.scoreImpact < 0 ? "text-red-400" : "text-zinc-500";
+  const impactColor = driver.scoreImpact > 0 ? "text-emerald-600" : driver.scoreImpact < 0 ? "text-red-600" : "text-zinc-500";
   const barWidth = Math.min(100, Math.abs(driver.scoreImpact) * 15);
-  const barColor = driver.scoreImpact > 0 ? "#22c55e" : driver.scoreImpact < 0 ? "#ef4444" : "#71717a";
+  const barColor = driver.scoreImpact > 0 ? "#22c55e" : driver.scoreImpact < 0 ? "#ef4444" : "#a1a1aa";
 
   return (
-    <div className="glass rounded-xl p-4 sm:p-5 group hover:border-white/10 transition-all duration-300">
+    <div className="surface rounded-xl p-4 sm:p-5 group hover:border-zinc-200 transition-all duration-300">
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
         {/* Signal name + impact */}
         <div className="flex items-center justify-between sm:justify-start sm:min-w-[240px] gap-3">
           <div className="flex items-center gap-2">
             {driver.direction === "up" ? (
-              <ArrowUpRight className="h-4 w-4 text-green-400" />
+              <ArrowUpRight className="h-4 w-4 text-emerald-600" />
             ) : driver.direction === "down" ? (
-              <ArrowDownRight className="h-4 w-4 text-red-400" />
+              <ArrowDownRight className="h-4 w-4 text-red-600" />
             ) : (
               <Minus className="h-4 w-4 text-zinc-500" />
             )}
@@ -176,7 +176,7 @@ function DriverCard({ driver }: { driver: SentimentDrivers["drivers"][0] }) {
 
         {/* Impact bar */}
         <div className="flex-1">
-          <div className="relative h-2 bg-zinc-800 rounded-full overflow-hidden">
+          <div className="relative h-2 bg-zinc-100 rounded-full overflow-hidden">
             <div
               className="absolute inset-y-0 rounded-full transition-all duration-700"
               style={{
@@ -191,7 +191,7 @@ function DriverCard({ driver }: { driver: SentimentDrivers["drivers"][0] }) {
         </div>
 
         {/* Weight badge */}
-        <span className="hidden sm:inline text-[10px] font-mono text-muted-foreground bg-white/[0.04] px-2 py-0.5 rounded-full">
+        <span className="hidden sm:inline text-[10px] font-mono text-muted-foreground bg-zinc-100 px-2 py-0.5 rounded-full">
           {Math.round(driver.weight * 100)}% weight
         </span>
       </div>

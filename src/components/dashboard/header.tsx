@@ -21,19 +21,15 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative">
-                <Activity className="h-5 w-5 text-violet-400 group-hover:text-violet-300 transition-colors" />
-                <div className="absolute inset-0 blur-md bg-violet-400/30 group-hover:bg-violet-300/40 transition-colors" />
-              </div>
+              <Activity className="h-5 w-5 text-indigo-500 group-hover:text-indigo-600 transition-colors" />
               <span className="font-[family-name:var(--font-playfair)] text-lg text-foreground tracking-tight italic">
                 Undercurrent
               </span>
             </Link>
 
-            {/* Desktop nav */}
             <nav className="hidden sm:flex items-center gap-1 text-sm">
               {NAV_LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all">
+                <Link key={link.href} href={link.href} className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-zinc-100 transition-all">
                   {link.label}
                 </Link>
               ))}
@@ -41,13 +37,12 @@ export function Header() {
                 href="https://github.com/mantis-af/vibe-cession-index"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all"
+                className="px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-zinc-100 transition-all"
               >
                 GitHub
               </a>
             </nav>
 
-            {/* Mobile hamburger */}
             <button
               className="sm:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -57,27 +52,18 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
-          <div className="sm:hidden border-t border-white/[0.06] px-4 py-3 space-y-1">
+          <div className="sm:hidden border-t border-zinc-200 px-4 py-3 space-y-1 bg-white">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all"
+                className="block px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-zinc-50 transition-all"
               >
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://github.com/mantis-af/vibe-cession-index"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-3 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all"
-            >
-              GitHub
-            </a>
           </div>
         )}
       </header>

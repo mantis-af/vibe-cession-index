@@ -46,10 +46,10 @@ export default async function MetroPage(props: { params: Promise<{ id: string }>
           <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono text-muted-foreground bg-white/[0.04] border border-white/[0.06] rounded-full px-3 py-1">
+                <span className="text-xs font-mono text-muted-foreground bg-zinc-100 border border-zinc-200 rounded-full px-3 py-1">
                   #{String(rank).padStart(2, "0")} of 20
                 </span>
-                <span className="text-xs font-mono text-muted-foreground bg-white/[0.04] border border-white/[0.06] rounded-full px-3 py-1">
+                <span className="text-xs font-mono text-muted-foreground bg-zinc-100 border border-zinc-200 rounded-full px-3 py-1">
                   Pop. {(metro.population / 1_000_000).toFixed(1)}M
                 </span>
               </div>
@@ -80,7 +80,7 @@ export default async function MetroPage(props: { params: Promise<{ id: string }>
                 <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">
                   Sentiment Gap
                 </div>
-                <div className={`text-2xl sm:text-3xl font-mono font-bold ${metro.vibesGap >= 0 ? "text-green-400" : "text-red-400"}`}>
+                <div className={`text-2xl sm:text-3xl font-mono font-bold ${metro.vibesGap >= 0 ? "text-emerald-600" : "text-red-600"}`}>
                   {metro.vibesGap > 0 ? "+" : ""}{metro.vibesGap}
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">{gapLabel(metro.vibesGap)}</div>

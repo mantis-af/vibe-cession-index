@@ -13,7 +13,7 @@ import {
 import { Metro } from "@/lib/types";
 
 const PALETTE = [
-  "#a78bfa", // violet
+  "#6366f1", // violet
   "#38bdf8", // sky
   "#fb923c", // orange
   "#4ade80", // green
@@ -53,21 +53,21 @@ export function MultiMetroChart({ metros, dataKey = "compositeScore", height = 3
   return (
     <ResponsiveContainer width="100%" height={height}>
       <LineChart data={data} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" />
         <XAxis
           dataKey="week"
-          tick={{ fill: "#71717a", fontSize: 10 }}
+          tick={{ fill: "#a1a1aa", fontSize: 10 }}
           tickLine={false}
-          axisLine={{ stroke: "#27272a" }}
+          axisLine={{ stroke: "#e4e4e7" }}
           interval={Math.max(0, Math.floor(data.length / 8) - 1)}
           angle={-30}
           dy={8}
         />
         <YAxis
           domain={dataKey === "vibesGap" ? ["auto", "auto"] : [0, 100]}
-          tick={{ fill: "#71717a", fontSize: 11 }}
+          tick={{ fill: "#a1a1aa", fontSize: 11 }}
           tickLine={false}
-          axisLine={{ stroke: "#27272a" }}
+          axisLine={{ stroke: "#e4e4e7" }}
         />
         {dataKey === "vibesGap" && (
           <ReferenceLine y={0} stroke="#52525b" strokeDasharray="4 4" />
@@ -103,17 +103,17 @@ function CompareTooltip({ active, payload, label, metros }: {
   const sorted = [...payload].sort((a, b) => b.value - a.value);
 
   return (
-    <div className="bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 shadow-xl min-w-[160px]">
-      <div className="text-xs text-zinc-400 mb-1.5">{label}</div>
+    <div className="bg-white border border-zinc-200 rounded-lg px-3 py-2 shadow-xl min-w-[160px]">
+      <div className="text-xs text-zinc-500 mb-1.5">{label}</div>
       {sorted.map((p) => {
         const metro = metros.find((m) => m.id === p.dataKey);
         return (
           <div key={p.dataKey} className="flex items-center justify-between gap-4 text-sm">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
-              <span className="text-zinc-300">{metro?.name || p.name}</span>
+              <span className="text-zinc-600">{metro?.name || p.name}</span>
             </span>
-            <span className="font-mono font-semibold text-zinc-100">{p.value}</span>
+            <span className="font-mono font-semibold text-zinc-900">{p.value}</span>
           </div>
         );
       })}

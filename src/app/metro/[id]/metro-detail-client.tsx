@@ -23,7 +23,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
       {/* Quick stats row */}
       <FadeIn>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.03] rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-50 rounded-2xl overflow-hidden">
           <QuickStat
             label="Score"
             value={metro.currentScore.toString()}
@@ -52,7 +52,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
       {/* Charts row 1: Composite Trend + Radar */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <FadeIn delay={0.1} className="lg:col-span-3">
-          <div className="glass rounded-2xl p-6">
+          <div className="surface rounded-2xl p-6">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-sm font-semibold text-foreground">Index Trend</h3>
@@ -60,7 +60,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
               </div>
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-6 h-[2px] rounded bg-violet-400" />
+                  <span className="w-6 h-[2px] rounded bg-indigo-500" />
                   Behavioral
                 </span>
                 <span className="flex items-center gap-1.5">
@@ -74,7 +74,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
         </FadeIn>
 
         <FadeIn delay={0.2} className="lg:col-span-2">
-          <div className="glass rounded-2xl p-6 h-full">
+          <div className="surface rounded-2xl p-6 h-full">
             <h3 className="text-sm font-semibold text-foreground mb-1">Signal Radar</h3>
             <p className="text-xs text-muted-foreground mb-4">Component signal strength distribution</p>
             <SignalsRadarChart signals={metro.currentSignals} />
@@ -85,7 +85,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
       {/* Charts row 2: Sentiment Gap + Signal Bars */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <FadeIn delay={0.15} className="lg:col-span-3">
-          <div className="glass rounded-2xl p-6">
+          <div className="surface rounded-2xl p-6">
             <h3 className="text-sm font-semibold text-foreground mb-1">Sentiment Gap History</h3>
             <p className="text-xs text-muted-foreground mb-6">
               Positive = people feel better than official stats suggest
@@ -95,7 +95,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
         </FadeIn>
 
         <FadeIn delay={0.25} className="lg:col-span-2">
-          <div className="glass rounded-2xl p-6 h-full">
+          <div className="surface rounded-2xl p-6 h-full">
             <h3 className="text-sm font-semibold text-foreground mb-1">Component Signals</h3>
             <p className="text-xs text-muted-foreground mb-4">Z-scores weighted by importance</p>
             <SignalBars signals={metro.currentSignals} />
@@ -106,7 +106,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
       {/* Nearby rankings */}
       {neighbors.length > 0 && (
         <FadeIn delay={0.2}>
-          <div className="glass rounded-2xl p-6">
+          <div className="surface rounded-2xl p-6">
             <h3 className="text-sm font-semibold text-foreground mb-1">Nearby in Rankings</h3>
             <p className="text-xs text-muted-foreground mb-4">Metros ranked close to {metro.name}</p>
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3" staggerDelay={0.06}>
@@ -114,11 +114,11 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
                 <StaggerItem key={n.id}>
                   <Link
                     href={`/metro/${n.id}`}
-                    className="group flex items-center justify-between bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.04] hover:border-violet-500/20 rounded-xl px-4 py-3 transition-all duration-300"
+                    className="group flex items-center justify-between bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 hover:border-indigo-300 rounded-xl px-4 py-3 transition-all duration-300"
                   >
                     <div>
                       <span className="text-xs font-mono text-muted-foreground mr-2">#{String(n.rank).padStart(2, "0")}</span>
-                      <span className="text-sm font-medium text-foreground group-hover:text-violet-300 transition-colors">
+                      <span className="text-sm font-medium text-foreground group-hover:text-indigo-600 transition-colors">
                         {n.name}, {n.state}
                       </span>
                     </div>
@@ -126,7 +126,7 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
                       <span className="text-lg font-mono font-bold tabular-nums" style={{ color: scoreColor(n.score) }}>
                         {n.score}
                       </span>
-                      <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-violet-400 transition-colors" />
+                      <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
                     </div>
                   </Link>
                 </StaggerItem>

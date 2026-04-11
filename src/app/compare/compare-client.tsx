@@ -35,7 +35,7 @@ export function CompareClient({ allMetros, initialIds }: Props) {
     <div className="space-y-8">
       {/* Metro selector */}
       <FadeIn>
-        <div className="glass rounded-2xl p-5">
+        <div className="surface rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-semibold text-foreground">Selected Metros</h3>
@@ -50,7 +50,7 @@ export function CompareClient({ allMetros, initialIds }: Props) {
               <button
                 key={metro.id}
                 onClick={() => removeMetro(metro.id)}
-                className="group flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-lg border transition-all duration-200 hover:border-red-500/30"
+                className="group flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-lg border transition-all duration-200 hover:border-red-300"
                 style={{
                   borderColor: `${METRO_CHART_PALETTE[i % METRO_CHART_PALETTE.length]}40`,
                   backgroundColor: `${METRO_CHART_PALETTE[i % METRO_CHART_PALETTE.length]}10`,
@@ -61,22 +61,22 @@ export function CompareClient({ allMetros, initialIds }: Props) {
                   style={{ backgroundColor: METRO_CHART_PALETTE[i % METRO_CHART_PALETTE.length] }}
                 />
                 <span className="text-sm text-foreground">{metro.name}, {metro.state}</span>
-                <X className="h-3.5 w-3.5 text-muted-foreground group-hover:text-red-400 transition-colors" />
+                <X className="h-3.5 w-3.5 text-muted-foreground group-hover:text-red-600 transition-colors" />
               </button>
             ))}
             {selected.length < 6 && (
               <div className="relative group">
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dashed border-white/10 text-sm text-muted-foreground hover:border-violet-500/30 hover:text-violet-400 transition-all">
+                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dashed border-zinc-200 text-sm text-muted-foreground hover:border-indigo-300 hover:text-indigo-500 transition-all">
                   <Plus className="h-3.5 w-3.5" />
                   Add metro
                 </button>
                 {/* Dropdown */}
-                <div className="absolute top-full left-0 mt-1 w-64 max-h-64 overflow-y-auto glass rounded-xl p-1 opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-all z-50">
+                <div className="absolute top-full left-0 mt-1 w-64 max-h-64 overflow-y-auto surface rounded-xl p-1 opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-all z-50">
                   {available.map((metro) => (
                     <button
                       key={metro.id}
                       onClick={() => addMetro(metro.id)}
-                      className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-foreground hover:bg-white/[0.06] transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-foreground hover:bg-zinc-100 transition-colors"
                     >
                       <span>{metro.name}, {metro.state}</span>
                       <span className="font-mono text-xs" style={{ color: scoreColor(metro.currentScore) }}>
@@ -95,10 +95,10 @@ export function CompareClient({ allMetros, initialIds }: Props) {
         <>
           {/* Stat comparison table */}
           <FadeIn delay={0.05}>
-            <div className="glass rounded-2xl overflow-hidden">
+            <div className="surface rounded-2xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-white/[0.06]">
+                  <tr className="border-b border-zinc-200">
                     <th className="text-left px-5 py-3 text-xs font-mono uppercase tracking-wider text-muted-foreground">Metro</th>
                     <th className="text-right px-4 py-3 text-xs font-mono uppercase tracking-wider text-muted-foreground">Score</th>
                     <th className="text-right px-4 py-3 text-xs font-mono uppercase tracking-wider text-muted-foreground">WoW</th>
@@ -109,7 +109,7 @@ export function CompareClient({ allMetros, initialIds }: Props) {
                 </thead>
                 <tbody>
                   {selected.map((metro, i) => (
-                    <tr key={metro.id} className="border-b border-white/[0.03] last:border-0">
+                    <tr key={metro.id} className="border-b border-zinc-100 last:border-0">
                       <td className="px-5 py-3">
                         <span className="flex items-center gap-2">
                           <span
@@ -146,7 +146,7 @@ export function CompareClient({ allMetros, initialIds }: Props) {
 
           {/* Composite score chart */}
           <FadeIn delay={0.1}>
-            <div className="glass rounded-2xl p-6">
+            <div className="surface rounded-2xl p-6">
               <h3 className="text-sm font-semibold text-foreground mb-1">Composite Index</h3>
               <p className="text-xs text-muted-foreground mb-4">Behavioral index score — rolling 12 months</p>
               <MultiMetroChart metros={selected} dataKey="compositeScore" />
@@ -155,7 +155,7 @@ export function CompareClient({ allMetros, initialIds }: Props) {
 
           {/* Sentiment gap chart */}
           <FadeIn delay={0.15}>
-            <div className="glass rounded-2xl p-6">
+            <div className="surface rounded-2xl p-6">
               <h3 className="text-sm font-semibold text-foreground mb-1">Sentiment Gap</h3>
               <p className="text-xs text-muted-foreground mb-4">Behavioral minus Official — positive means people feel better than data suggests</p>
               <MultiMetroChart metros={selected} dataKey="vibesGap" />
@@ -165,7 +165,7 @@ export function CompareClient({ allMetros, initialIds }: Props) {
       )}
 
       {selected.length === 0 && (
-        <div className="glass rounded-2xl p-16 text-center">
+        <div className="surface rounded-2xl p-16 text-center">
           <p className="text-muted-foreground">Select at to at least one metro above to begin comparing.</p>
         </div>
       )}

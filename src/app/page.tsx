@@ -27,7 +27,7 @@ export default function Home() {
       <MetroGrid metros={METROS} />
 
       {/* Footer */}
-      <footer className="relative border-t border-white/[0.04] py-16">
+      <footer className="relative border-t border-zinc-200 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -38,7 +38,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-6 text-xs text-muted-foreground">
               <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400/60" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 All signals operational
               </span>
               <span>4 sources: Google Trends + BLS + FRED + Redfin</span>
