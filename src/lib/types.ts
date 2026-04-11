@@ -29,6 +29,8 @@ export interface Metro {
   currentSignals: MetroSignals;
   trend: "improving" | "declining" | "stable";
   history: MetroWeeklySnapshot[];
+  quarterly: Array<{ quarter: string; avgScore: number; weeksInQuarter: number; high: number; low: number; qoqChange: number | null }>;
+  sentimentDrivers: { drivers: Array<{ signal: string; zScoreChange: number; weight: number; scoreImpact: number; direction: "up" | "down" | "flat"; currentZScore: number }>; periodChange: number; recentAvg: number; priorAvg: number };
 }
 
 export interface NationalSummary {

@@ -8,6 +8,7 @@ import { CompositeTrendChart } from "@/components/charts/composite-trend-chart";
 import { SignalsRadarChart } from "@/components/charts/signals-radar-chart";
 import { VibesGapChart } from "@/components/charts/vibes-gap-chart";
 import { SignalBars } from "@/components/charts/signal-bars";
+import { MetroDrivers } from "@/components/dashboard/metro-drivers";
 import { TrendingUp, TrendingDown, Minus, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
 
 interface NeighborMetro {
@@ -103,9 +104,12 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
         </FadeIn>
       </div>
 
+      {/* Sentiment Drivers */}
+      <MetroDrivers metro={metro} />
+
       {/* Nearby rankings */}
       {neighbors.length > 0 && (
-        <FadeIn delay={0.2}>
+        <FadeIn delay={0.35}>
           <div className="surface rounded-2xl p-6">
             <h3 className="text-sm font-semibold text-foreground mb-1">Nearby in Rankings</h3>
             <p className="text-xs text-muted-foreground mb-4">Metros ranked close to {metro.name}</p>

@@ -39,6 +39,8 @@ interface RawMetro {
     vibesGap: number;
     signals: Record<string, number>;
   }>;
+  quarterly: QuarterlyBenchmark[];
+  sentimentDrivers: SentimentDrivers;
 }
 
 export interface QuarterlyBenchmark {
@@ -130,6 +132,8 @@ function loadMetros(): Metro[] {
       currentSignals: current.signals,
       trend: getTrend(history),
       history,
+      quarterly: raw.quarterly ?? [],
+      sentimentDrivers: raw.sentimentDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 },
     };
   });
 }

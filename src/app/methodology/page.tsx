@@ -153,15 +153,18 @@ export default function MethodologyPage() {
               </p>
               <div className="space-y-3">
                 {[
-                  { name: "Google Trends", detail: "Free API, metro-level (DMA), weekly resolution" },
-                  { name: "Redfin Data Center", detail: "Free, metro-level, weekly housing inventory and pricing" },
-                  { name: "BLS LAUS", detail: "Free API, ~430 metro areas, monthly unemployment" },
-                  { name: "Dept. of Labor", detail: "Weekly initial unemployment claims, state-level" },
-                  { name: "Indeed Hiring Lab", detail: "Free, metro-level job posting trends and velocity" },
-                  { name: "Yelp / Google Places", detail: "Business openings and closings by category" },
+                  { name: "Google Trends", detail: "Metro-level (DMA), weekly — distress vs aspiration search ratio", active: true },
+                  { name: "BLS LAUS", detail: "~430 metro areas, monthly unemployment rates", active: true },
+                  { name: "FRED", detail: "Weekly initial unemployment claims by state via St. Louis Fed", active: true },
+                  { name: "Redfin Data Center", detail: "Weekly housing inventory, days on market, price drops", active: true },
+                  { name: "Indeed Hiring Lab", detail: "Metro-level job posting velocity (data source currently offline)", active: false },
+                  { name: "Census Bureau", detail: "Monthly building permits by metro (API currently unavailable)", active: false },
                 ].map((source) => (
-                  <div key={source.name} className="surface rounded-xl px-5 py-3.5 flex items-center justify-between">
-                    <span className="text-sm font-medium text-foreground">{source.name}</span>
+                  <div key={source.name} className={`surface rounded-xl px-5 py-3.5 flex items-center justify-between ${!source.active ? "opacity-50" : ""}`}>
+                    <div className="flex items-center gap-2.5">
+                      <span className={`w-1.5 h-1.5 rounded-full ${source.active ? "bg-emerald-500" : "bg-zinc-300"}`} />
+                      <span className="text-sm font-medium text-foreground">{source.name}</span>
+                    </div>
                     <span className="text-xs text-muted-foreground">{source.detail}</span>
                   </div>
                 ))}
