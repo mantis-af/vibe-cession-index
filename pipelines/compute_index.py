@@ -25,12 +25,12 @@ SIGNAL_WEIGHTS = {
     "google_trends_anxiety": 0.20,
     "unemployment_rate": 0.15,
     "initial_claims": 0.15,
-    # These are placeholders for future pipelines
-    "job_postings": 0.20,
-    "small_biz_health": 0.10,
-    "housing_inventory": 0.10,
-    "restaurant_activity": 0.05,
-    "building_permits": 0.05,
+    "housing_inventory": 0.15,
+    "housing_dom": 0.10,
+    "housing_price_drops": 0.10,
+    # Placeholders for future pipelines
+    "job_postings": 0.10,
+    "small_biz_health": 0.05,
 }
 
 
@@ -126,7 +126,8 @@ def map_weekly_data(source_weeks: list[dict], date_key: str, value_key: str, tar
 def compute_metro_index(metro_id: str, weeks: list[str],
                         trends_data: dict | None,
                         bls_data: dict | None,
-                        fred_data: dict | None) -> dict | None:
+                        fred_data: dict | None,
+                        redfin_data: dict | None) -> dict | None:
     """Compute the composite index for a single metro."""
     metro = next((m for m in METROS if m.id == metro_id), None)
     if not metro:
@@ -141,7 +142,6 @@ def compute_metro_index(metro_id: str, weeks: list[str],
         trend_weeks = trends_data[metro_id].get("weeks", [])
         anxiety_values = map_weekly_data(trend_weeks, "week", "anxiety_ratio", weeks)
         if any(v is not None for v in anxiety_values):
-            # Fill None with last known value
             filled = fill_forward(anxiety_values)
             # Invert: higher anxiety = worse = lower score
             inverted = [1.0 - v if v is not None else None for v in filled]
@@ -169,6 +169,38 @@ def compute_metro_index(metro_id: str, weeks: list[str],
             inverted = [-v if v is not None else None for v in filled]
             signals["initial_claims"] = inverted
             available_weights["initial_claims"] = SIGNAL_WEIGHTS["initial_claims"]
+
+    # --- Redfin Housing Inventory ---
+    if redfin_data and metro_id in redfin_data:
+        redfin_weeks = redfin_data[metro_id].get("weeks", [])
+
+        # Inventory (higher = more supply = market softening, but we treat it as neutral-to-positive
+        # since it means more choice for buyers — Z-score handles relative change)
+        inv_values = map_weekly_data(redfin_weeks, "week", "inventory", weeks)
+        if any(v is not None for v in inv_values):
+            filled = fill_forward(inv_values)
+            # Invert: rising inventory suggests weakening demand
+            inverted = [-v if v is not None else None for v in filled]
+            signals["housing_inventory"] = inverted
+            available_weights["housing_inventory"] = SIGNAL_WEIGHTS["housing_inventory"]
+
+        # Days on Market (higher = slower market = worse sentiment)
+        dom_values = map_weekly_data(redfin_weeks, "week", "median_dom", weeks)
+        if any(v is not None for v in dom_values):
+            filled = fill_forward(dom_values)
+            # Invert: higher DOM = worse
+            inverted = [-v if v is not None else None for v in filled]
+            signals["housing_dom"] = inverted
+            available_weights["housing_dom"] = SIGNAL_WEIGHTS["housing_dom"]
+
+        # Price Drops (higher % = more sellers cutting prices = worse)
+        pd_values = map_weekly_data(redfin_weeks, "week", "price_drops", weeks)
+        if any(v is not None for v in pd_values):
+            filled = fill_forward(pd_values)
+            # Invert: more price drops = worse
+            inverted = [-v if v is not None else None for v in filled]
+            signals["housing_price_drops"] = inverted
+            available_weights["housing_price_drops"] = SIGNAL_WEIGHTS["housing_price_drops"]
 
     if not signals:
         return None
@@ -249,12 +281,15 @@ def main():
     trends_data = load_json("google_trends")
     bls_data = load_json("bls_unemployment")
     fred_data = load_json("fred_claims")
+    redfin_data = load_json("redfin_housing")
 
     sources_available = []
     if trends_data:
         sources_available.append("google_trends")
     if bls_data:
         sources_available.append("bls_unemployment")
+    if redfin_data:
+        sources_available.append("redfin_housing")
     if fred_data:
         sources_available.append("fred_claims")
 
@@ -272,7 +307,7 @@ def main():
     metros_output = []
     for metro in METROS:
         print(f"  {metro.name}...", end=" ")
-        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data)
+        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data, redfin_data)
         if result:
             metros_output.append(result)
             print(f"OK ({len(result['signalsAvailable'])} signals)")

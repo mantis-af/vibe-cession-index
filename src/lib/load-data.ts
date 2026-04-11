@@ -4,13 +4,14 @@ import dashboardJson from "@/data/dashboard.json";
 // Map pipeline signal names to our MetroSignals keys
 const SIGNAL_KEY_MAP: Record<string, keyof MetroSignals> = {
   google_trends_anxiety: "googleTrendsAnxiety",
-  unemployment_rate: "unemploymentClaims", // BLS unemployment maps to this
-  initial_claims: "unemploymentClaims",     // FRED claims also maps here (we pick whichever is present)
+  unemployment_rate: "unemploymentClaims",
+  initial_claims: "unemploymentClaims",
+  housing_inventory: "housingInventory",
+  housing_dom: "housingInventory",          // days on market → housing bucket
+  housing_price_drops: "buildingPermits",   // reuse slot for price drops signal
   job_postings: "jobPostingsVelocity",
   small_biz_health: "smallBizHealth",
-  housing_inventory: "housingInventory",
   restaurant_activity: "restaurantActivity",
-  building_permits: "buildingPermits",
 };
 
 const EMPTY_SIGNALS: MetroSignals = {

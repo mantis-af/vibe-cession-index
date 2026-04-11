@@ -38,6 +38,7 @@ def main():
 
     run("sources/bls_unemployment.py", "BLS LAUS — Metro Unemployment Rates")
     run("sources/fred_claims.py", "FRED — Weekly Initial Claims")
+    run("sources/redfin_housing.py", "Redfin — Housing Inventory, DOM, Price Drops")
 
     run("compute_index.py", "Computing Composite Index")
 
