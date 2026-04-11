@@ -509,15 +509,64 @@ def main():
         "nationalDrivers": national_drivers,
     }
 
+    # Load contextual data (macro indicators, CPI, gas, AI impact)
+    macro_data = load_json("fred_macro")
+    cpi_data = load_json("bls_cpi_metro")
+    gas_data = load_json("eia_gas")
+    ai_data = load_json("ai_impact")
+
+    context_sources = []
+    if macro_data:
+        context_sources.append("fred_macro")
+    if cpi_data:
+        context_sources.append("bls_cpi_metro")
+    if gas_data:
+        context_sources.append("eia_gas")
+    if ai_data:
+        context_sources.append("ai_impact")
+    print(f"Context sources: {context_sources}")
+
+    # Attach metro-level context (CPI, gas, AI)
+    for m in metros_output:
+        metro_context = {}
+        if cpi_data and m["id"] in cpi_data:
+            points = cpi_data[m["id"]].get("points", [])
+            if points:
+                latest = points[-1]
+                metro_context["cpi"] = {
+                    "latestMonth": latest.get("month"),
+                    "indexValue": latest.get("cpi_index"),
+                    "inflationYoY": latest.get("inflation_yoy"),
+                }
+        if gas_data and "metros" in gas_data and m["id"] in gas_data["metros"]:
+            gas_points = gas_data["metros"][m["id"]].get("points", [])
+            if gas_points:
+                latest = gas_points[-1]
+                metro_context["gas"] = {
+                    "latestWeek": latest.get("week"),
+                    "price": latest.get("price"),
+                    "region": gas_data["metros"][m["id"]].get("region"),
+                }
+        if ai_data and m["id"] in ai_data:
+            ai_metro = ai_data[m["id"]]
+            metro_context["ai"] = {
+                "latestAiRatio": ai_metro.get("latestAiRatio"),
+                "aiMomentum": ai_metro.get("aiMomentum"),
+            }
+        m["context"] = metro_context
+
     dashboard = {
         "summary": summary,
         "metros": metros_output,
+        "macro": macro_data or {},
+        "nationalCpi": cpi_data.get("_national", {}) if cpi_data else {},
+        "gasNational": gas_data.get("regions", {}).get("national", {}) if gas_data else {},
     }
 
     with open(DASHBOARD_JSON, "w") as f:
         json.dump(dashboard, f, indent=2)
     print(f"\nDashboard data saved to {DASHBOARD_JSON}")
-    print(f"Metros: {len(metros_output)}, Sources: {sources_available}")
+    print(f"Metros: {len(metros_output)}, Index sources: {sources_available}, Context sources: {context_sources}")
 
 
 if __name__ == "__main__":

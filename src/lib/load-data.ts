@@ -80,6 +80,16 @@ interface RawDashboard {
     nationalDrivers: SentimentDrivers;
   };
   metros: RawMetro[];
+  macro: Record<string, {
+    name: string;
+    seriesId: string;
+    unit: string;
+    frequency: string;
+    transform: string;
+    points: Array<{ date: string; value: number; raw: number | null }>;
+  }>;
+  nationalCpi: { name?: string; points?: Array<{ month: string; cpi_index: number; inflation_yoy?: number }> };
+  gasNational: { name?: string; points?: Array<{ week: string; price: number }> };
 }
 
 function mapSignals(raw: Record<string, number>): MetroSignals {
@@ -166,3 +176,6 @@ const raw = dashboardJson as unknown as RawDashboard;
 export const NATIONAL_QUARTERLY = raw.summary.nationalQuarterly ?? [];
 export const NATIONAL_QUARTERLY_SIGNALS = raw.summary.nationalQuarterlySignals ?? {};
 export const NATIONAL_DRIVERS = raw.summary.nationalDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 };
+export const MACRO_DATA = raw.macro ?? {};
+export const NATIONAL_CPI = raw.nationalCpi ?? {};
+export const GAS_NATIONAL = raw.gasNational ?? {};

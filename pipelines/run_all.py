@@ -40,7 +40,15 @@ def main():
     run("sources/fred_claims.py", "FRED — Weekly Initial Claims")
     run("sources/redfin_housing.py", "Redfin — Housing Inventory, DOM, Price Drops")
 
-    run("compute_index.py", "Computing Composite Index")
+    # Context / macro pipelines
+    run("sources/fred_macro.py", "FRED Macro — GDP, CPI, Sentiment, Rates, Payrolls")
+    run("sources/bls_cpi_metro.py", "BLS CPI — Metro-Level Consumer Prices")
+    run("sources/eia_gas.py", "EIA — Regional Gas Prices")
+
+    if not skip_trends:
+        run("sources/ai_impact.py", "AI Impact — AI vs Traditional Job Search Interest")
+
+    run("compute_index.py", "Computing Composite Index + Context")
 
     print("\n" + "=" * 60)
     print("  Pipeline complete. Dashboard data updated.")

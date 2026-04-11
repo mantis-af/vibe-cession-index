@@ -1,7 +1,8 @@
-import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS } from "@/lib/load-data";
+import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { AggregateSection } from "@/components/dashboard/aggregate-section";
+import { MacroContext } from "@/components/dashboard/macro-context";
 import { QuarterlySection } from "@/components/dashboard/quarterly-section";
 import { DriversSection } from "@/components/dashboard/drivers-section";
 import { MetroGrid } from "@/components/dashboard/metro-grid";
@@ -16,6 +17,9 @@ export default function Home() {
 
       {/* Aggregate US section — national trend + sentiment gap + signal highlights */}
       <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
+
+      {/* Macro Context — GDP, CPI, unemployment, rates, gas */}
+      <MacroContext macro={MACRO_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} />
 
       {/* Quarterly Benchmarks — QoQ comparison cards */}
       <QuarterlySection quarterly={NATIONAL_QUARTERLY} />
@@ -41,7 +45,7 @@ export default function Home() {
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 All signals operational
               </span>
-              <span>4 sources: Google Trends + BLS + FRED + Redfin</span>
+              <span>7 sources: Google Trends + BLS + FRED + Redfin + EIA</span>
             </div>
           </div>
         </div>
