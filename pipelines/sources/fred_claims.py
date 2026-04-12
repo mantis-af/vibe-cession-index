@@ -75,7 +75,7 @@ def main():
     if not FRED_API_KEY:
         print("  No FRED_API_KEY set — using CSV fallback (slower, no rate limit issues)")
 
-    start_date = (datetime.now() - timedelta(days=400)).strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=730)).strftime("%Y-%m-%d")  # 2 years
 
     # Group metros by state (claims are state-level)
     state_series: dict[str, str] = {}

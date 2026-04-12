@@ -22,15 +22,16 @@ DASHBOARD_JSON = Path(__file__).parent.parent / "src" / "data" / "dashboard.json
 DASHBOARD_JSON.parent.mkdir(parents=True, exist_ok=True)
 
 SIGNAL_WEIGHTS = {
-    "google_trends_anxiety": 0.20,
-    "unemployment_rate": 0.15,
-    "initial_claims": 0.15,
-    "housing_inventory": 0.15,
-    "housing_dom": 0.10,
-    "housing_price_drops": 0.10,
-    # Placeholders for future pipelines
-    "job_postings": 0.10,
-    "small_biz_health": 0.05,
+    "google_trends_anxiety": 0.18,  # Search behavior — purest vibes signal
+    "unemployment_rate": 0.12,       # BLS metro unemployment
+    "initial_claims": 0.12,          # FRED weekly jobless claims
+    "housing_inventory": 0.12,       # Redfin active listings
+    "housing_dom": 0.08,             # Redfin days on market
+    "housing_price_drops": 0.08,     # Redfin % of listings with price cuts
+    "new_biz_apps": 0.15,            # FRED weekly new business applications (state)
+    "ai_job_ratio": 0.07,            # AI vs traditional job search ratio
+    # Placeholder
+    "small_biz_health": 0.08,
 }
 
 
@@ -127,7 +128,9 @@ def compute_metro_index(metro_id: str, weeks: list[str],
                         trends_data: dict | None,
                         bls_data: dict | None,
                         fred_data: dict | None,
-                        redfin_data: dict | None) -> dict | None:
+                        redfin_data: dict | None,
+                        expanded_data: dict | None = None,
+                        ai_data: dict | None = None) -> dict | None:
     """Compute the composite index for a single metro."""
     metro = next((m for m in METROS if m.id == metro_id), None)
     if not metro:
@@ -201,6 +204,27 @@ def compute_metro_index(metro_id: str, weeks: list[str],
             inverted = [-v if v is not None else None for v in filled]
             signals["housing_price_drops"] = inverted
             available_weights["housing_price_drops"] = SIGNAL_WEIGHTS["housing_price_drops"]
+
+    # --- New Business Applications (state-level, weekly) ---
+    if expanded_data and "metroStateData" in expanded_data and metro_id in expanded_data["metroStateData"]:
+        biz_pts = expanded_data["metroStateData"][metro_id].get("bizApps", [])
+        biz_values = map_weekly_data(biz_pts, "date", "value", weeks)
+        if any(v is not None for v in biz_values):
+            filled = fill_forward(biz_values)
+            # Higher biz apps = more entrepreneurial confidence = positive
+            signals["new_biz_apps"] = filled
+            available_weights["new_biz_apps"] = SIGNAL_WEIGHTS["new_biz_apps"]
+
+    # --- AI Job Search Ratio ---
+    if ai_data and metro_id in ai_data:
+        ai_weeks = ai_data[metro_id].get("weeks", [])
+        ai_values = map_weekly_data(ai_weeks, "week", "ai_ratio", weeks)
+        if any(v is not None for v in ai_values):
+            filled = fill_forward(ai_values)
+            # Higher AI ratio = labor market pivoting toward AI (neutral signal,
+            # but momentum matters — we track the level and let z-score capture change)
+            signals["ai_job_ratio"] = filled
+            available_weights["ai_job_ratio"] = SIGNAL_WEIGHTS["ai_job_ratio"]
 
     if not signals:
         return None
@@ -420,11 +444,13 @@ def compute_sentiment_drivers(history: list[dict], signal_weights: dict[str, flo
 def main():
     print("=== Index Computation Pipeline ===")
 
-    # Load source data
+    # Load source data (index signals)
     trends_data = load_json("google_trends")
     bls_data = load_json("bls_unemployment")
     fred_data = load_json("fred_claims")
     redfin_data = load_json("redfin_housing")
+    expanded_data = load_json("fred_expanded")
+    ai_data = load_json("ai_impact")
 
     sources_available = []
     if trends_data:
@@ -435,6 +461,10 @@ def main():
         sources_available.append("redfin_housing")
     if fred_data:
         sources_available.append("fred_claims")
+    if expanded_data:
+        sources_available.append("fred_expanded")
+    if ai_data:
+        sources_available.append("ai_impact")
 
     print(f"Sources available: {sources_available or 'NONE'}")
     if not sources_available:
@@ -444,13 +474,13 @@ def main():
         print("  python pipelines/sources/fred_claims.py")
         sys.exit(1)
 
-    weeks = get_weekly_dates(52)
+    weeks = get_weekly_dates(78)  # 18 months
     print(f"Computing index for {len(weeks)} weeks ({weeks[0]} to {weeks[-1]})")
 
     metros_output = []
     for metro in METROS:
         print(f"  {metro.name}...", end=" ")
-        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data, redfin_data)
+        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data, redfin_data, expanded_data, ai_data)
         if result:
             metros_output.append(result)
             print(f"OK ({len(result['signalsAvailable'])} signals)")
@@ -509,13 +539,12 @@ def main():
         "nationalDrivers": national_drivers,
     }
 
-    # Load contextual data (macro indicators, CPI, gas, AI impact, expanded, zillow)
+    # Load additional contextual data (macro indicators, CPI, gas, zillow)
     macro_data = load_json("fred_macro")
     cpi_data = load_json("bls_cpi_metro")
     gas_data = load_json("eia_gas")
-    ai_data = load_json("ai_impact")
-    expanded_data = load_json("fred_expanded")
     zillow_data = load_json("zillow_zhvi")
+    # expanded_data and ai_data already loaded above for index signals
 
     context_sources = []
     if macro_data:
