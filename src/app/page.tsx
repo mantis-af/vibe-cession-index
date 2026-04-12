@@ -2,6 +2,7 @@ import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_D
 import narrativeJson from "@/data/narrative.json";
 import leadlagJson from "@/data/leadlag.json";
 import { Header } from "@/components/dashboard/header";
+import { SectionNav } from "@/components/dashboard/section-nav";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { AggregateSection } from "@/components/dashboard/aggregate-section";
 import { MacroContext } from "@/components/dashboard/macro-context";
@@ -23,50 +24,62 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <SectionNav />
 
       {/* Hero — big national score, full viewport */}
       <HeroSection summary={NATIONAL_SUMMARY} />
 
-      {/* Aggregate US section — national trend + sentiment gap + signal highlights */}
-      <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
+      <div id="pulse" className="scroll-mt-28">
+        <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
+      </div>
 
-      {/* Weekly Analysis — auto-generated narrative */}
-      <WeeklyNarrative
-        headline={narrativeJson.headline}
-        weekOf={narrativeJson.weekOf}
-        sections={narrativeJson.sections}
-      />
+      <div id="narrative" className="scroll-mt-28">
+        <WeeklyNarrative
+          headline={narrativeJson.headline}
+          weekOf={narrativeJson.weekOf}
+          sections={narrativeJson.sections}
+        />
+      </div>
 
-      {/* US Heatmap — geographic visualization of all 50 metros */}
-      <UsHeatmap metros={METROS} />
+      <div id="map" className="scroll-mt-28">
+        <UsHeatmap metros={METROS} />
+      </div>
 
-      {/* Macro Context — GDP, CPI, unemployment, rates, gas, markets */}
-      <MacroContext macro={MACRO_DATA} expanded={EXPANDED_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} />
+      <div id="macro" className="scroll-mt-28">
+        <MacroContext macro={MACRO_DATA} expanded={EXPANDED_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} />
+      </div>
 
-      {/* Quarterly Benchmarks — QoQ comparison cards */}
-      <QuarterlySection quarterly={NATIONAL_QUARTERLY} />
+      <div id="quarterly" className="scroll-mt-28">
+        <QuarterlySection quarterly={NATIONAL_QUARTERLY} />
+      </div>
 
-      {/* Sentiment Drivers — what's pulling the index up or down */}
-      <DriversSection drivers={NATIONAL_DRIVERS} />
+      <div id="drivers" className="scroll-mt-28">
+        <DriversSection drivers={NATIONAL_DRIVERS} />
+      </div>
 
-      {/* Predictive Power — behavioral leads official by N weeks */}
-      <LeadLagSection
-        national={leadlagJson.national}
-        summary={leadlagJson.summary}
-        metros={leadlagJson.metros}
-      />
+      <div id="predictive" className="scroll-mt-28">
+        <LeadLagSection
+          national={leadlagJson.national}
+          summary={leadlagJson.summary}
+          metros={leadlagJson.metros}
+        />
+      </div>
 
-      {/* Housing Market — Zillow home values, appreciation/decline */}
-      <HousingSection metros={METROS} />
+      <div id="housing" className="scroll-mt-28">
+        <HousingSection metros={METROS} />
+      </div>
 
-      {/* Affordability Index — can people afford to live there? */}
-      <AffordabilitySection metros={METROS} />
+      <div id="affordability" className="scroll-mt-28">
+        <AffordabilitySection metros={METROS} />
+      </div>
 
-      {/* AI Economic Impact — which metros are seeing AI reshape labor */}
-      <AiImpactSection metros={METROS} />
+      <div id="ai" className="scroll-mt-28">
+        <AiImpactSection metros={METROS} />
+      </div>
 
-      {/* Metro Rankings — sleek table with sparklines */}
-      <MetroGrid metros={METROS} />
+      <div id="rankings" className="scroll-mt-28">
+        <MetroGrid metros={METROS} />
+      </div>
 
       {/* Footer */}
       <footer className="relative border-t border-zinc-200 py-12">
@@ -75,7 +88,7 @@ export default function Home() {
             <div>
               <div className="text-sm font-semibold text-foreground mb-1 font-[family-name:var(--font-playfair)] italic">Undercurrent</div>
               <div className="text-xs text-muted-foreground">
-                Behavioral economic intelligence for 20 US metros.
+                Behavioral economic intelligence for 50 US metros.
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-xs text-muted-foreground">

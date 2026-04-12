@@ -120,10 +120,10 @@ export default function OGImage() {
         {/* Footer */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "24px", paddingTop: "16px", borderTop: "1px solid #e4e4e7" }}>
           <div style={{ display: "flex", fontSize: "14px", color: "#a1a1aa" }}>
-            20 US metros &middot; Updated weekly
+            50 US metros &middot; Updated weekly
           </div>
           <div style={{ display: "flex", fontSize: "14px", color: "#a1a1aa" }}>
-            Google Trends + BLS + FRED + Redfin
+            10 pipelines &middot; 40+ indicators
           </div>
         </div>
       </div>

@@ -54,7 +54,7 @@ export default function TwitterImage() {
           Sentiment Gap: {gap > 0 ? "+" : ""}{gap.toFixed(1)}
         </div>
         <div style={{ display: "flex", fontSize: "13px", color: "#a1a1aa", marginTop: "28px" }}>
-          20 US metros &middot; 4 data sources &middot; Updated weekly
+          50 US metros &middot; 10 data pipelines &middot; Updated weekly
         </div>
       </div>
     ),
