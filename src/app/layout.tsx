@@ -25,17 +25,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Undercurrent — The Economy Beneath the Economy",
-  description: "A real-time behavioral economic index surfacing how people actually experience the economy across 20 US metros. Powered by Google Trends, BLS, FRED, and Redfin data.",
+  description: "A real-time behavioral economic index surfacing how people actually experience the economy across 50 US metros. 10 data pipelines, 40+ indicators, updated weekly.",
   openGraph: {
     title: "Undercurrent — The Economy Beneath the Economy",
-    description: "Real-time behavioral economic tracking for 20 US metros. See how people actually feel about the economy.",
+    description: "Real-time behavioral economic tracking for 50 US metros. See how people actually feel about the economy.",
     type: "website",
     siteName: "Undercurrent",
   },
   twitter: {
     card: "summary_large_image",
     title: "Undercurrent — The Economy Beneath the Economy",
-    description: "Real-time behavioral economic tracking for 20 US metros.",
+    description: "Real-time behavioral economic tracking for 50 US metros.",
   },
 };
 

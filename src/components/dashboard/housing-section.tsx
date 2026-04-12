@@ -38,7 +38,7 @@ export function HousingSection({ metros }: Props) {
           <span className="font-[family-name:var(--font-instrument)] italic">Housing Market</span>
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mb-10">
-          Real home values from Zillow across 20 metros — where prices are rising, where they&apos;re falling, and how
+          Real home values from Zillow across 50 metros — where prices are rising, where they&apos;re falling, and how
           housing affordability shapes the economic experience.
         </p>
       </FadeIn>
@@ -49,7 +49,7 @@ export function HousingSection({ metros }: Props) {
           <div className="bg-white px-5 py-4 text-center">
             <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground mb-1.5">Median Home Value</div>
             <div className="text-2xl font-mono font-bold text-foreground">${(medianPrice / 1000).toFixed(0)}K</div>
-            <div className="text-[10px] text-muted-foreground">across 20 metros</div>
+            <div className="text-[10px] text-muted-foreground">across 50 metros</div>
           </div>
           <div className="bg-white px-5 py-4 text-center">
             <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground mb-1.5">Avg Appreciation</div>

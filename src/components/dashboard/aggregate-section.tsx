@@ -98,7 +98,7 @@ export function AggregateSection({ metros, summary, drivers }: { metros: Metro[]
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-sm font-semibold text-foreground">Behavioral vs. Official Index</h3>
-                <p className="text-xs text-muted-foreground mt-0.5">National average across 20 metros</p>
+                <p className="text-xs text-muted-foreground mt-0.5">National average across 50 metros</p>
               </div>
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">

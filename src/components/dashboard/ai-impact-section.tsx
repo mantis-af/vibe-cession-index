@@ -54,7 +54,7 @@ export function AiImpactSection({ metros }: Props) {
           <div className="bg-white px-5 py-4 text-center">
             <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground mb-1.5">Avg AI Search Share</div>
             <div className="text-2xl font-mono font-bold text-indigo-600">{(avgRatio * 100).toFixed(0)}%</div>
-            <div className="text-[10px] text-muted-foreground">across 20 metros</div>
+            <div className="text-[10px] text-muted-foreground">across 50 metros</div>
           </div>
           <div className="bg-white px-5 py-4 text-center">
             <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted-foreground mb-1.5">Avg Momentum</div>

@@ -26,7 +26,7 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
         <FadeIn delay={0}>
           <div className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground bg-white border border-zinc-200 rounded-full px-4 py-1.5 mb-8 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Week of {formatDate(summary.weekOf)} &middot; 20 metros tracked
+            Week of {formatDate(summary.weekOf)} &middot; 50 metros tracked
           </div>
         </FadeIn>
 
@@ -40,7 +40,7 @@ export function HeroSection({ summary }: { summary: NationalSummary }) {
 
         <FadeIn delay={0.2}>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed">
-            A real-time behavioral index surfacing how Americans actually experience the economy — beneath the headline numbers, across 20 metros, updated weekly.
+            A real-time behavioral index surfacing how Americans actually experience the economy — beneath the headline numbers, across 50 metros, updated weekly.
           </p>
         </FadeIn>
 
