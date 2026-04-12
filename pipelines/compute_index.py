@@ -130,7 +130,9 @@ def compute_metro_index(metro_id: str, weeks: list[str],
                         fred_data: dict | None,
                         redfin_data: dict | None,
                         expanded_data: dict | None = None,
-                        ai_data: dict | None = None) -> dict | None:
+                        ai_data: dict | None = None,
+                        cpi_data: dict | None = None,
+                        macro_data: dict | None = None) -> dict | None:
     """Compute the composite index for a single metro."""
     metro = next((m for m in METROS if m.id == metro_id), None)
     if not metro:
@@ -256,14 +258,6 @@ def compute_metro_index(metro_id: str, weeks: list[str],
         # Convert z-score to 0-100 scale (z of -3 = 0, z of +3 = 100)
         composite = max(0, min(100, round((weighted_sum + 3) / 6 * 100)))
 
-        # Official index: use raw unemployment rate (inverted, scaled)
-        official = 50  # default
-        if "unemployment_rate" in signals:
-            unemp = signals["unemployment_rate"][w_idx]
-            if unemp is not None:
-                # Typical range 2-10%, map to 0-100 (lower = better)
-                official = max(0, min(100, round(100 - (-unemp - 2) / 8 * 100)))
-
         sig_snapshot = {}
         for sig_name in z_scored:
             sig_snapshot[sig_name] = round(z_scored[sig_name][w_idx], 3)
@@ -271,10 +265,78 @@ def compute_metro_index(metro_id: str, weeks: list[str],
         history.append({
             "week": week_str,
             "compositeScore": composite,
-            "officialIndex": official,
-            "vibesGap": composite - official,
+            "officialIndex": 50,  # placeholder, computed below
+            "vibesGap": 0,
             "signals": sig_snapshot,
         })
+
+    # --- Compute Official Index (government data composite) ---
+    # Uses: unemployment rate, initial claims, CPI inflation, biz apps, coincident index
+    # These are "what the government data says" vs our behavioral index
+    official_signals: dict[str, list[float | None]] = {}
+    official_weights: dict[str, float] = {}
+
+    # Unemployment rate (inverted — lower is better)
+    if "unemployment_rate" in signals:
+        official_signals["unemp"] = signals["unemployment_rate"]  # already inverted
+        official_weights["unemp"] = 0.30
+
+    # Initial claims (inverted — lower is better)
+    if "initial_claims" in signals:
+        official_signals["claims"] = signals["initial_claims"]  # already inverted
+        official_weights["claims"] = 0.20
+
+    # CPI inflation (from metro CPI data — inverted, high inflation = bad)
+    if cpi_data and metro_id in cpi_data:
+        cpi_months = cpi_data[metro_id].get("points", [])
+        cpi_values = interpolate_monthly_to_weekly(
+            [p for p in cpi_months if "inflation_yoy" in p],
+            "month", "inflation_yoy", weeks
+        )
+        if any(v is not None for v in cpi_values):
+            filled = fill_forward(cpi_values)
+            inverted = [-v if v is not None else None for v in filled]
+            official_signals["cpi"] = inverted
+            official_weights["cpi"] = 0.20
+
+    # New business applications (higher = better)
+    if "new_biz_apps" in signals:
+        official_signals["biz"] = signals["new_biz_apps"]
+        official_weights["biz"] = 0.15
+
+    # National GDP growth (from macro data, if available)
+    if macro_data and "gdp_growth" in macro_data:
+        gdp_points = macro_data["gdp_growth"].get("points", [])
+        gdp_values = interpolate_monthly_to_weekly(gdp_points, "date", "value", weeks)
+        if any(v is not None for v in gdp_values):
+            filled = fill_forward(gdp_values)
+            official_signals["gdp"] = filled
+            official_weights["gdp"] = 0.15
+
+    # Compute official composite
+    if official_signals:
+        # Renormalize weights
+        total_ow = sum(official_weights.values())
+        norm_ow = {k: v / total_ow for k, v in official_weights.items()}
+
+        # Z-score each official signal
+        official_z: dict[str, list[float]] = {}
+        for sig_name, values in official_signals.items():
+            numeric = [v for v in values if v is not None]
+            if len(numeric) < 3:
+                official_z[sig_name] = [0.0] * n_weeks
+                continue
+            m = mean(numeric)
+            s = stdev(numeric) if len(numeric) > 1 else 1.0
+            if s < 0.0001:
+                s = 1.0
+            official_z[sig_name] = [(v - m) / s if v is not None else 0.0 for v in values]
+
+        for w_idx in range(n_weeks):
+            off_sum = sum(official_z[sig][w_idx] * norm_ow[sig] for sig in official_z)
+            official_score = max(0, min(100, round((off_sum + 3) / 6 * 100)))
+            history[w_idx]["officialIndex"] = official_score
+            history[w_idx]["vibesGap"] = history[w_idx]["compositeScore"] - official_score
 
     quarterly = compute_quarterly_benchmarks(history)
     quarterly_signals = compute_quarterly_signal_averages(history)
@@ -444,13 +506,15 @@ def compute_sentiment_drivers(history: list[dict], signal_weights: dict[str, flo
 def main():
     print("=== Index Computation Pipeline ===")
 
-    # Load source data (index signals)
+    # Load source data (index signals + official index inputs)
     trends_data = load_json("google_trends")
     bls_data = load_json("bls_unemployment")
     fred_data = load_json("fred_claims")
     redfin_data = load_json("redfin_housing")
     expanded_data = load_json("fred_expanded")
     ai_data = load_json("ai_impact")
+    cpi_data = load_json("bls_cpi_metro")
+    macro_data = load_json("fred_macro")
 
     sources_available = []
     if trends_data:
@@ -480,7 +544,7 @@ def main():
     metros_output = []
     for metro in METROS:
         print(f"  {metro.name}...", end=" ")
-        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data, redfin_data, expanded_data, ai_data)
+        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data, redfin_data, expanded_data, ai_data, cpi_data, macro_data)
         if result:
             metros_output.append(result)
             print(f"OK ({len(result['signalsAvailable'])} signals)")
