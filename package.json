@@ -1,6 +1,7 @@
 {
-  "name": "vibe-cession-index",
-  "version": "0.1.0",
+  "name": "undercurrent",
+  "version": "1.0.0",
+  "description": "Real-time behavioral economic intelligence for 50 US metros",
   "private": true,
   "scripts": {
     "dev": "next dev",

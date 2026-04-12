@@ -1,7 +1,6 @@
-import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA } from "@/lib/load-data";
+import { METROS, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA } from "@/lib/load-data";
 import leadlagJson from "@/data/leadlag.json";
 import { Header } from "@/components/dashboard/header";
-import { SectionNav } from "@/components/dashboard/section-nav";
 import { MacroContext } from "@/components/dashboard/macro-context";
 import { QuarterlySection } from "@/components/dashboard/quarterly-section";
 import { DriversSection } from "@/components/dashboard/drivers-section";
