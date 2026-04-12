@@ -1,0 +1,469 @@
+{
+  "generatedAt": "2026-04-11T23:13:56.118596",
+  "lastDataWeek": "2026-04-06",
+  "forecastHorizon": "16 weeks",
+  "signalForecasts": [
+    {
+      "behavioral": "google_trends_anxiety",
+      "official": "initial_claims",
+      "behavioralName": "Search Anxiety",
+      "officialName": "Jobless Claims",
+      "leadWeeks": 11,
+      "correlation": 0.2078,
+      "regression": {
+        "slope": 0.15449304434260097,
+        "intercept": 0.10745229498106411,
+        "r_squared": 0.01700620858406752,
+        "p_value": 0.039759785321426926,
+        "std_error": 0.07473638569817696,
+        "n_observations": 249
+      },
+      "currentBehavioral": 0.456,
+      "currentOfficial": 0.353,
+      "projectedOfficial": 0.178,
+      "direction": "worsening",
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "projected": 0.178,
+          "ciLower": 0.163,
+          "ciUpper": 0.193
+        },
+        {
+          "weeksAhead": 2,
+          "projected": 0.178,
+          "ciLower": 0.148,
+          "ciUpper": 0.208
+        },
+        {
+          "weeksAhead": 3,
+          "projected": 0.178,
+          "ciLower": 0.132,
+          "ciUpper": 0.224
+        },
+        {
+          "weeksAhead": 4,
+          "projected": 0.178,
+          "ciLower": 0.117,
+          "ciUpper": 0.239
+        },
+        {
+          "weeksAhead": 5,
+          "projected": 0.178,
+          "ciLower": 0.102,
+          "ciUpper": 0.254
+        },
+        {
+          "weeksAhead": 6,
+          "projected": 0.178,
+          "ciLower": 0.087,
+          "ciUpper": 0.269
+        },
+        {
+          "weeksAhead": 7,
+          "projected": 0.178,
+          "ciLower": 0.071,
+          "ciUpper": 0.285
+        },
+        {
+          "weeksAhead": 8,
+          "projected": 0.178,
+          "ciLower": 0.056,
+          "ciUpper": 0.3
+        },
+        {
+          "weeksAhead": 9,
+          "projected": 0.178,
+          "ciLower": 0.041,
+          "ciUpper": 0.315
+        },
+        {
+          "weeksAhead": 10,
+          "projected": 0.178,
+          "ciLower": 0.026,
+          "ciUpper": 0.33
+        },
+        {
+          "weeksAhead": 11,
+          "projected": 0.178,
+          "ciLower": 0.011,
+          "ciUpper": 0.345
+        }
+      ],
+      "narrative": "Based on current search anxiety levels, jobless claims is projected to deteriorate over the next 11 weeks (r\u00b2=0.02, p=0.040)."
+    },
+    {
+      "behavioral": "google_trends_anxiety",
+      "official": "new_biz_apps",
+      "behavioralName": "Search Anxiety",
+      "officialName": "New Business Apps",
+      "leadWeeks": 9,
+      "correlation": 0.3423,
+      "regression": {
+        "slope": 0.5003297225959477,
+        "intercept": 0.013067833793458357,
+        "r_squared": 0.11180985741878205,
+        "p_value": 5.6931265536780876e-08,
+        "std_error": 0.08936543165421221,
+        "n_observations": 251
+      },
+      "currentBehavioral": 0.456,
+      "currentOfficial": 1.027,
+      "projectedOfficial": 0.241,
+      "direction": "worsening",
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "projected": 0.241,
+          "ciLower": 0.187,
+          "ciUpper": 0.296
+        },
+        {
+          "weeksAhead": 2,
+          "projected": 0.241,
+          "ciLower": 0.133,
+          "ciUpper": 0.35
+        },
+        {
+          "weeksAhead": 3,
+          "projected": 0.241,
+          "ciLower": 0.078,
+          "ciUpper": 0.405
+        },
+        {
+          "weeksAhead": 4,
+          "projected": 0.241,
+          "ciLower": 0.024,
+          "ciUpper": 0.459
+        },
+        {
+          "weeksAhead": 5,
+          "projected": 0.241,
+          "ciLower": -0.031,
+          "ciUpper": 0.514
+        },
+        {
+          "weeksAhead": 6,
+          "projected": 0.241,
+          "ciLower": -0.085,
+          "ciUpper": 0.568
+        },
+        {
+          "weeksAhead": 7,
+          "projected": 0.241,
+          "ciLower": -0.14,
+          "ciUpper": 0.623
+        },
+        {
+          "weeksAhead": 8,
+          "projected": 0.241,
+          "ciLower": -0.194,
+          "ciUpper": 0.677
+        },
+        {
+          "weeksAhead": 9,
+          "projected": 0.241,
+          "ciLower": -0.249,
+          "ciUpper": 0.732
+        }
+      ],
+      "narrative": "Based on current search anxiety levels, new business apps is projected to deteriorate over the next 9 weeks (r\u00b2=0.11, p=0.000)."
+    },
+    {
+      "behavioral": "housing_dom",
+      "official": "new_biz_apps",
+      "behavioralName": "Days on Market",
+      "officialName": "New Business Apps",
+      "leadWeeks": 7,
+      "correlation": -0.2669,
+      "regression": {
+        "slope": -0.18847058729228164,
+        "intercept": 0.009335859811469251,
+        "r_squared": 0.05793480261164704,
+        "p_value": 0.00011038534571864034,
+        "std_error": 0.04797085259196482,
+        "n_observations": 253
+      },
+      "currentBehavioral": -1.79,
+      "currentOfficial": 1.027,
+      "projectedOfficial": 0.347,
+      "direction": "worsening",
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "projected": 0.347,
+          "ciLower": 0.277,
+          "ciUpper": 0.417
+        },
+        {
+          "weeksAhead": 2,
+          "projected": 0.347,
+          "ciLower": 0.207,
+          "ciUpper": 0.487
+        },
+        {
+          "weeksAhead": 3,
+          "projected": 0.347,
+          "ciLower": 0.137,
+          "ciUpper": 0.557
+        },
+        {
+          "weeksAhead": 4,
+          "projected": 0.347,
+          "ciLower": 0.067,
+          "ciUpper": 0.627
+        },
+        {
+          "weeksAhead": 5,
+          "projected": 0.347,
+          "ciLower": -0.003,
+          "ciUpper": 0.697
+        },
+        {
+          "weeksAhead": 6,
+          "projected": 0.347,
+          "ciLower": -0.073,
+          "ciUpper": 0.767
+        },
+        {
+          "weeksAhead": 7,
+          "projected": 0.347,
+          "ciLower": -0.143,
+          "ciUpper": 0.837
+        }
+      ],
+      "narrative": "Based on current days on market levels, new business apps is projected to deteriorate over the next 7 weeks (r\u00b2=0.06, p=0.000)."
+    },
+    {
+      "behavioral": "housing_dom",
+      "official": "initial_claims",
+      "behavioralName": "Days on Market",
+      "officialName": "Jobless Claims",
+      "leadWeeks": 1,
+      "correlation": 0.2448,
+      "regression": {
+        "slope": -0.15975444341301104,
+        "intercept": 0.017225008443555453,
+        "r_squared": 0.03694041060204749,
+        "p_value": 0.0018886415139223733,
+        "std_error": 0.05088175770746805,
+        "n_observations": 259
+      },
+      "currentBehavioral": -1.79,
+      "currentOfficial": 0.353,
+      "projectedOfficial": 0.303,
+      "direction": "worsening",
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "projected": 0.303,
+          "ciLower": 0.136,
+          "ciUpper": 0.471
+        }
+      ],
+      "narrative": "Based on current days on market levels, jobless claims is projected to deteriorate over the next 1 weeks (r\u00b2=0.04, p=0.002)."
+    },
+    {
+      "behavioral": "housing_inventory",
+      "official": "unemployment_rate",
+      "behavioralName": "Housing Inventory",
+      "officialName": "Unemployment Rate",
+      "leadWeeks": 1,
+      "correlation": 0.4157,
+      "regression": {
+        "slope": 0.21268629054704544,
+        "intercept": 0.010250946535995429,
+        "r_squared": 0.031447936671518135,
+        "p_value": 0.004198254413491829,
+        "std_error": 0.07362720975132754,
+        "n_observations": 259
+      },
+      "currentBehavioral": -0.342,
+      "currentOfficial": -0.056,
+      "projectedOfficial": -0.062,
+      "direction": "worsening",
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "projected": -0.062,
+          "ciLower": -0.254,
+          "ciUpper": 0.129
+        }
+      ],
+      "narrative": "Based on current housing inventory levels, unemployment rate is projected to deteriorate over the next 1 weeks (r\u00b2=0.03, p=0.004)."
+    }
+  ],
+  "compositeForecasts": [
+    {
+      "official": "initial_claims",
+      "officialName": "Jobless Claims",
+      "direction": "worsening",
+      "contributingSignals": 2,
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "week": "2026-04-13",
+          "projected": 0.246,
+          "ciLower": 0.148,
+          "ciUpper": 0.343
+        },
+        {
+          "weeksAhead": 2,
+          "week": "2026-04-20",
+          "projected": 0.178,
+          "ciLower": 0.148,
+          "ciUpper": 0.208
+        },
+        {
+          "weeksAhead": 3,
+          "week": "2026-04-27",
+          "projected": 0.178,
+          "ciLower": 0.132,
+          "ciUpper": 0.224
+        },
+        {
+          "weeksAhead": 4,
+          "week": "2026-05-04",
+          "projected": 0.178,
+          "ciLower": 0.117,
+          "ciUpper": 0.239
+        },
+        {
+          "weeksAhead": 5,
+          "week": "2026-05-11",
+          "projected": 0.178,
+          "ciLower": 0.102,
+          "ciUpper": 0.254
+        },
+        {
+          "weeksAhead": 6,
+          "week": "2026-05-18",
+          "projected": 0.178,
+          "ciLower": 0.087,
+          "ciUpper": 0.269
+        },
+        {
+          "weeksAhead": 7,
+          "week": "2026-05-25",
+          "projected": 0.178,
+          "ciLower": 0.071,
+          "ciUpper": 0.285
+        },
+        {
+          "weeksAhead": 8,
+          "week": "2026-06-01",
+          "projected": 0.178,
+          "ciLower": 0.056,
+          "ciUpper": 0.3
+        },
+        {
+          "weeksAhead": 9,
+          "week": "2026-06-08",
+          "projected": 0.178,
+          "ciLower": 0.041,
+          "ciUpper": 0.315
+        },
+        {
+          "weeksAhead": 10,
+          "week": "2026-06-15",
+          "projected": 0.178,
+          "ciLower": 0.026,
+          "ciUpper": 0.33
+        },
+        {
+          "weeksAhead": 11,
+          "week": "2026-06-22",
+          "projected": 0.178,
+          "ciLower": 0.011,
+          "ciUpper": 0.345
+        }
+      ]
+    },
+    {
+      "official": "new_biz_apps",
+      "officialName": "New Business Apps",
+      "direction": "worsening",
+      "contributingSignals": 2,
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "week": "2026-04-13",
+          "projected": 0.287,
+          "ciLower": 0.226,
+          "ciUpper": 0.349
+        },
+        {
+          "weeksAhead": 2,
+          "week": "2026-04-20",
+          "projected": 0.287,
+          "ciLower": 0.165,
+          "ciUpper": 0.41
+        },
+        {
+          "weeksAhead": 3,
+          "week": "2026-04-27",
+          "projected": 0.287,
+          "ciLower": 0.104,
+          "ciUpper": 0.472
+        },
+        {
+          "weeksAhead": 4,
+          "week": "2026-05-04",
+          "projected": 0.287,
+          "ciLower": 0.043,
+          "ciUpper": 0.533
+        },
+        {
+          "weeksAhead": 5,
+          "week": "2026-05-11",
+          "projected": 0.287,
+          "ciLower": -0.019,
+          "ciUpper": 0.594
+        },
+        {
+          "weeksAhead": 6,
+          "week": "2026-05-18",
+          "projected": 0.287,
+          "ciLower": -0.08,
+          "ciUpper": 0.655
+        },
+        {
+          "weeksAhead": 7,
+          "week": "2026-05-25",
+          "projected": 0.287,
+          "ciLower": -0.141,
+          "ciUpper": 0.717
+        },
+        {
+          "weeksAhead": 8,
+          "week": "2026-06-01",
+          "projected": 0.241,
+          "ciLower": -0.194,
+          "ciUpper": 0.677
+        },
+        {
+          "weeksAhead": 9,
+          "week": "2026-06-08",
+          "projected": 0.241,
+          "ciLower": -0.249,
+          "ciUpper": 0.732
+        }
+      ]
+    },
+    {
+      "official": "unemployment_rate",
+      "officialName": "Unemployment Rate",
+      "direction": "worsening",
+      "contributingSignals": 1,
+      "projections": [
+        {
+          "weeksAhead": 1,
+          "week": "2026-04-13",
+          "projected": -0.062,
+          "ciLower": -0.254,
+          "ciUpper": 0.129
+        }
+      ]
+    }
+  ]
+}

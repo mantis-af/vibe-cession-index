@@ -53,6 +53,7 @@ def main():
 
     run("compute_index.py", "Computing Composite Index + Context")
     run("compute_leadlag.py", "Computing Predictive Lead/Lag Analysis")
+    run("compute_forecast.py", "Generating Forecasts from Lead/Lag")
     run("generate_narrative.py", "Generating Weekly Narrative")
 
     print("\n" + "=" * 60)

@@ -5,15 +5,9 @@ import { cn } from "@/lib/utils";
 
 const SECTIONS = [
   { id: "pulse", label: "Pulse" },
+  { id: "forecast", label: "Forecast" },
   { id: "narrative", label: "Analysis" },
   { id: "map", label: "Map" },
-  { id: "macro", label: "Macro" },
-  { id: "quarterly", label: "Quarterly" },
-  { id: "drivers", label: "Drivers" },
-  { id: "predictive", label: "Predictive" },
-  { id: "housing", label: "Housing" },
-  { id: "affordability", label: "Affordability" },
-  { id: "ai", label: "AI Impact" },
   { id: "rankings", label: "Rankings" },
 ];
 
