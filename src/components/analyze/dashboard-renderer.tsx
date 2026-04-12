@@ -17,7 +17,9 @@ const LAYOUT_CLASSES: Record<string, string> = {
   "2x2": "grid-cols-1 lg:grid-cols-2",
 };
 
-export function DashboardRenderer({ spec }: { spec: DashboardSpec }) {
+type ExternalDataMap = Record<string, Array<{ date: string; value: number }>>;
+
+export function DashboardRenderer({ spec, externalData }: { spec: DashboardSpec; externalData?: ExternalDataMap }) {
   const layout = spec.layout || "2col";
   const gridClass = LAYOUT_CLASSES[layout] || LAYOUT_CLASSES["2col"];
 
@@ -33,7 +35,7 @@ export function DashboardRenderer({ spec }: { spec: DashboardSpec }) {
       <div className={`grid ${gridClass} gap-4 flex-1 min-h-0`}>
         {spec.charts.map((chart, i) => (
           <div key={i} className="border border-zinc-100 rounded-xl p-4 min-h-[280px] flex flex-col">
-            <ArtifactRenderer spec={chart} />
+            <ArtifactRenderer spec={chart} externalData={externalData} />
           </div>
         ))}
       </div>

@@ -15,9 +15,17 @@ import {
   Tooltip,
   ReferenceLine,
 } from "recharts";
-import catalogData from "@/data/catalog.json";
+// Try loading catalog data, but it's optional — external data takes priority
+let catalogSeriesMap: Record<string, Array<{ date: string; value: number }>> = {};
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const catalogData = require("@/data/catalog.json");
+  catalogSeriesMap = (catalogData as unknown as { series: Record<string, Array<{ date: string; value: number }>> }).series || {};
+} catch {
+  // catalog.json may not exist
+}
 
-const seriesMap = (catalogData as unknown as { series: Record<string, Array<{ date: string; value: number }>> }).series;
+type ExternalDataMap = Record<string, Array<{ date: string; value: number }>>;
 
 const DEFAULT_COLORS = ["#6366f1", "#ef4444", "#22c55e", "#f59e0b", "#8b5cf6", "#06b6d4", "#ec4899", "#14b8a6"];
 
@@ -37,14 +45,15 @@ export interface ChartSpec {
   insight?: string;
 }
 
-export function ArtifactRenderer({ spec }: { spec: ChartSpec }) {
+export function ArtifactRenderer({ spec, externalData }: { spec: ChartSpec; externalData?: ExternalDataMap }) {
   const { chartData, hasRightAxis } = useMemo(() => {
     const dateMap = new Map<string, Record<string, number>>();
     let hasRight = false;
 
     for (const s of spec.series) {
       if (s.axis === "right") hasRight = true;
-      const points = seriesMap[s.id] || [];
+      // Prefer external data (from SQLite via API), fall back to catalog
+      const points = externalData?.[s.id] || catalogSeriesMap[s.id] || [];
       for (const p of points) {
         if (spec.dateRange?.from && p.date < spec.dateRange.from) continue;
         if (spec.dateRange?.to && p.date > spec.dateRange.to) continue;

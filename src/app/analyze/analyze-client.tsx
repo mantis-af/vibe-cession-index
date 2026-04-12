@@ -11,9 +11,11 @@ interface Message {
   content: string;
 }
 
+type SeriesDataMap = Record<string, Array<{ date: string; value: number }>>;
+
 type Artifact =
-  | { type: "chart"; spec: ChartSpec; title: string }
-  | { type: "dashboard"; spec: DashboardSpec; title: string };
+  | { type: "chart"; spec: ChartSpec; title: string; data?: SeriesDataMap }
+  | { type: "dashboard"; spec: DashboardSpec; title: string; data?: SeriesDataMap };
 
 export function AnalyzeClient() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -49,6 +51,7 @@ export function AnalyzeClient() {
         text?: string;
         chart?: ChartSpec;
         dashboard?: DashboardSpec;
+        seriesData?: SeriesDataMap;
       }>;
 
       const textParts: string[] = [];
@@ -63,6 +66,7 @@ export function AnalyzeClient() {
             type: "chart",
             spec: block.chart,
             title: block.chart.title,
+            data: block.seriesData,
           });
         }
         if (block.type === "dashboard" && block.dashboard) {
@@ -70,6 +74,7 @@ export function AnalyzeClient() {
             type: "dashboard",
             spec: block.dashboard,
             title: block.dashboard.title,
+            data: block.seriesData,
           });
         }
       }
@@ -127,9 +132,9 @@ export function AnalyzeClient() {
         <div className="flex-1 p-4 sm:p-6 overflow-auto">
           {current ? (
             current.type === "dashboard" ? (
-              <DashboardRenderer spec={current.spec} />
+              <DashboardRenderer spec={current.spec} externalData={current.data} />
             ) : (
-              <ArtifactRenderer spec={current.spec} />
+              <ArtifactRenderer spec={current.spec} externalData={current.data} />
             )
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-center px-8">
