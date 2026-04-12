@@ -203,6 +203,15 @@ export const EXPANDED_DATA = raw.expanded ?? {};
 
 export const GENERATED_AT = raw.summary.generatedAt ?? "";
 
+// Pre-computed national history (full 5-year trend for overview chart)
+export const NATIONAL_HISTORY = ((raw as unknown as { nationalHistory?: Array<{ week: string; compositeScore: number; officialIndex: number; vibesGap: number }> }).nationalHistory ?? []).map((h) => ({
+  week: h.week,
+  compositeScore: h.compositeScore,
+  officialIndex: h.officialIndex,
+  vibesGap: h.vibesGap,
+  signals: EMPTY_SIGNALS,
+}));
+
 /**
  * Load full metro data (with complete 5-year history) from per-metro file.
  * Falls back to the summary data if per-metro file doesn't exist.

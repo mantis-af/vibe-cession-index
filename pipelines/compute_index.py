@@ -731,6 +731,7 @@ def main():
     # --- Write main dashboard (lightweight for overview) ---
     dashboard = {
         "summary": summary,
+        "nationalHistory": national_history,  # full national trend for overview chart
         "metros": metro_summaries,  # lightweight summaries
         "macro": macro_data or {},
         "expanded": expanded_data.get("national", {}) if expanded_data else {},

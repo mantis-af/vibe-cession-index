@@ -1,4 +1,4 @@
-import { METROS, NATIONAL_SUMMARY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA, GENERATED_AT } from "@/lib/load-data";
+import { METROS, NATIONAL_SUMMARY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA, GENERATED_AT, NATIONAL_HISTORY } from "@/lib/load-data";
 import narrativeJson from "@/data/narrative.json";
 import forecastJson from "@/data/forecast.json";
 import { Header } from "@/components/dashboard/header";
@@ -25,7 +25,7 @@ export default function Home() {
 
       {/* 2. National Pulse — trend chart + sentiment gap + key signal movers */}
       <div id="pulse">
-        <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
+        <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} nationalHistory={NATIONAL_HISTORY} />
       </div>
 
       {/* 3. Forecast — where are official indicators heading */}

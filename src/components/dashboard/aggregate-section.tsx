@@ -73,8 +73,8 @@ function computeNationalHistory(metros: Metro[]): MetroWeeklySnapshot[] {
   return result;
 }
 
-export function AggregateSection({ metros, summary, drivers }: { metros: Metro[]; summary: NationalSummary; drivers: SentimentDrivers }) {
-  const nationalHistory = computeNationalHistory(metros);
+export function AggregateSection({ metros, summary, drivers, nationalHistory: precomputedHistory }: { metros: Metro[]; summary: NationalSummary; drivers: SentimentDrivers; nationalHistory?: MetroWeeklySnapshot[] }) {
+  const nationalHistory = precomputedHistory && precomputedHistory.length > 0 ? precomputedHistory : computeNationalHistory(metros);
 
   return (
     <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">

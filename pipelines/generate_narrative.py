@@ -33,18 +33,26 @@ def main():
 
     metros = d["metros"]
     summary = d["summary"]
-    latest_week = metros[0]["history"][-1]["week"] if metros and metros[0]["history"] else ""
+    # Support both old format (history) and new format (sparkHistory)
+    first_metro_history = metros[0].get("history") or metros[0].get("sparkHistory") or []
+    latest_week = first_metro_history[-1]["week"] if first_metro_history else ""
     week_dt = datetime.strptime(latest_week, "%Y-%m-%d") if latest_week else datetime.now()
 
+    def get_score(m):
+        h = m.get("history") or m.get("sparkHistory") or []
+        if h:
+            return h[-1]["compositeScore"]
+        return m.get("currentScore", 50)
+
     # Sort metros
-    by_score = sorted(metros, key=lambda m: m["history"][-1]["compositeScore"], reverse=True)
-    scores = [m["history"][-1]["compositeScore"] for m in metros]
+    by_score = sorted(metros, key=get_score, reverse=True)
+    scores = [get_score(m) for m in metros]
     avg_score = mean(scores)
 
     # Week-over-week changes
     wow_changes = []
     for m in metros:
-        h = m["history"]
+        h = m.get("history") or m.get("sparkHistory") or []
         if len(h) >= 2:
             change = h[-1]["compositeScore"] - h[-2]["compositeScore"]
             wow_changes.append({"id": m["id"], "name": m["name"], "state": m["state"], "change": change, "score": h[-1]["compositeScore"]})
@@ -125,8 +133,8 @@ def main():
     top = by_score[0]
     bottom = by_score[-1]
     spotlight_text = (
-        f"Leading the rankings is {top['name']}, {top['state']} with a score of {top['history'][-1]['compositeScore']}, "
-        f"while {bottom['name']}, {bottom['state']} sits at the bottom with {bottom['history'][-1]['compositeScore']}."
+        f"Leading the rankings is {top['name']}, {top['state']} with a score of {get_score(top)}, "
+        f"while {bottom['name']}, {bottom['state']} sits at the bottom with {get_score(bottom)}."
     )
 
     # 5. Affordability note
