@@ -31,17 +31,18 @@ GAS_SERIES = {
     "west_coast": {"id": "GASREGPCW", "name": "West Coast Regular Gas"},
 }
 
-# Map our metros to gas regions
-METRO_GAS_REGION = {
-    "nyc": "east_coast", "phl": "east_coast", "dca": "east_coast",
-    "clt": "east_coast", "jax": "east_coast",
-    "chi": "midwest", "cmh": "midwest", "ind": "midwest",
-    "hou": "gulf_coast", "sat": "gulf_coast", "dal": "gulf_coast",
-    "aus": "gulf_coast", "bna": "gulf_coast",
-    "den": "rocky_mountain", "phx": "rocky_mountain",
-    "lax": "west_coast", "sfo": "west_coast", "sjc": "west_coast",
-    "sdg": "west_coast", "sea": "west_coast",
+# Map metros to gas regions by state
+_STATE_GAS_REGION = {
+    "NY": "east_coast", "PA": "east_coast", "DC": "east_coast", "NC": "east_coast",
+    "FL": "east_coast", "VA": "east_coast", "MD": "east_coast", "MA": "east_coast",
+    "CT": "east_coast", "GA": "east_coast", "AL": "east_coast",
+    "IL": "midwest", "OH": "midwest", "IN": "midwest", "WI": "midwest",
+    "MN": "midwest", "MI": "midwest", "MO": "midwest", "KY": "midwest",
+    "TX": "gulf_coast", "TN": "gulf_coast", "OK": "gulf_coast",
+    "CO": "rocky_mountain", "AZ": "rocky_mountain", "NM": "rocky_mountain", "UT": "rocky_mountain",
+    "CA": "west_coast", "WA": "west_coast", "OR": "west_coast", "NV": "west_coast",
 }
+METRO_GAS_REGION = {m.id: _STATE_GAS_REGION.get(m.state, "national") for m in METROS}
 
 
 def fetch_fred_csv(series_id: str, start_date: str) -> list[dict]:

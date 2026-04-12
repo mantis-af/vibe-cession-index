@@ -46,21 +46,10 @@ NATIONAL_SERIES = {
 
 # --- State-level series ---
 # New Business Applications by state (weekly — incredibly valuable)
-STATE_BIZ_APPS = {
-    "NY": "BUSAPPWNSANY", "CA": "BUSAPPWNSACA", "TX": "BUSAPPWNSATX",
-    "FL": "BUSAPPWNSAFL", "IL": "BUSAPPWNSAIL", "AZ": "BUSAPPWNSAAZ",
-    "PA": "BUSAPPWNSAPA", "OH": "BUSAPPWNSAOH", "NC": "BUSAPPWNSANC",
-    "IN": "BUSAPPWNSAIN", "WA": "BUSAPPWNSAWA", "CO": "BUSAPPWNSACO",
-    "TN": "BUSAPPWNSATN", "DC": "BUSAPPWNSADC",
-}
-
-# Coincident Economic Index by state (monthly)
-STATE_COINCIDENT = {
-    "NY": "NYPHCI", "CA": "CAPHCI", "TX": "TXPHCI", "FL": "FLPHCI",
-    "IL": "ILPHCI", "AZ": "AZPHCI", "PA": "PAPHCI", "OH": "OHPHCI",
-    "NC": "NCPHCI", "IN": "INPHCI", "WA": "WAPHCI", "CO": "COPHCI",
-    "TN": "TNPHCI", "DC": "DCPHCI",
-}
+# Auto-generate from all unique states in METROS
+_STATES = sorted(set(m.state for m in METROS))
+STATE_BIZ_APPS = {st: f"BUSAPPWNSA{st}" for st in _STATES}
+STATE_COINCIDENT = {st: f"{st}PHCI" for st in _STATES}
 
 
 def fetch_fred_csv(series_id: str, start_date: str) -> list[dict]:

@@ -17,28 +17,9 @@ from config import METROS, OUTPUT_DIR
 
 ZHVI_URL = "https://files.zillowstatic.com/research/public_csvs/zhvi/Metro_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv"
 
-ZILLOW_METRO_MAP = {
-    "nyc": "New York, NY",
-    "lax": "Los Angeles, CA",
-    "chi": "Chicago, IL",
-    "hou": "Houston, TX",
-    "phx": "Phoenix, AZ",
-    "phl": "Philadelphia, PA",
-    "sat": "San Antonio, TX",
-    "sdg": "San Diego, CA",
-    "dal": "Dallas, TX",
-    "sjc": "San Jose, CA",
-    "aus": "Austin, TX",
-    "jax": "Jacksonville, FL",
-    "sfo": "San Francisco, CA",
-    "cmh": "Columbus, OH",
-    "clt": "Charlotte, NC",
-    "ind": "Indianapolis, IN",
-    "sea": "Seattle, WA",
-    "den": "Denver, CO",
-    "dca": "Washington, DC",
-    "bna": "Nashville, TN",
-}
+# Auto-generate from config: "City, ST"
+ZILLOW_METRO_MAP = {m.id: f"{m.name}, {m.state}" for m in METROS}
+ZILLOW_METRO_MAP["dca"] = "Washington, DC"
 
 
 def main():

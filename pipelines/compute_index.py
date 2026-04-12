@@ -98,7 +98,7 @@ def map_weekly_data(source_weeks: list[dict], date_key: str, value_key: str, tar
         return [None] * len(target_weeks)
 
     # Build lookup
-    week_vals = {item[date_key]: item[value_key] for item in source_weeks}
+    week_vals = {item[date_key]: item[value_key] for item in source_weeks if value_key in item}
 
     result = []
     for tw in target_weeks:

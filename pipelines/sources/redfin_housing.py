@@ -19,29 +19,12 @@ from config import METROS, OUTPUT_DIR
 
 REDFIN_METRO_URL = "https://redfin-public-data.s3.us-west-2.amazonaws.com/redfin_market_tracker/redfin_metro_market_tracker.tsv000.gz"
 
-# Map our metro names to Redfin region names
-REDFIN_REGION_MAP = {
-    "nyc": "New York, NY metro area",
-    "lax": "Los Angeles, CA metro area",
-    "chi": "Chicago, IL metro area",
-    "hou": "Houston, TX metro area",
-    "phx": "Phoenix, AZ metro area",
-    "phl": "Philadelphia, PA metro area",
-    "sat": "San Antonio, TX metro area",
-    "sdg": "San Diego, CA metro area",
-    "dal": "Dallas, TX metro area",
-    "sjc": "San Jose, CA metro area",
-    "aus": "Austin, TX metro area",
-    "jax": "Jacksonville, FL metro area",
-    "sfo": "San Francisco, CA metro area",
-    "cmh": "Columbus, OH metro area",
-    "clt": "Charlotte, NC metro area",
-    "ind": "Indianapolis, IN metro area",
-    "sea": "Seattle, WA metro area",
-    "den": "Denver, CO metro area",
-    "dca": "Washington, DC metro area",
-    "bna": "Nashville, TN metro area",
-}
+# Auto-generate Redfin region names from config
+# Redfin format: "City, ST metro area"
+REDFIN_REGION_MAP = {m.id: f"{m.name}, {m.state} metro area" for m in METROS}
+# Special cases where Redfin uses different names
+REDFIN_REGION_MAP["dca"] = "Washington, DC metro area"
+REDFIN_REGION_MAP["ftw"] = "Fort Worth, TX metro area"
 
 
 def main():
