@@ -3,17 +3,22 @@
 import { useState, useCallback } from "react";
 import { ChatPanel } from "@/components/analyze/chat-panel";
 import { ArtifactRenderer, type ChartSpec } from "@/components/analyze/artifact-renderer";
-import { BarChart3, MessageSquare } from "lucide-react";
+import { DashboardRenderer, type DashboardSpec } from "@/components/analyze/dashboard-renderer";
+import { BarChart3 } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
+type Artifact =
+  | { type: "chart"; spec: ChartSpec; title: string }
+  | { type: "dashboard"; spec: DashboardSpec; title: string };
+
 export function AnalyzeClient() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [charts, setCharts] = useState<ChartSpec[]>([]);
-  const [activeChart, setActiveChart] = useState(0);
+  const [artifacts, setArtifacts] = useState<Artifact[]>([]);
+  const [activeArtifact, setActiveArtifact] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,30 +44,43 @@ export function AnalyzeClient() {
       }
 
       const data = await res.json();
-      const contentBlocks = data.content as Array<{ type: string; text?: string; chart?: ChartSpec }>;
+      const contentBlocks = data.content as Array<{
+        type: string;
+        text?: string;
+        chart?: ChartSpec;
+        dashboard?: DashboardSpec;
+      }>;
 
-      // Extract text and charts from response
       const textParts: string[] = [];
-      const newCharts: ChartSpec[] = [];
+      const newArtifacts: Artifact[] = [];
 
       for (const block of contentBlocks) {
         if (block.type === "text" && block.text) {
           textParts.push(block.text);
         }
         if (block.type === "chart" && block.chart) {
-          newCharts.push(block.chart);
+          newArtifacts.push({
+            type: "chart",
+            spec: block.chart,
+            title: block.chart.title,
+          });
+        }
+        if (block.type === "dashboard" && block.dashboard) {
+          newArtifacts.push({
+            type: "dashboard",
+            spec: block.dashboard,
+            title: block.dashboard.title,
+          });
         }
       }
 
-      // Add assistant message
       const assistantText = textParts.join("\n\n") || "Here's the visualization.";
       setMessages([...newMessages, { role: "assistant", content: assistantText }]);
 
-      // Add charts
-      if (newCharts.length > 0) {
-        setCharts((prev) => {
-          const updated = [...prev, ...newCharts];
-          setActiveChart(updated.length - 1); // Show latest
+      if (newArtifacts.length > 0) {
+        setArtifacts((prev) => {
+          const updated = [...prev, ...newArtifacts];
+          setActiveArtifact(updated.length - 1);
           return updated;
         });
       }
@@ -74,38 +92,45 @@ export function AnalyzeClient() {
     }
   }, [messages]);
 
+  const current = artifacts[activeArtifact];
+
   return (
     <div className="h-full flex flex-col lg:flex-row">
-      {/* Chat Panel — left */}
+      {/* Chat Panel */}
       <div className="w-full lg:w-[400px] xl:w-[440px] border-r border-zinc-200 flex-shrink-0 h-1/2 lg:h-full overflow-hidden">
         <ChatPanel messages={messages} isLoading={isLoading} onSend={sendMessage} />
       </div>
 
-      {/* Artifact Panel — right */}
+      {/* Artifact Panel */}
       <div className="flex-1 flex flex-col h-1/2 lg:h-full overflow-hidden">
-        {/* Chart tabs (if multiple) */}
-        {charts.length > 1 && (
-          <div className="border-b border-zinc-200 px-4 py-2 flex items-center gap-1 overflow-x-auto">
-            {charts.map((chart, i) => (
+        {/* Tabs */}
+        {artifacts.length > 1 && (
+          <div className="border-b border-zinc-200 px-4 py-2 flex items-center gap-1 overflow-x-auto flex-shrink-0">
+            {artifacts.map((art, i) => (
               <button
                 key={i}
-                onClick={() => setActiveChart(i)}
+                onClick={() => setActiveArtifact(i)}
                 className={`px-3 py-1 text-xs rounded-lg whitespace-nowrap transition-all ${
-                  activeChart === i
+                  activeArtifact === i
                     ? "bg-indigo-50 text-indigo-700 font-medium"
                     : "text-muted-foreground hover:bg-zinc-50"
                 }`}
               >
-                {chart.title.length > 30 ? chart.title.slice(0, 30) + "..." : chart.title}
+                {art.type === "dashboard" ? "📊 " : "📈 "}
+                {art.title.length > 30 ? art.title.slice(0, 30) + "..." : art.title}
               </button>
             ))}
           </div>
         )}
 
-        {/* Chart area */}
+        {/* Render area */}
         <div className="flex-1 p-4 sm:p-6 overflow-auto">
-          {charts.length > 0 ? (
-            <ArtifactRenderer spec={charts[activeChart]} />
+          {current ? (
+            current.type === "dashboard" ? (
+              <DashboardRenderer spec={current.spec} />
+            ) : (
+              <ArtifactRenderer spec={current.spec} />
+            )
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-center px-8">
               <div className="w-16 h-16 rounded-2xl bg-zinc-50 flex items-center justify-center mb-4">
@@ -113,7 +138,7 @@ export function AnalyzeClient() {
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-1">Artifact Panel</h3>
               <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-                Charts will appear here when the analyst generates visualizations. Start a conversation to explore the data.
+                Charts and dashboards will appear here. The analyst can create single charts or multi-chart dashboard layouts with independent axes.
               </p>
               {error && (
                 <div className="mt-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">

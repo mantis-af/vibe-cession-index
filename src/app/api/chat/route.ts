@@ -19,12 +19,17 @@ Sources: FRED, BLS, Redfin, Zillow, Google Trends, EIA, Undercurrent composite
 Workflow:
 1. Use search_data to find relevant series
 2. Use get_series to fetch the actual data points
-3. Use render_chart to visualize — choose chart type, assign axes smartly (dual axes when scales differ >10x)
+3. Visualize using render_chart (single chart) or render_dashboard (multiple charts in a grid)
 4. Provide a brief insight in your chat response
 
-When comparing series with very different scales (e.g., S&P 500 vs z-scores), use dual axes (left/right).
-When the user asks about a metro, search for that metro's signals, index, and context data.
-Keep chart titles short and descriptive. Always include an insight string in render_chart.`;
+IMPORTANT visualization guidelines:
+- Use render_dashboard when the analysis involves DIFFERENT aspects that deserve separate axes (e.g., housing AND unemployment AND prices). Each chart in the dashboard has its own independent Y-axes.
+- Use render_chart for a focused single visualization where series are directly comparable.
+- Prefer render_dashboard for most multi-faceted questions — it's cleaner than cramming everything into one chart with dual axes.
+- Dashboard layouts: "2col" (2 charts side by side), "3col" (3 across), "2x2" (4 charts in grid), "1col" (stacked).
+- When the user asks about a metro, search for that metro's signals, index, and context data.
+- Keep chart titles short. Always include insight strings.
+- Use distinct colors for each series. Use dashed lines for secondary/reference series.`;
 
 const TOOLS: Anthropic.Tool[] = [
   {
@@ -114,6 +119,51 @@ const TOOLS: Anthropic.Tool[] = [
       required: ["type", "title", "series"],
     },
   },
+  {
+    name: "render_dashboard",
+    description: "Render multiple charts in a dashboard grid. Use this when comparing different aspects or when the analysis needs separate visualizations with independent axes. Much better than cramming everything into one chart.",
+    input_schema: {
+      type: "object" as const,
+      properties: {
+        title: { type: "string", description: "Dashboard title" },
+        subtitle: { type: "string", description: "Optional subtitle" },
+        layout: { type: "string", enum: ["2col", "3col", "1col", "2x2"], description: "Grid layout (default 2col)" },
+        charts: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              type: { type: "string", enum: ["line", "area", "bar"] },
+              title: { type: "string" },
+              series: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    label: { type: "string" },
+                    axis: { type: "string", enum: ["left", "right"] },
+                    color: { type: "string" },
+                    style: { type: "string", enum: ["solid", "dashed", "dotted"] },
+                  },
+                  required: ["id", "label"],
+                },
+              },
+              dateRange: {
+                type: "object",
+                properties: { from: { type: "string" }, to: { type: "string" } },
+              },
+              insight: { type: "string" },
+            },
+            required: ["type", "title", "series"],
+          },
+          description: "Array of chart specs — each gets its own axes",
+        },
+        insight: { type: "string", description: "Overall dashboard insight" },
+      },
+      required: ["title", "charts"],
+    },
+  },
 ];
 
 function executeTool(name: string, input: Record<string, unknown>): unknown {
@@ -201,9 +251,13 @@ function executeTool(name: string, input: Record<string, unknown>): unknown {
     }
 
     case "render_chart": {
-      // Server-side: just confirm. The client intercepts the tool call args.
       const series = input.series as Array<Record<string, unknown>>;
       return { rendered: true, seriesCount: series?.length || 0 };
+    }
+
+    case "render_dashboard": {
+      const charts = input.charts as Array<Record<string, unknown>>;
+      return { rendered: true, chartCount: charts?.length || 0 };
     }
 
     default:
@@ -227,7 +281,7 @@ export async function POST(req: Request) {
   try {
     // Agentic loop: keep calling Claude until it stops using tools
     let currentMessages = [...anthropicMessages];
-    const allContent: Array<{ type: string; text?: string; chart?: unknown }> = [];
+    const allContent: Array<{ type: string; text?: string; chart?: unknown; dashboard?: unknown }> = [];
     let iterations = 0;
     const maxIterations = 8;
 
@@ -255,9 +309,11 @@ export async function POST(req: Request) {
           // Execute the tool
           const result = executeTool(block.name, block.input as Record<string, unknown>);
 
-          // If it's render_chart, also capture the spec for the frontend
+          // Capture visualization specs for the frontend
           if (block.name === "render_chart") {
             allContent.push({ type: "chart", chart: block.input });
+          } else if (block.name === "render_dashboard") {
+            allContent.push({ type: "dashboard", dashboard: block.input });
           }
 
           toolResults.push({
