@@ -52,6 +52,7 @@ def main():
         run("sources/ai_impact.py", "AI Impact — AI vs Traditional Job Search Interest")
 
     run("compute_index.py", "Computing Composite Index + Context")
+    run("compute_leadlag.py", "Computing Predictive Lead/Lag Analysis")
     run("generate_narrative.py", "Generating Weekly Narrative")
 
     print("\n" + "=" * 60)

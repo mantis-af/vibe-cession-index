@@ -1,5 +1,6 @@
 import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA, GENERATED_AT } from "@/lib/load-data";
 import narrativeJson from "@/data/narrative.json";
+import leadlagJson from "@/data/leadlag.json";
 import { Header } from "@/components/dashboard/header";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { AggregateSection } from "@/components/dashboard/aggregate-section";
@@ -11,6 +12,7 @@ import { DriversSection } from "@/components/dashboard/drivers-section";
 import { AiImpactSection } from "@/components/dashboard/ai-impact-section";
 import { HousingSection } from "@/components/dashboard/housing-section";
 import { AffordabilitySection } from "@/components/dashboard/affordability-section";
+import { LeadLagSection } from "@/components/dashboard/leadlag-section";
 import { MetroGrid } from "@/components/dashboard/metro-grid";
 
 export default function Home() {
@@ -46,6 +48,13 @@ export default function Home() {
 
       {/* Sentiment Drivers — what's pulling the index up or down */}
       <DriversSection drivers={NATIONAL_DRIVERS} />
+
+      {/* Predictive Power — behavioral leads official by N weeks */}
+      <LeadLagSection
+        national={leadlagJson.national}
+        summary={leadlagJson.summary}
+        metros={leadlagJson.metros}
+      />
 
       {/* Housing Market — Zillow home values, appreciation/decline */}
       <HousingSection metros={METROS} />
