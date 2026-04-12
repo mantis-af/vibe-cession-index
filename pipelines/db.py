@@ -67,6 +67,40 @@ def init_db():
 
         CREATE INDEX IF NOT EXISTS idx_series_category ON series(category);
         CREATE INDEX IF NOT EXISTS idx_series_scope ON series(scope);
+
+        -- Hierarchical tag system
+        CREATE TABLE IF NOT EXISTS tags (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            slug TEXT NOT NULL UNIQUE,
+            domain TEXT NOT NULL,
+            category TEXT NOT NULL,
+            subcategory TEXT,
+            label TEXT NOT NULL,
+            description TEXT,
+            sort_order INTEGER DEFAULT 0
+        );
+
+        CREATE TABLE IF NOT EXISTS series_tags (
+            series_id TEXT NOT NULL,
+            tag_id INTEGER NOT NULL,
+            is_primary INTEGER DEFAULT 0,
+            PRIMARY KEY (series_id, tag_id),
+            FOREIGN KEY (series_id) REFERENCES series(id),
+            FOREIGN KEY (tag_id) REFERENCES tags(id)
+        );
+
+        CREATE TABLE IF NOT EXISTS series_keywords (
+            series_id TEXT NOT NULL,
+            keyword TEXT NOT NULL,
+            PRIMARY KEY (series_id, keyword),
+            FOREIGN KEY (series_id) REFERENCES series(id)
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_tags_domain ON tags(domain);
+        CREATE INDEX IF NOT EXISTS idx_tags_slug ON tags(slug);
+        CREATE INDEX IF NOT EXISTS idx_series_tags_tag ON series_tags(tag_id);
+        CREATE INDEX IF NOT EXISTS idx_series_tags_primary ON series_tags(is_primary);
+        CREATE INDEX IF NOT EXISTS idx_keywords ON series_keywords(keyword);
         CREATE INDEX IF NOT EXISTS idx_series_metro ON series(metro);
         CREATE INDEX IF NOT EXISTS idx_series_source ON series(source_id);
         CREATE INDEX IF NOT EXISTS idx_datapoints_series ON datapoints(series_id);
@@ -192,6 +226,125 @@ def get_stats() -> dict:
     }
     conn.close()
     return stats
+
+
+def ensure_tag(slug: str, domain: str, category: str, subcategory: str = None,
+                label: str = "", description: str = "") -> int:
+    """Insert a tag if it doesn't exist. Returns the tag id."""
+    conn = get_conn()
+    existing = conn.execute("SELECT id FROM tags WHERE slug = ?", (slug,)).fetchone()
+    if existing:
+        conn.close()
+        return existing[0]
+    conn.execute(
+        "INSERT INTO tags (slug, domain, category, subcategory, label, description) VALUES (?, ?, ?, ?, ?, ?)",
+        (slug, domain, category, subcategory, label or slug, description or "")
+    )
+    tag_id = conn.execute("SELECT id FROM tags WHERE slug = ?", (slug,)).fetchone()[0]
+    conn.commit()
+    conn.close()
+    return tag_id
+
+
+def tag_series(series_id: str, tag_slug: str, is_primary: bool = False):
+    """Associate a series with a tag (by slug)."""
+    conn = get_conn()
+    tag = conn.execute("SELECT id FROM tags WHERE slug = ?", (tag_slug,)).fetchone()
+    if not tag:
+        conn.close()
+        return
+    conn.execute(
+        "INSERT OR REPLACE INTO series_tags (series_id, tag_id, is_primary) VALUES (?, ?, ?)",
+        (series_id, tag[0], 1 if is_primary else 0)
+    )
+    conn.commit()
+    conn.close()
+
+
+def add_keywords(series_id: str, keywords: list[str]):
+    """Add searchable keywords for a series."""
+    if not keywords:
+        return
+    conn = get_conn()
+    conn.executemany(
+        "INSERT OR IGNORE INTO series_keywords (series_id, keyword) VALUES (?, ?)",
+        [(series_id, kw.lower()) for kw in keywords if len(kw) > 1]
+    )
+    conn.commit()
+    conn.close()
+
+
+def search_by_tags(query: str = "", domain: str = None, tag_slug: str = None,
+                    scope: str = None, metro: str = None, state: str = None,
+                    limit: int = 50) -> list[dict]:
+    """Tag-aware search. Joins series → series_tags → tags for hierarchical filtering."""
+    conn = get_conn()
+    conditions = []
+    params: list = []
+
+    # Full-text keyword search
+    if query:
+        terms = query.lower().split()
+        for term in terms:
+            conditions.append("""(
+                s.id IN (SELECT series_id FROM series_keywords WHERE keyword LIKE ?)
+                OR LOWER(s.name) LIKE ?
+                OR LOWER(COALESCE(s.metro_name,'')) LIKE ?
+            )""")
+            params.extend([f"%{term}%", f"%{term}%", f"%{term}%"])
+
+    # Tag filters
+    if domain:
+        conditions.append("s.id IN (SELECT st.series_id FROM series_tags st JOIN tags t ON st.tag_id = t.id WHERE t.domain = ?)")
+        params.append(domain)
+    if tag_slug:
+        conditions.append("s.id IN (SELECT st.series_id FROM series_tags st JOIN tags t ON st.tag_id = t.id WHERE t.slug = ? OR t.slug LIKE ?)")
+        params.extend([tag_slug, f"{tag_slug}.%"])
+
+    # Direct filters
+    if scope:
+        conditions.append("s.scope = ?")
+        params.append(scope)
+    if metro:
+        conditions.append("s.metro = ?")
+        params.append(metro)
+    if state:
+        conditions.append("s.state = ?")
+        params.append(state)
+
+    where = " AND ".join(conditions) if conditions else "1=1"
+
+    rows = conn.execute(f"""
+        SELECT s.id, s.name, s.category, s.scope, s.metro, s.metro_name, s.state,
+               s.unit, s.frequency, s.source_id, s.point_count,
+               (SELECT t.slug FROM series_tags st JOIN tags t ON st.tag_id = t.id
+                WHERE st.series_id = s.id AND st.is_primary = 1 LIMIT 1) as primary_tag,
+               (SELECT t.domain FROM series_tags st JOIN tags t ON st.tag_id = t.id
+                WHERE st.series_id = s.id AND st.is_primary = 1 LIMIT 1) as domain
+        FROM series s
+        WHERE {where}
+        ORDER BY s.point_count DESC
+        LIMIT ?
+    """, params + [limit]).fetchall()
+
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def get_taxonomy() -> list[dict]:
+    """Return the full tag tree for frontend navigation."""
+    conn = get_conn()
+    rows = conn.execute("""
+        SELECT t.slug, t.domain, t.category, t.subcategory, t.label, t.description,
+               COUNT(st.series_id) as series_count
+        FROM tags t
+        LEFT JOIN series_tags st ON t.id = st.tag_id
+        GROUP BY t.id
+        HAVING series_count > 0
+        ORDER BY t.sort_order
+    """).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
 
 
 def migrate_from_catalog():
