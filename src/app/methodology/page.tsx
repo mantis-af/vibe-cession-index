@@ -59,7 +59,7 @@ export default function MethodologyPage() {
                 Component Signals
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                The index composites 8 signals into a single score per metro, updated weekly.
+                The index composites 8 behavioral signals into a single score per metro, drawn from 6 data sources and updated weekly. Weights are rebalanced across available signals.
               </p>
               <div className="surface rounded-2xl overflow-hidden">
                 <table className="w-full text-sm">
@@ -108,10 +108,12 @@ export default function MethodologyPage() {
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Each signal is converted to a Z-score relative to its own
-                metro&apos;s 2-year history. This allows cross-metro comparison — a
-                Z-score of -1.5 in San Francisco means SF is 1.5 standard deviations
-                below its own normal, regardless of absolute levels. The weighted
-                composite is rescaled to 0-100 for readability.
+                metro&apos;s 2-year history (104 weeks). This allows cross-metro
+                comparison — a Z-score of -1.5 in San Francisco means SF is 1.5
+                standard deviations below its own normal, regardless of absolute
+                levels. The weighted composite is rescaled to 0-100 for readability.
+                Signals with missing data are excluded and remaining weights are
+                renormalized to sum to 1.0.
               </p>
             </section>
 

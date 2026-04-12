@@ -6,6 +6,7 @@ import { MacroContext } from "@/components/dashboard/macro-context";
 import { QuarterlySection } from "@/components/dashboard/quarterly-section";
 import { DriversSection } from "@/components/dashboard/drivers-section";
 import { AiImpactSection } from "@/components/dashboard/ai-impact-section";
+import { HousingSection } from "@/components/dashboard/housing-section";
 import { MetroGrid } from "@/components/dashboard/metro-grid";
 
 export default function Home() {
@@ -31,6 +32,9 @@ export default function Home() {
 
       {/* Sentiment Drivers — what's pulling the index up or down */}
       <DriversSection drivers={NATIONAL_DRIVERS} />
+
+      {/* Housing Market — Zillow home values, appreciation/decline */}
+      <HousingSection metros={METROS} />
 
       {/* AI Economic Impact — which metros are seeing AI reshape labor */}
       <AiImpactSection metros={METROS} />

@@ -54,34 +54,34 @@ export interface NationalSummary {
 }
 
 export const SIGNAL_LABELS: Record<keyof MetroSignals, string> = {
-  jobPostingsVelocity: "Job Postings",
-  wageToRentRatio: "Wage-to-Rent",
+  jobPostingsVelocity: "New Business Apps",
+  wageToRentRatio: "AI Job Search",
   smallBizHealth: "Small Biz Health",
   googleTrendsAnxiety: "Search Anxiety",
-  housingInventory: "Housing Market",
-  unemploymentClaims: "Unemployment Claims",
-  restaurantActivity: "Restaurant Activity",
-  buildingPermits: "Building Permits",
+  housingInventory: "Housing Inventory",
+  unemploymentClaims: "Unemployment",
+  restaurantActivity: "Days on Market",
+  buildingPermits: "Price Drops",
 };
 
 export const SIGNAL_WEIGHTS: Record<keyof MetroSignals, number> = {
-  jobPostingsVelocity: 0.20,
-  wageToRentRatio: 0.15,
-  smallBizHealth: 0.15,
-  googleTrendsAnxiety: 0.15,
-  housingInventory: 0.10,
-  unemploymentClaims: 0.10,
-  restaurantActivity: 0.10,
-  buildingPermits: 0.05,
+  jobPostingsVelocity: 0.15,
+  wageToRentRatio: 0.07,
+  smallBizHealth: 0.08,
+  googleTrendsAnxiety: 0.18,
+  housingInventory: 0.12,
+  unemploymentClaims: 0.12,
+  restaurantActivity: 0.08,
+  buildingPermits: 0.08,
 };
 
 export const SIGNAL_DESCRIPTIONS: Record<keyof MetroSignals, string> = {
-  jobPostingsVelocity: "Week-over-week change in job posting volume",
-  wageToRentRatio: "Posted wages vs. asking rents trend",
-  smallBizHealth: "Net new business openings minus closings",
-  googleTrendsAnxiety: "Distress vs. aspiration search ratio (inverted)",
-  housingInventory: "Active listings and days-on-market trend",
-  unemploymentClaims: "Initial weekly unemployment claims (inverted)",
-  restaurantActivity: "Restaurant reservation and booking volume",
-  buildingPermits: "New building permit applications",
+  jobPostingsVelocity: "Weekly new business applications by state (FRED)",
+  wageToRentRatio: "AI vs traditional job search ratio (Google Trends)",
+  smallBizHealth: "Placeholder for small business health signal",
+  googleTrendsAnxiety: "Distress vs aspiration search behavior (Google Trends)",
+  housingInventory: "Active housing listings by metro (Redfin)",
+  unemploymentClaims: "Unemployment rate + weekly initial claims (BLS/FRED)",
+  restaurantActivity: "Median days on market for homes (Redfin)",
+  buildingPermits: "Percentage of listings with price reductions (Redfin)",
 };
