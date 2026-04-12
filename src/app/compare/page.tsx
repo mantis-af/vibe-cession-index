@@ -5,9 +5,13 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export default function ComparePage() {
-  // Default: top 3 and bottom 1
+  // Default: top 2, a middle one, and bottom 1 — showcasing range across 50 metros
   const sorted = [...METROS].sort((a, b) => b.currentScore - a.currentScore);
-  const defaults = [sorted[0].id, sorted[1].id, sorted[sorted.length - 1].id];
+  const defaults = [
+    sorted[0].id,                           // highest
+    sorted[Math.floor(sorted.length / 2)].id, // median
+    sorted[sorted.length - 1].id,           // lowest
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,7 +30,7 @@ export default function ComparePage() {
             <span className="font-[family-name:var(--font-instrument)] italic">Compare Metros</span>
           </h1>
           <p className="text-muted-foreground max-w-xl">
-            Side-by-side analysis of up to 6 metropolitan areas. See how their behavioral indexes diverge over time.
+            Side-by-side analysis of up to 6 of the 50 tracked metros. Compare behavioral index trends, sentiment gaps, and economic indicators.
           </p>
         </div>
 

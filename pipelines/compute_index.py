@@ -723,7 +723,7 @@ def main():
             "quarterly": m.get("quarterly", []),
             "sentimentDrivers": m.get("sentimentDrivers", {}),
             "context": m.get("context", {}),
-            "sparkHistory": [{"week": w["week"], "compositeScore": w["compositeScore"]} for w in h[-26:]],
+            "sparkHistory": [{"week": w["week"], "compositeScore": w["compositeScore"], "officialIndex": w.get("officialIndex", 50), "vibesGap": w.get("vibesGap", 0)} for w in h[-52:]],
         })
 
     print(f"  Wrote {len(metros_output)} per-metro files to {METROS_DIR}/")
