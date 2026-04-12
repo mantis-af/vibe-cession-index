@@ -7,10 +7,10 @@ import { ScrollProgress } from "@/components/motion";
 
 const NAV_LINKS = [
   { href: "/", label: "Overview" },
+  { href: "/analyze", label: "Analyze" },
   { href: "/explore", label: "Explore" },
   { href: "/insights", label: "Insights" },
   { href: "/compare", label: "Compare" },
-  { href: "/methodology", label: "Methodology" },
 ];
 
 export function Header() {
