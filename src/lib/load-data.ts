@@ -187,3 +187,5 @@ export const MACRO_DATA = raw.macro ?? {};
 export const NATIONAL_CPI = raw.nationalCpi ?? {};
 export const GAS_NATIONAL = raw.gasNational ?? {};
 export const EXPANDED_DATA = raw.expanded ?? {};
+
+export const GENERATED_AT = raw.summary.generatedAt ?? "";
