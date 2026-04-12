@@ -1,31 +1,14 @@
 import Anthropic from "@anthropic-ai/sdk";
-import Database from "better-sqlite3";
-import path from "path";
 import dashboardData from "@/data/dashboard.json";
+import { getDb, getDbStats as getStats, searchSeries, getSeriesData, getTaxonomy } from "@/lib/db";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" });
 
-// SQLite connection (lazy init)
-let db: Database.Database | null = null;
-function getDb(): Database.Database {
-  if (!db) {
-    const dbPath = path.join(process.cwd(), "data", "undercurrent.db");
-    db = new Database(dbPath, { readonly: true });
-    db.pragma("journal_mode = WAL");
-  }
-  return db;
-}
+const SYSTEM_PROMPT_TEMPLATE = (stats: { series: number; domains: string[] }) => `You are Undercurrent's data analyst agent. You have access to ${stats.series} economic time series in a SQLite database spanning 50 US metros and national/state-level data.
 
-// Get DB stats for the system prompt
-function getDbStats(): { series: number; datapoints: number; categories: string[] } {
-  const d = getDb();
-  const series = (d.prepare("SELECT COUNT(*) as c FROM series").get() as { c: number }).c;
-  const datapoints = (d.prepare("SELECT COUNT(*) as c FROM datapoints").get() as { c: number }).c;
-  const cats = d.prepare("SELECT DISTINCT category FROM series ORDER BY category").all() as Array<{ category: string }>;
-  return { series, datapoints, categories: cats.map((r) => r.category) };
-}
-
-const SYSTEM_PROMPT_TEMPLATE = (stats: { series: number; categories: string[] }) => `You are Undercurrent's data analyst agent. You have access to ${stats.series} economic time series in a SQLite database spanning 50 US metros and national/state-level data, covering: ${stats.categories.join(", ")}.
+Data is organized into ${stats.domains.length} domains: ${stats.domains.join(", ")}.
+Each domain has categories (e.g., labor → unemployment, employment, wages, claims, jolts).
+Use the domain parameter in search_data to filter by domain, or browse_taxonomy to see the full hierarchy.
 
 Data spans up to 5 years. Sources include FRED, BLS, Redfin, Zillow, Google Trends, and EIA.
 
@@ -52,9 +35,10 @@ const TOOLS: Anthropic.Tool[] = [
     input_schema: {
       type: "object" as const,
       properties: {
-        query: { type: "string", description: "Search term (e.g., 'austin housing', 'S&P', 'unemployment texas', 'gold price', 'treasury yield')" },
-        category: { type: "string", description: "Filter by category (e.g., Labor, Housing, Markets, Prices, Commodities, GDP, Rates, Fiscal, Monetary, Production, etc.)" },
-        scope: { type: "string", description: "Filter: national, metro, state, regional" },
+        query: { type: "string", description: "Search term (e.g., 'austin housing', 'S&P', 'unemployment', 'gold price', 'treasury yield')" },
+        domain: { type: "string", description: "Filter by domain: labor, housing, prices, markets, consumer, production, trade, fiscal, monetary, energy, business, index, demographics" },
+        tag: { type: "string", description: "Filter by tag slug (e.g., 'labor.unemployment', 'markets.crypto', 'housing.prices.state')" },
+        scope: { type: "string", description: "Filter: national, metro, state, regional, international" },
         metro: { type: "string", description: "Filter by metro ID (e.g., 'nyc', 'aus')" },
         state: { type: "string", description: "Filter by state code (e.g., 'TX', 'CA')" },
         limit: { type: "number", description: "Max results (default 20)" },
@@ -157,6 +141,14 @@ const TOOLS: Anthropic.Tool[] = [
       required: ["title", "charts"],
     },
   },
+  {
+    name: "browse_taxonomy",
+    description: "Browse the data taxonomy — shows all domains and their categories with series counts. Use this to discover what data is available before searching.",
+    input_schema: {
+      type: "object" as const,
+      properties: {},
+    },
+  },
 ];
 
 function executeTool(name: string, input: Record<string, unknown>): unknown {
@@ -164,35 +156,27 @@ function executeTool(name: string, input: Record<string, unknown>): unknown {
 
   switch (name) {
     case "search_data": {
-      const query = ((input.query as string) || "").toLowerCase();
-      const category = input.category as string | undefined;
-      const scope = input.scope as string | undefined;
-      const metro = input.metro as string | undefined;
-      const state = input.state as string | undefined;
-      const limit = (input.limit as number) || 20;
+      const result = searchSeries({
+        query: (input.query as string) || "",
+        domain: input.domain as string | undefined,
+        tagSlug: input.tag as string | undefined,
+        scope: input.scope as string | undefined,
+        metro: input.metro as string | undefined,
+        state: input.state as string | undefined,
+        limit: (input.limit as number) || 20,
+      });
+      return result.series;
+    }
 
-      const terms = query.split(/\s+/).filter(Boolean);
-      let conditions: string[] = [];
-      let params: (string | number)[] = [];
-
-      for (const term of terms) {
-        conditions.push("(LOWER(name) LIKE ? OR LOWER(metro_name) LIKE ? OR LOWER(category) LIKE ? OR LOWER(COALESCE(metro,'')) LIKE ? OR LOWER(COALESCE(state,'')) LIKE ? OR LOWER(description) LIKE ?)");
-        const t = `%${term}%`;
-        params.push(t, t, t, t, t, t);
+    case "browse_taxonomy": {
+      const taxonomy = getTaxonomy();
+      // Group by domain
+      const tree: Record<string, Array<{ category: string; count: number }>> = {};
+      for (const t of taxonomy) {
+        if (!tree[t.domain]) tree[t.domain] = [];
+        tree[t.domain].push({ category: t.category, count: t.series_count });
       }
-
-      if (category) { conditions.push("category = ?"); params.push(category); }
-      if (scope) { conditions.push("scope = ?"); params.push(scope); }
-      if (metro) { conditions.push("metro = ?"); params.push(metro); }
-      if (state) { conditions.push("state = ?"); params.push(state); }
-
-      const where = conditions.length > 0 ? conditions.join(" AND ") : "1=1";
-      const rows = d.prepare(`
-        SELECT id, name, category, scope, metro, metro_name, state, unit, frequency, source_id, point_count
-        FROM series WHERE ${where} ORDER BY point_count DESC LIMIT ?
-      `).all(...params, limit);
-
-      return rows;
+      return tree;
     }
 
     case "get_series": {
@@ -202,17 +186,8 @@ function executeTool(name: string, input: Record<string, unknown>): unknown {
 
       const result: Record<string, unknown> = {};
       for (const id of ids) {
-        const info = d.prepare("SELECT name, unit FROM series WHERE id = ?").get(id) as { name: string; unit: string } | undefined;
-        if (!info) continue;
-
-        let sql = "SELECT date, value FROM datapoints WHERE series_id = ?";
-        const params: (string)[] = [id];
-        if (dateFrom) { sql += " AND date >= ?"; params.push(dateFrom); }
-        if (dateTo) { sql += " AND date <= ?"; params.push(dateTo); }
-        sql += " ORDER BY date";
-
-        const points = d.prepare(sql).all(...params);
-        result[id] = { name: info.name, unit: info.unit, points };
+        const data = getSeriesData(id, dateFrom, dateTo);
+        if (data) result[id] = data;
       }
       return result;
     }
@@ -275,7 +250,7 @@ export async function POST(req: Request) {
     return Response.json({ error: "ANTHROPIC_API_KEY not set. Add it to .env.local" }, { status: 500 });
   }
 
-  const stats = getDbStats();
+  const stats = getStats();
   const systemPrompt = SYSTEM_PROMPT_TEMPLATE(stats);
 
   const anthropicMessages: Anthropic.MessageParam[] = messages.map((m: { role: string; content: string }) => ({
