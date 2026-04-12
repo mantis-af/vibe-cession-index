@@ -5,7 +5,7 @@ import { Metro } from "@/lib/types";
 import { scoreColor, changeColor, gapColor } from "@/lib/colors";
 import { FadeIn } from "@/components/motion";
 import { MultiMetroChart, METRO_CHART_PALETTE } from "@/components/charts/multi-metro-chart";
-import { X, Plus, ArrowUpRight, ArrowDownRight, Minus } from "lucide-react";
+import { X, Plus, ArrowUpRight, ArrowDownRight, Minus, Search } from "lucide-react";
 
 interface Props {
   allMetros: Metro[];
@@ -14,6 +14,8 @@ interface Props {
 
 export function CompareClient({ allMetros, initialIds }: Props) {
   const [selectedIds, setSelectedIds] = useState<string[]>(initialIds);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const selected = selectedIds
     .map((id) => allMetros.find((m) => m.id === id))
@@ -65,26 +67,54 @@ export function CompareClient({ allMetros, initialIds }: Props) {
               </button>
             ))}
             {selected.length < 6 && (
-              <div className="relative group">
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dashed border-zinc-200 text-sm text-muted-foreground hover:border-indigo-300 hover:text-indigo-500 transition-all">
+              <div className="relative">
+                <button
+                  onClick={() => { setDropdownOpen(!dropdownOpen); setSearchQuery(""); }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-dashed border-zinc-200 text-sm text-muted-foreground hover:border-indigo-300 hover:text-indigo-500 transition-all"
+                >
                   <Plus className="h-3.5 w-3.5" />
                   Add metro
                 </button>
-                {/* Dropdown */}
-                <div className="absolute top-full left-0 mt-1 w-64 max-h-64 overflow-y-auto surface rounded-xl p-1 opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-all z-50">
-                  {available.map((metro) => (
-                    <button
-                      key={metro.id}
-                      onClick={() => addMetro(metro.id)}
-                      className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-foreground hover:bg-zinc-100 transition-colors"
-                    >
-                      <span>{metro.name}, {metro.state}</span>
-                      <span className="font-mono text-xs" style={{ color: scoreColor(metro.currentScore) }}>
-                        {metro.currentScore}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                {dropdownOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
+                    <div className="absolute top-full left-0 mt-1 w-72 surface rounded-xl shadow-lg z-50">
+                      <div className="p-2 border-b border-zinc-100">
+                        <div className="relative">
+                          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                          <input
+                            type="text"
+                            placeholder="Search metros..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-8 pr-3 py-1.5 text-sm bg-zinc-50 border border-zinc-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                            autoFocus
+                          />
+                        </div>
+                      </div>
+                      <div className="max-h-56 overflow-y-auto p-1">
+                        {available
+                          .filter((m) => {
+                            if (!searchQuery) return true;
+                            const q = searchQuery.toLowerCase();
+                            return m.name.toLowerCase().includes(q) || m.state.toLowerCase().includes(q);
+                          })
+                          .map((metro) => (
+                            <button
+                              key={metro.id}
+                              onClick={() => { addMetro(metro.id); setDropdownOpen(false); }}
+                              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm text-foreground hover:bg-zinc-50 transition-colors"
+                            >
+                              <span>{metro.name}, {metro.state}</span>
+                              <span className="font-mono text-xs" style={{ color: scoreColor(metro.currentScore) }}>
+                                {metro.currentScore}
+                              </span>
+                            </button>
+                          ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>

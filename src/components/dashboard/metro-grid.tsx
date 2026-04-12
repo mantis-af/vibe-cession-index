@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Metro } from "@/lib/types";
 import { scoreColor, changeColor, trendColor, gapColor } from "@/lib/colors";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion";
-import { TrendingUp, TrendingDown, Minus, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, ArrowUpRight, ArrowDownRight, ChevronRight, Search } from "lucide-react";
 
 function TrendIcon({ trend }: { trend: Metro["trend"] }) {
   switch (trend) {
@@ -56,7 +57,23 @@ function MiniSparkline({ history }: { history: Metro["history"] }) {
 }
 
 export function MetroGrid({ metros }: { metros: Metro[] }) {
-  const sorted = [...metros].sort((a, b) => b.currentScore - a.currentScore);
+  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"score" | "change" | "gap" | "name">("score");
+
+  const filtered = metros.filter((m) => {
+    if (!query) return true;
+    const q = query.toLowerCase();
+    return m.name.toLowerCase().includes(q) || m.state.toLowerCase().includes(q);
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
+    switch (sortBy) {
+      case "score": return b.currentScore - a.currentScore;
+      case "change": return b.weekOverWeekChange - a.weekOverWeekChange;
+      case "gap": return b.vibesGap - a.vibesGap;
+      case "name": return a.name.localeCompare(b.name);
+    }
+  });
 
   return (
     <section className="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 max-w-7xl mx-auto">
@@ -64,12 +81,40 @@ export function MetroGrid({ metros }: { metros: Metro[] }) {
         <div className="flex items-center gap-3 mb-2">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-indigo-300/30 to-transparent" />
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
-          <span className="font-[family-name:var(--font-instrument)] italic">Metro Rankings</span>
-        </h2>
-        <p className="text-sm sm:text-base text-muted-foreground max-w-xl mb-8 md:mb-12">
-          Tap any metro to explore its detailed breakdown — signals, trends, and the sentiment gap.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 md:mb-10">
+          <div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground mb-2">
+              <span className="font-[family-name:var(--font-instrument)] italic">Metro Rankings</span>
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
+              {metros.length} metros ranked by behavioral index score.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search metros..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="pl-9 pr-3 py-2 text-sm bg-white border border-zinc-200 rounded-lg w-48 sm:w-56 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300 transition-all"
+              />
+            </div>
+            {/* Sort */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+              className="py-2 px-3 text-xs bg-white border border-zinc-200 rounded-lg text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            >
+              <option value="score">By Score</option>
+              <option value="change">By Change</option>
+              <option value="gap">By Gap</option>
+              <option value="name">By Name</option>
+            </select>
+          </div>
+        </div>
       </FadeIn>
 
       {/* Desktop table — hidden on mobile */}
