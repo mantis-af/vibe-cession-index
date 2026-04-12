@@ -1,8 +1,11 @@
 import { METROS, NATIONAL_SUMMARY, NATIONAL_QUARTERLY, NATIONAL_DRIVERS, MACRO_DATA, NATIONAL_CPI, GAS_NATIONAL, EXPANDED_DATA, GENERATED_AT } from "@/lib/load-data";
+import narrativeJson from "@/data/narrative.json";
 import { Header } from "@/components/dashboard/header";
 import { HeroSection } from "@/components/dashboard/hero-section";
 import { AggregateSection } from "@/components/dashboard/aggregate-section";
 import { MacroContext } from "@/components/dashboard/macro-context";
+import { UsHeatmap } from "@/components/dashboard/us-heatmap";
+import { WeeklyNarrative } from "@/components/dashboard/weekly-narrative";
 import { QuarterlySection } from "@/components/dashboard/quarterly-section";
 import { DriversSection } from "@/components/dashboard/drivers-section";
 import { AiImpactSection } from "@/components/dashboard/ai-impact-section";
@@ -24,6 +27,16 @@ export default function Home() {
 
       {/* Aggregate US section — national trend + sentiment gap + signal highlights */}
       <AggregateSection metros={METROS} summary={NATIONAL_SUMMARY} drivers={NATIONAL_DRIVERS} />
+
+      {/* Weekly Analysis — auto-generated narrative */}
+      <WeeklyNarrative
+        headline={narrativeJson.headline}
+        weekOf={narrativeJson.weekOf}
+        sections={narrativeJson.sections}
+      />
+
+      {/* US Heatmap — geographic visualization of all 50 metros */}
+      <UsHeatmap metros={METROS} />
 
       {/* Macro Context — GDP, CPI, unemployment, rates, gas, markets */}
       <MacroContext macro={MACRO_DATA} expanded={EXPANDED_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} />

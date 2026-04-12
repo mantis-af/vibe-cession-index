@@ -52,6 +52,7 @@ def main():
         run("sources/ai_impact.py", "AI Impact — AI vs Traditional Job Search Interest")
 
     run("compute_index.py", "Computing Composite Index + Context")
+    run("generate_narrative.py", "Generating Weekly Narrative")
 
     print("\n" + "=" * 60)
     print("  Pipeline complete. Dashboard data updated.")
