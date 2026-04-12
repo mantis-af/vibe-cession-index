@@ -123,19 +123,47 @@ function executeTool(name: string, input: Record<string, unknown>): unknown {
       const category = input.category as string | undefined;
       const scope = input.scope as string | undefined;
       const metro = input.metro as string | undefined;
-      const limit = (input.limit as number) || 15;
+      const limit = (input.limit as number) || 20;
 
-      const results = catalogIndex.filter((s: Record<string, unknown>) => {
-        if (category && s.category !== category) return false;
-        if (scope && s.scope !== scope) return false;
-        if (metro && s.metro !== metro) return false;
+      // Split query into individual terms for AND-style matching
+      const terms = query.split(/\s+/).filter(Boolean);
+
+      // Score each series by relevance
+      const scored = catalogIndex.map((s: Record<string, unknown>) => {
+        // Hard filters
+        if (category && s.category !== category) return null;
+        if (scope && s.scope !== scope) return null;
+        if (metro && s.metro !== metro) return null;
+
         const name = ((s.name as string) || "").toLowerCase();
         const cat = ((s.category as string) || "").toLowerCase();
+        const metroName = ((s.metroName as string) || "").toLowerCase();
+        const metroId = ((s.metro as string) || "").toLowerCase();
         const src = ((s.source as string) || "").toLowerCase();
-        return name.includes(query) || cat.includes(query) || src.includes(query);
-      });
+        const searchable = `${name} ${cat} ${metroName} ${metroId} ${src}`;
 
-      return results.slice(0, limit);
+        // Every term must match somewhere (AND logic)
+        let score = 0;
+        for (const term of terms) {
+          if (!searchable.includes(term)) return null;
+          // Bonus for name match vs other field match
+          if (name.includes(term)) score += 3;
+          else if (metroName.includes(term) || metroId.includes(term)) score += 2;
+          else score += 1;
+        }
+
+        // Bonus for metro filter match via query (e.g. user says "austin" without using metro param)
+        if (!metro && metroId && terms.some(t => metroId.includes(t) || metroName.includes(t))) {
+          score += 2;
+        }
+
+        return { item: s, score };
+      }).filter(Boolean) as Array<{ item: Record<string, unknown>; score: number }>;
+
+      // Sort by relevance score descending
+      scored.sort((a, b) => b.score - a.score);
+
+      return scored.slice(0, limit).map((s) => s.item);
     }
 
     case "get_series": {
