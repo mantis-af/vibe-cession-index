@@ -82,7 +82,6 @@ export function ExploreClient({ index, seriesData, totalSeries }: Props) {
   // Build chart data from selected series
   const chartData = useMemo(() => {
     if (selectedIds.length === 0) return [];
-    // Merge all selected series by date
     const dateMap = new Map<string, Record<string, number>>();
     selectedIds.forEach((id) => {
       const points = seriesData[id] || [];
@@ -94,6 +93,40 @@ export function ExploreClient({ index, seriesData, totalSeries }: Props) {
     return Array.from(dateMap.entries())
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([date, values]) => ({ date: formatDate(date), rawDate: date, ...values }));
+  }, [selectedIds, seriesData]);
+
+  // Assign series to left or right Y-axis based on value magnitude
+  const axisAssignment = useMemo(() => {
+    if (selectedIds.length <= 1) return { left: selectedIds, right: [] as string[] };
+
+    // Compute the typical magnitude of each series
+    const magnitudes: { id: string; mag: number; min: number; max: number }[] = selectedIds.map((id) => {
+      const pts = seriesData[id] || [];
+      const vals = pts.map((p) => p.value).filter((v) => v !== null && v !== undefined);
+      if (vals.length === 0) return { id, mag: 0, min: 0, max: 0 };
+      const mn = Math.min(...vals);
+      const mx = Math.max(...vals);
+      return { id, mag: Math.max(Math.abs(mn), Math.abs(mx)), min: mn, max: mx };
+    });
+
+    // If all series have similar magnitude (within 10x), use single axis
+    const mags = magnitudes.map((m) => m.mag).filter((m) => m > 0);
+    if (mags.length <= 1) return { left: selectedIds, right: [] as string[] };
+
+    const maxMag = Math.max(...mags);
+    const minMag = Math.min(...mags);
+    if (maxMag / Math.max(minMag, 0.001) < 10) return { left: selectedIds, right: [] as string[] };
+
+    // Split into two groups: large magnitude vs small magnitude
+    const threshold = Math.sqrt(maxMag * minMag); // geometric mean
+    const left = magnitudes.filter((m) => m.mag >= threshold).map((m) => m.id);
+    const right = magnitudes.filter((m) => m.mag < threshold).map((m) => m.id);
+
+    // Make sure both groups have at least one series
+    if (left.length === 0) return { left: selectedIds, right: [] as string[] };
+    if (right.length === 0) return { left: selectedIds, right: [] as string[] };
+
+    return { left, right };
   }, [selectedIds, seriesData]);
 
   const selectedSeries = selectedIds.map((id) => index.find((s) => s.id === id)).filter(Boolean) as SeriesInfo[];
@@ -258,17 +291,21 @@ export function ExploreClient({ index, seriesData, totalSeries }: Props) {
           {/* Selected series tags */}
           {selectedSeries.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
-              {selectedSeries.map((s, i) => (
-                <button
-                  key={s.id}
-                  onClick={() => toggleSeries(s.id)}
-                  className="flex items-center gap-1.5 pl-2 pr-1.5 py-1 rounded-lg border border-zinc-200 text-xs hover:border-red-300 transition-all group"
-                >
-                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                  <span className="truncate max-w-[200px]">{s.name}</span>
-                  <X className="h-3 w-3 text-zinc-400 group-hover:text-red-500" />
-                </button>
-              ))}
+              {selectedSeries.map((s, i) => {
+                const isRight = axisAssignment.right.includes(s.id);
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => toggleSeries(s.id)}
+                    className="flex items-center gap-1.5 pl-2 pr-1.5 py-1 rounded-lg border border-zinc-200 text-xs hover:border-red-300 transition-all group"
+                  >
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                    <span className="truncate max-w-[200px]">{s.name}</span>
+                    {isRight && <span className="text-[9px] text-muted-foreground bg-zinc-100 px-1 rounded">R</span>}
+                    <X className="h-3 w-3 text-zinc-400 group-hover:text-red-500" />
+                  </button>
+                );
+              })}
               {selectedSeries.length > 1 && (
                 <button
                   onClick={() => setSelectedIds([])}
@@ -293,8 +330,20 @@ export function ExploreClient({ index, seriesData, totalSeries }: Props) {
                   </div>
                   <span className="text-[10px] text-muted-foreground font-mono">{chartData.length} data points</span>
                 </div>
+                {axisAssignment.right.length > 0 && (
+                  <div className="flex items-center gap-4 mb-2 text-[10px] text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <span className="w-3 h-[2px] bg-zinc-400 rounded" />
+                      Left axis: {axisAssignment.left.map((id) => index.find((s) => s.id === id)?.name?.split(" — ").pop()).join(", ")}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-3 h-[2px] bg-zinc-400 rounded" style={{ borderTop: "2px dashed #a1a1aa", background: "transparent" }} />
+                      Right axis: {axisAssignment.right.map((id) => index.find((s) => s.id === id)?.name?.split(" — ").pop()).join(", ")}
+                    </span>
+                  </div>
+                )}
                 <ResponsiveContainer width="100%" height={400}>
-                  <LineChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                  <LineChart data={chartData} margin={{ top: 5, right: axisAssignment.right.length > 0 ? 50 : 10, left: -10, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" />
                     <XAxis
                       dataKey="date"
@@ -306,10 +355,20 @@ export function ExploreClient({ index, seriesData, totalSeries }: Props) {
                       dy={8}
                     />
                     <YAxis
+                      yAxisId="left"
                       tick={{ fill: "#a1a1aa", fontSize: 10 }}
                       tickLine={false}
                       axisLine={{ stroke: "#e4e4e7" }}
                     />
+                    {axisAssignment.right.length > 0 && (
+                      <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        tick={{ fill: "#a1a1aa", fontSize: 10 }}
+                        tickLine={false}
+                        axisLine={{ stroke: "#d4d4d8" }}
+                      />
+                    )}
                     <Tooltip
                       content={({ active, payload, label }) => {
                         if (!active || !payload?.length) return null;
@@ -331,17 +390,22 @@ export function ExploreClient({ index, seriesData, totalSeries }: Props) {
                       }}
                     />
                     <Legend content={() => null} />
-                    {selectedIds.map((id, i) => (
-                      <Line
-                        key={id}
-                        type="monotone"
-                        dataKey={id}
-                        stroke={CHART_COLORS[i % CHART_COLORS.length]}
-                        strokeWidth={2}
-                        dot={false}
-                        connectNulls
-                      />
-                    ))}
+                    {selectedIds.map((id, i) => {
+                      const isRight = axisAssignment.right.includes(id);
+                      return (
+                        <Line
+                          key={id}
+                          type="monotone"
+                          dataKey={id}
+                          yAxisId={isRight ? "right" : "left"}
+                          stroke={CHART_COLORS[i % CHART_COLORS.length]}
+                          strokeWidth={2}
+                          strokeDasharray={isRight ? "6 3" : undefined}
+                          dot={false}
+                          connectNulls
+                        />
+                      );
+                    })}
                   </LineChart>
                 </ResponsiveContainer>
               </>
