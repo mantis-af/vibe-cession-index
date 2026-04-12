@@ -87,7 +87,7 @@ def aggregate_daily_to_monthly(df: pd.DataFrame) -> pd.DataFrame:
 
 def main():
     print("=== FRED Macro Indicators Pipeline ===")
-    start_date = (datetime.now() - timedelta(days=800)).strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=1900)).strftime("%Y-%m-%d")
 
     all_data = {}
     for key, spec in SERIES.items():

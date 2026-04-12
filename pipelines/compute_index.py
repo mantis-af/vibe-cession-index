@@ -538,7 +538,7 @@ def main():
         print("  python pipelines/sources/fred_claims.py")
         sys.exit(1)
 
-    weeks = get_weekly_dates(104)  # 2 full years
+    weeks = get_weekly_dates(260)  # 2 full years
     print(f"Computing index for {len(weeks)} weeks ({weeks[0]} to {weeks[-1]})")
 
     metros_output = []

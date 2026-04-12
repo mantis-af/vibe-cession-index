@@ -80,7 +80,7 @@ def fetch_bls_cpi(series_ids: list[str], start_year: int, end_year: int) -> dict
 def main():
     print("=== BLS CPI Metro Pipeline ===")
     now = datetime.now()
-    start_year = now.year - 2
+    start_year = now.year - 5
     end_year = now.year
 
     # Also fetch national CPI for comparison

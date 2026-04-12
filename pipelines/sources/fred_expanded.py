@@ -68,7 +68,7 @@ def fetch_fred_csv(series_id: str, start_date: str) -> list[dict]:
 
 def main():
     print("=== FRED Expanded Pipeline ===")
-    start_date = (datetime.now() - timedelta(days=730)).strftime("%Y-%m-%d")  # 2 years
+    start_date = (datetime.now() - timedelta(days=1900)).strftime("%Y-%m-%d")  # 2 years
 
     # --- National ---
     national = {}

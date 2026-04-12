@@ -19,7 +19,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import OUTPUT_DIR
+from config import METROS, OUTPUT_DIR
 
 # FRED series for gas prices by region (PADD districts + national)
 GAS_SERIES = {
@@ -66,7 +66,7 @@ def fetch_fred_csv(series_id: str, start_date: str) -> list[dict]:
 
 def main():
     print("=== EIA Gas Prices Pipeline ===")
-    start_date = (datetime.now() - timedelta(days=400)).strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=1900)).strftime("%Y-%m-%d")
 
     regions_data = {}
     for region_key, spec in GAS_SERIES.items():
@@ -82,7 +82,6 @@ def main():
 
     # Add metro mapping
     metro_gas = {}
-    from config import METROS
     for metro in METROS:
         region = METRO_GAS_REGION.get(metro.id, "national")
         region_data = regions_data.get(region, regions_data.get("national", {}))

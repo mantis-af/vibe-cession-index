@@ -62,7 +62,7 @@ def fetch_bls_series(series_ids: list[str], start_year: int, end_year: int) -> d
 def main():
     print("=== BLS Unemployment Pipeline ===")
     now = datetime.now()
-    start_year = now.year - 2  # 2+ years for longer lookback
+    start_year = now.year - 5  # 2+ years for longer lookback
     end_year = now.year
 
     # BLS API allows up to 50 series per request

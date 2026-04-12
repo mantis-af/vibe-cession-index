@@ -1,27 +1,27 @@
 {
   "weekOf": "2026-04-06",
-  "generatedAt": "2026-04-11T20:24:49.144171",
-  "headline": "Undercurrent Weekly: National Index at 57",
+  "generatedAt": "2026-04-11T22:56:52.838447",
+  "headline": "Undercurrent Weekly: National Index at 51",
   "sections": [
     {
       "title": "National Overview",
-      "body": "For the week of April 06, 2026, the Undercurrent national composite stands at 57 out of 100, based on behavioral signals from 50 US metros. Over the past month, the index has improved by 0.5 points. On a quarterly basis, 2026-Q2 is tracking up 0.7 points from 2026-Q1 (from 56 to 57). 48 of 50 metros are above the neutral 50 threshold, while 2 show sub-neutral behavioral sentiment."
+      "body": "For the week of April 06, 2026, the Undercurrent national composite stands at 51 out of 100, based on behavioral signals from 50 US metros. Over the past month, the index has improved by 0.2 points. On a quarterly basis, 2026-Q2 is tracking up 0.9 points from 2026-Q1 (from 50 to 51). 26 of 50 metros are above the neutral 50 threshold, while 24 show sub-neutral behavioral sentiment."
     },
     {
       "title": "Top Movers",
-      "body": "The biggest gainer this week is Memphis, TN (+3 to 61). The steepest decline came from Baltimore, MD (-11 to 52). Other notable gainers: Memphis (+3), San Antonio (+2), Nashville (+2). Other notable decliners: Baltimore (-11), Denver (-5), Portland (-5)."
+      "body": "The biggest gainer this week is Memphis, TN (+2 to 49). The steepest decline came from Portland, OR (-4 to 38). Other notable gainers: Memphis (+2), San Antonio (+1), Austin (+1). Other notable decliners: Portland (-4), Denver (-3), Philadelphia (-2)."
     },
     {
       "title": "Signal Analysis",
-      "body": "The primary drag on sentiment this period is search anxiety, pulling the index down by a combined -1.8 points. Offsetting this, new business applications and jobless claims contributed positively (+1.8 pts). "
+      "body": "The primary drag on sentiment this period is search anxiety, pulling the index down by a combined -1.8 points. Offsetting this, new business applications and AI job search activity contributed positively (+1.3 pts). "
     },
     {
       "title": "Metro Spotlight",
-      "body": "Leading the rankings is Hartford, CT with a score of 66, while Portland, OR sits at the bottom with 45."
+      "body": "Leading the rankings is Hartford, CT with a score of 65, while Portland, OR sits at the bottom with 38."
     },
     {
       "title": "Affordability",
-      "body": "On affordability, Pittsburgh remains the most affordable tracked metro (score 100, 16% housing burden), while San Jose is the least affordable (score 0, 96% of income to housing)."
+      "body": "On affordability, El Paso remains the most affordable tracked metro (score 100, 17% housing burden), while San Jose is the least affordable (score 0, 96% of income to housing)."
     }
   ]
 }

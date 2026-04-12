@@ -1,566 +1,1212 @@
 {
   "national": {
     "peakLag": 0,
-    "peakCorrelation": 0.8526,
+    "peakCorrelation": 0.7836,
     "pValue": 0.0,
     "significant": true,
     "correlations": [
       {
         "lag": -16,
-        "correlation": -0.233,
-        "pValue": 0.045,
-        "significant": true,
-        "pairs": 88
+        "correlation": 0.0916,
+        "pValue": 0.16,
+        "significant": false,
+        "pairs": 244
       },
       {
         "lag": -15,
-        "correlation": -0.3557,
-        "pValue": 0.0,
-        "significant": true,
-        "pairs": 89
+        "correlation": 0.071,
+        "pValue": 0.26,
+        "significant": false,
+        "pairs": 245
       },
       {
         "lag": -14,
-        "correlation": -0.3626,
-        "pValue": 0.0,
-        "significant": true,
-        "pairs": 90
+        "correlation": 0.0984,
+        "pValue": 0.16,
+        "significant": false,
+        "pairs": 246
       },
       {
         "lag": -13,
-        "correlation": -0.2598,
-        "pValue": 0.005,
+        "correlation": 0.1538,
+        "pValue": 0.02,
         "significant": true,
-        "pairs": 91
+        "pairs": 247
       },
       {
         "lag": -12,
-        "correlation": -0.2956,
-        "pValue": 0.005,
+        "correlation": 0.1766,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 92
+        "pairs": 248
       },
       {
         "lag": -11,
-        "correlation": -0.3083,
-        "pValue": 0.0,
+        "correlation": 0.1811,
+        "pValue": 0.005,
         "significant": true,
-        "pairs": 93
+        "pairs": 249
       },
       {
         "lag": -10,
-        "correlation": -0.3501,
-        "pValue": 0.0,
+        "correlation": 0.1835,
+        "pValue": 0.005,
         "significant": true,
-        "pairs": 94
+        "pairs": 250
       },
       {
         "lag": -9,
-        "correlation": -0.2452,
-        "pValue": 0.025,
+        "correlation": 0.2246,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 95
+        "pairs": 251
       },
       {
         "lag": -8,
-        "correlation": -0.2262,
-        "pValue": 0.025,
+        "correlation": 0.244,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 96
+        "pairs": 252
       },
       {
         "lag": -7,
-        "correlation": -0.1254,
-        "pValue": 0.185,
-        "significant": false,
-        "pairs": 97
+        "correlation": 0.2828,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 253
       },
       {
         "lag": -6,
-        "correlation": -0.0042,
-        "pValue": 0.975,
-        "significant": false,
-        "pairs": 98
+        "correlation": 0.334,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 254
       },
       {
         "lag": -5,
-        "correlation": 0.0435,
-        "pValue": 0.655,
-        "significant": false,
-        "pairs": 99
+        "correlation": 0.3676,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 255
       },
       {
         "lag": -4,
-        "correlation": 0.1956,
-        "pValue": 0.06,
-        "significant": false,
-        "pairs": 100
+        "correlation": 0.4074,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 256
       },
       {
         "lag": -3,
-        "correlation": 0.2254,
-        "pValue": 0.01,
+        "correlation": 0.4454,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 101
+        "pairs": 257
       },
       {
         "lag": -2,
-        "correlation": 0.2948,
+        "correlation": 0.4745,
         "pValue": 0.0,
         "significant": true,
-        "pairs": 102
+        "pairs": 258
       },
       {
         "lag": -1,
-        "correlation": 0.453,
+        "correlation": 0.5785,
         "pValue": 0.0,
         "significant": true,
-        "pairs": 103
+        "pairs": 259
       },
       {
         "lag": 0,
-        "correlation": 0.8526,
+        "correlation": 0.7836,
         "pValue": 0.0,
         "significant": true,
-        "pairs": 104
+        "pairs": 260
       },
       {
         "lag": 1,
-        "correlation": 0.581,
+        "correlation": 0.6375,
         "pValue": 0.0,
         "significant": true,
-        "pairs": 103
+        "pairs": 259
       },
       {
         "lag": 2,
-        "correlation": 0.3549,
+        "correlation": 0.5306,
         "pValue": 0.0,
         "significant": true,
-        "pairs": 102
+        "pairs": 258
       },
       {
         "lag": 3,
-        "correlation": 0.2641,
-        "pValue": 0.005,
+        "correlation": 0.5099,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 101
+        "pairs": 257
       },
       {
         "lag": 4,
-        "correlation": 0.242,
-        "pValue": 0.025,
+        "correlation": 0.4816,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 100
+        "pairs": 256
       },
       {
         "lag": 5,
-        "correlation": 0.2044,
-        "pValue": 0.045,
+        "correlation": 0.4724,
+        "pValue": 0.0,
         "significant": true,
-        "pairs": 99
+        "pairs": 255
       },
       {
         "lag": 6,
-        "correlation": 0.1395,
-        "pValue": 0.13,
-        "significant": false,
-        "pairs": 98
+        "correlation": 0.4427,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 254
       },
       {
         "lag": 7,
-        "correlation": 0.0461,
-        "pValue": 0.635,
-        "significant": false,
-        "pairs": 97
+        "correlation": 0.4191,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 253
       },
       {
         "lag": 8,
-        "correlation": -0.0497,
-        "pValue": 0.68,
-        "significant": false,
-        "pairs": 96
+        "correlation": 0.3965,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 252
       },
       {
         "lag": 9,
-        "correlation": -0.0413,
-        "pValue": 0.665,
-        "significant": false,
-        "pairs": 95
+        "correlation": 0.3834,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 251
       },
       {
         "lag": 10,
-        "correlation": -0.1251,
-        "pValue": 0.2,
-        "significant": false,
-        "pairs": 94
+        "correlation": 0.3478,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 250
       },
       {
         "lag": 11,
-        "correlation": -0.1394,
-        "pValue": 0.145,
-        "significant": false,
-        "pairs": 93
+        "correlation": 0.3353,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 249
       },
       {
         "lag": 12,
-        "correlation": -0.1555,
-        "pValue": 0.135,
-        "significant": false,
-        "pairs": 92
+        "correlation": 0.3302,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 248
       },
       {
         "lag": 13,
-        "correlation": -0.1,
-        "pValue": 0.285,
-        "significant": false,
-        "pairs": 91
+        "correlation": 0.3185,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 247
       },
       {
         "lag": 14,
-        "correlation": -0.1649,
-        "pValue": 0.115,
-        "significant": false,
-        "pairs": 90
+        "correlation": 0.266,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 246
       },
       {
         "lag": 15,
-        "correlation": -0.1899,
-        "pValue": 0.1,
-        "significant": false,
-        "pairs": 89
+        "correlation": 0.2406,
+        "pValue": 0.005,
+        "significant": true,
+        "pairs": 245
       },
       {
         "lag": 16,
-        "correlation": -0.1727,
-        "pValue": 0.095,
-        "significant": false,
-        "pairs": 88
+        "correlation": 0.2502,
+        "pValue": 0.0,
+        "significant": true,
+        "pairs": 244
       }
     ],
     "rollingCorrelation": [
       {
         "week": 26,
-        "correlation": 0.9881
+        "correlation": 0.877
       },
       {
         "week": 27,
-        "correlation": 0.9875
+        "correlation": 0.9163
       },
       {
         "week": 28,
-        "correlation": 0.9866
+        "correlation": 0.8773
       },
       {
         "week": 29,
-        "correlation": 0.9827
+        "correlation": 0.8642
       },
       {
         "week": 30,
-        "correlation": 0.9817
+        "correlation": 0.8651
       },
       {
         "week": 31,
-        "correlation": 0.9808
+        "correlation": 0.8886
       },
       {
         "week": 32,
-        "correlation": 0.9781
+        "correlation": 0.9137
       },
       {
         "week": 33,
-        "correlation": 0.9763
+        "correlation": 0.9157
       },
       {
         "week": 34,
-        "correlation": 0.9639
+        "correlation": 0.9142
       },
       {
         "week": 35,
-        "correlation": 0.9721
+        "correlation": 0.921
       },
       {
         "week": 36,
-        "correlation": 0.975
+        "correlation": 0.9338
       },
       {
         "week": 37,
-        "correlation": 0.9753
+        "correlation": 0.9332
       },
       {
         "week": 38,
-        "correlation": 0.9627
+        "correlation": 0.9176
       },
       {
         "week": 39,
-        "correlation": 0.9733
+        "correlation": 0.8576
       },
       {
         "week": 40,
-        "correlation": 0.9533
+        "correlation": 0.8051
       },
       {
         "week": 41,
-        "correlation": 0.9488
+        "correlation": 0.771
       },
       {
         "week": 42,
-        "correlation": 0.949
+        "correlation": 0.7451
       },
       {
         "week": 43,
-        "correlation": 0.9486
+        "correlation": 0.7393
       },
       {
         "week": 44,
-        "correlation": 0.9482
+        "correlation": 0.7246
       },
       {
         "week": 45,
-        "correlation": 0.9485
+        "correlation": 0.7237
       },
       {
         "week": 46,
-        "correlation": 0.9482
+        "correlation": 0.7123
       },
       {
         "week": 47,
-        "correlation": 0.9496
+        "correlation": 0.7259
       },
       {
         "week": 48,
-        "correlation": 0.9541
+        "correlation": 0.7408
       },
       {
         "week": 49,
-        "correlation": 0.9584
+        "correlation": 0.7254
       },
       {
         "week": 50,
-        "correlation": 0.9633
+        "correlation": 0.7074
       },
       {
         "week": 51,
-        "correlation": 0.967
+        "correlation": 0.732
       },
       {
         "week": 52,
-        "correlation": 0.9668
+        "correlation": 0.7362
       },
       {
         "week": 53,
-        "correlation": 0.9654
+        "correlation": 0.7809
       },
       {
         "week": 54,
-        "correlation": 0.9663
+        "correlation": 0.757
       },
       {
         "week": 55,
-        "correlation": 0.9659
+        "correlation": 0.7459
       },
       {
         "week": 56,
-        "correlation": 0.9638
+        "correlation": 0.7243
       },
       {
         "week": 57,
-        "correlation": 0.9622
+        "correlation": 0.7134
       },
       {
         "week": 58,
-        "correlation": 0.9586
+        "correlation": 0.7015
       },
       {
         "week": 59,
-        "correlation": 0.9504
+        "correlation": 0.5483
       },
       {
         "week": 60,
-        "correlation": 0.9491
+        "correlation": 0.4455
       },
       {
         "week": 61,
-        "correlation": 0.9471
+        "correlation": 0.3908
       },
       {
         "week": 62,
-        "correlation": 0.9463
+        "correlation": 0.355
       },
       {
         "week": 63,
-        "correlation": 0.9445
+        "correlation": 0.303
       },
       {
         "week": 64,
-        "correlation": 0.9304
+        "correlation": 0.273
       },
       {
         "week": 65,
-        "correlation": 0.7983
+        "correlation": 0.2155
       },
       {
         "week": 66,
-        "correlation": 0.8817
+        "correlation": 0.3005
       },
       {
         "week": 67,
-        "correlation": 0.8966
+        "correlation": 0.3606
       },
       {
         "week": 68,
-        "correlation": 0.8974
+        "correlation": 0.4542
       },
       {
         "week": 69,
-        "correlation": 0.9064
+        "correlation": 0.4929
       },
       {
         "week": 70,
-        "correlation": 0.9146
+        "correlation": 0.5865
       },
       {
         "week": 71,
-        "correlation": 0.9169
+        "correlation": 0.5999
       },
       {
         "week": 72,
-        "correlation": 0.9255
+        "correlation": 0.5568
       },
       {
         "week": 73,
-        "correlation": 0.9209
+        "correlation": 0.5034
       },
       {
         "week": 74,
-        "correlation": 0.9211
+        "correlation": 0.4241
       },
       {
         "week": 75,
-        "correlation": 0.9151
+        "correlation": 0.3509
       },
       {
         "week": 76,
-        "correlation": 0.9079
+        "correlation": 0.3016
       },
       {
         "week": 77,
-        "correlation": 0.8915
+        "correlation": 0.2595
       },
       {
         "week": 78,
-        "correlation": 0.897
+        "correlation": 0.3899
       },
       {
         "week": 79,
-        "correlation": 0.9186
+        "correlation": 0.4006
       },
       {
         "week": 80,
-        "correlation": 0.9036
+        "correlation": 0.3907
       },
       {
         "week": 81,
-        "correlation": 0.8891
+        "correlation": 0.3673
       },
       {
         "week": 82,
-        "correlation": 0.8887
+        "correlation": 0.3168
       },
       {
         "week": 83,
-        "correlation": 0.8769
+        "correlation": 0.3058
       },
       {
         "week": 84,
-        "correlation": 0.8722
+        "correlation": 0.3212
       },
       {
         "week": 85,
-        "correlation": 0.7456
+        "correlation": 0.2949
       },
       {
         "week": 86,
-        "correlation": 0.7183
+        "correlation": 0.2846
       },
       {
         "week": 87,
-        "correlation": 0.5754
+        "correlation": 0.314
       },
       {
         "week": 88,
-        "correlation": 0.5252
+        "correlation": 0.3503
       },
       {
         "week": 89,
-        "correlation": 0.4386
+        "correlation": 0.3635
       },
       {
         "week": 90,
-        "correlation": 0.4346
+        "correlation": 0.3792
       },
       {
         "week": 91,
-        "correlation": 0.6425
+        "correlation": 0.5363
       },
       {
         "week": 92,
-        "correlation": 0.576
+        "correlation": 0.5678
       },
       {
         "week": 93,
-        "correlation": 0.6184
+        "correlation": 0.5609
       },
       {
         "week": 94,
-        "correlation": 0.6416
+        "correlation": 0.5135
       },
       {
         "week": 95,
-        "correlation": 0.6639
+        "correlation": 0.4616
       },
       {
         "week": 96,
-        "correlation": 0.6637
+        "correlation": 0.4175
       },
       {
         "week": 97,
-        "correlation": 0.6872
+        "correlation": 0.3825
       },
       {
         "week": 98,
-        "correlation": 0.6952
+        "correlation": 0.3576
       },
       {
         "week": 99,
-        "correlation": 0.7274
+        "correlation": 0.3266
       },
       {
         "week": 100,
-        "correlation": 0.748
+        "correlation": 0.2938
       },
       {
         "week": 101,
-        "correlation": 0.768
+        "correlation": 0.2981
       },
       {
         "week": 102,
-        "correlation": 0.7923
+        "correlation": 0.3091
       },
       {
         "week": 103,
-        "correlation": 0.819
+        "correlation": 0.423
+      },
+      {
+        "week": 104,
+        "correlation": 0.435
+      },
+      {
+        "week": 105,
+        "correlation": 0.5141
+      },
+      {
+        "week": 106,
+        "correlation": 0.617
+      },
+      {
+        "week": 107,
+        "correlation": 0.6927
+      },
+      {
+        "week": 108,
+        "correlation": 0.7448
+      },
+      {
+        "week": 109,
+        "correlation": 0.8238
+      },
+      {
+        "week": 110,
+        "correlation": 0.8572
+      },
+      {
+        "week": 111,
+        "correlation": 0.8809
+      },
+      {
+        "week": 112,
+        "correlation": 0.8611
+      },
+      {
+        "week": 113,
+        "correlation": 0.8281
+      },
+      {
+        "week": 114,
+        "correlation": 0.8107
+      },
+      {
+        "week": 115,
+        "correlation": 0.8346
+      },
+      {
+        "week": 116,
+        "correlation": 0.8396
+      },
+      {
+        "week": 117,
+        "correlation": 0.7524
+      },
+      {
+        "week": 118,
+        "correlation": 0.7044
+      },
+      {
+        "week": 119,
+        "correlation": 0.7966
+      },
+      {
+        "week": 120,
+        "correlation": 0.8242
+      },
+      {
+        "week": 121,
+        "correlation": 0.8445
+      },
+      {
+        "week": 122,
+        "correlation": 0.86
+      },
+      {
+        "week": 123,
+        "correlation": 0.8755
+      },
+      {
+        "week": 124,
+        "correlation": 0.8369
+      },
+      {
+        "week": 125,
+        "correlation": 0.7973
+      },
+      {
+        "week": 126,
+        "correlation": 0.7616
+      },
+      {
+        "week": 127,
+        "correlation": 0.7284
+      },
+      {
+        "week": 128,
+        "correlation": 0.6322
+      },
+      {
+        "week": 129,
+        "correlation": 0.5002
+      },
+      {
+        "week": 130,
+        "correlation": 0.4326
+      },
+      {
+        "week": 131,
+        "correlation": 0.34
+      },
+      {
+        "week": 132,
+        "correlation": 0.2082
+      },
+      {
+        "week": 133,
+        "correlation": 0.109
+      },
+      {
+        "week": 134,
+        "correlation": 0.0523
+      },
+      {
+        "week": 135,
+        "correlation": -0.0336
+      },
+      {
+        "week": 136,
+        "correlation": -0.0813
+      },
+      {
+        "week": 137,
+        "correlation": 0.0867
+      },
+      {
+        "week": 138,
+        "correlation": 0.1303
+      },
+      {
+        "week": 139,
+        "correlation": 0.1341
+      },
+      {
+        "week": 140,
+        "correlation": 0.1606
+      },
+      {
+        "week": 141,
+        "correlation": 0.2361
+      },
+      {
+        "week": 142,
+        "correlation": 0.2776
+      },
+      {
+        "week": 143,
+        "correlation": 0.4695
+      },
+      {
+        "week": 144,
+        "correlation": 0.5948
+      },
+      {
+        "week": 145,
+        "correlation": 0.6471
+      },
+      {
+        "week": 146,
+        "correlation": 0.6765
+      },
+      {
+        "week": 147,
+        "correlation": 0.6929
+      },
+      {
+        "week": 148,
+        "correlation": 0.7099
+      },
+      {
+        "week": 149,
+        "correlation": 0.7174
+      },
+      {
+        "week": 150,
+        "correlation": 0.7236
+      },
+      {
+        "week": 151,
+        "correlation": 0.7237
+      },
+      {
+        "week": 152,
+        "correlation": 0.7118
+      },
+      {
+        "week": 153,
+        "correlation": 0.7048
+      },
+      {
+        "week": 154,
+        "correlation": 0.7135
+      },
+      {
+        "week": 155,
+        "correlation": 0.7318
+      },
+      {
+        "week": 156,
+        "correlation": 0.7451
+      },
+      {
+        "week": 157,
+        "correlation": 0.7548
+      },
+      {
+        "week": 158,
+        "correlation": 0.7663
+      },
+      {
+        "week": 159,
+        "correlation": 0.7651
+      },
+      {
+        "week": 160,
+        "correlation": 0.7478
+      },
+      {
+        "week": 161,
+        "correlation": 0.7326
+      },
+      {
+        "week": 162,
+        "correlation": 0.7078
+      },
+      {
+        "week": 163,
+        "correlation": 0.6547
+      },
+      {
+        "week": 164,
+        "correlation": 0.7483
+      },
+      {
+        "week": 165,
+        "correlation": 0.8016
+      },
+      {
+        "week": 166,
+        "correlation": 0.8415
+      },
+      {
+        "week": 167,
+        "correlation": 0.8472
+      },
+      {
+        "week": 168,
+        "correlation": 0.8565
+      },
+      {
+        "week": 169,
+        "correlation": 0.9117
+      },
+      {
+        "week": 170,
+        "correlation": 0.9442
+      },
+      {
+        "week": 171,
+        "correlation": 0.9561
+      },
+      {
+        "week": 172,
+        "correlation": 0.9617
+      },
+      {
+        "week": 173,
+        "correlation": 0.9617
+      },
+      {
+        "week": 174,
+        "correlation": 0.9603
+      },
+      {
+        "week": 175,
+        "correlation": 0.9558
+      },
+      {
+        "week": 176,
+        "correlation": 0.9466
+      },
+      {
+        "week": 177,
+        "correlation": 0.9337
+      },
+      {
+        "week": 178,
+        "correlation": 0.9245
+      },
+      {
+        "week": 179,
+        "correlation": 0.915
+      },
+      {
+        "week": 180,
+        "correlation": 0.9006
+      },
+      {
+        "week": 181,
+        "correlation": 0.8733
+      },
+      {
+        "week": 182,
+        "correlation": 0.8792
+      },
+      {
+        "week": 183,
+        "correlation": 0.8739
+      },
+      {
+        "week": 184,
+        "correlation": 0.8637
+      },
+      {
+        "week": 185,
+        "correlation": 0.8189
+      },
+      {
+        "week": 186,
+        "correlation": 0.801
+      },
+      {
+        "week": 187,
+        "correlation": 0.778
+      },
+      {
+        "week": 188,
+        "correlation": 0.7612
+      },
+      {
+        "week": 189,
+        "correlation": 0.7351
+      },
+      {
+        "week": 190,
+        "correlation": 0.7436
+      },
+      {
+        "week": 191,
+        "correlation": 0.8332
+      },
+      {
+        "week": 192,
+        "correlation": 0.8582
+      },
+      {
+        "week": 193,
+        "correlation": 0.8539
+      },
+      {
+        "week": 194,
+        "correlation": 0.8714
+      },
+      {
+        "week": 195,
+        "correlation": 0.9544
+      },
+      {
+        "week": 196,
+        "correlation": 0.9532
+      },
+      {
+        "week": 197,
+        "correlation": 0.9579
+      },
+      {
+        "week": 198,
+        "correlation": 0.9581
+      },
+      {
+        "week": 199,
+        "correlation": 0.9588
+      },
+      {
+        "week": 200,
+        "correlation": 0.9595
+      },
+      {
+        "week": 201,
+        "correlation": 0.9599
+      },
+      {
+        "week": 202,
+        "correlation": 0.9587
+      },
+      {
+        "week": 203,
+        "correlation": 0.9589
+      },
+      {
+        "week": 204,
+        "correlation": 0.9604
+      },
+      {
+        "week": 205,
+        "correlation": 0.9629
+      },
+      {
+        "week": 206,
+        "correlation": 0.9658
+      },
+      {
+        "week": 207,
+        "correlation": 0.9653
+      },
+      {
+        "week": 208,
+        "correlation": 0.9624
+      },
+      {
+        "week": 209,
+        "correlation": 0.9608
+      },
+      {
+        "week": 210,
+        "correlation": 0.9594
+      },
+      {
+        "week": 211,
+        "correlation": 0.9544
+      },
+      {
+        "week": 212,
+        "correlation": 0.9459
+      },
+      {
+        "week": 213,
+        "correlation": 0.9403
+      },
+      {
+        "week": 214,
+        "correlation": 0.9304
+      },
+      {
+        "week": 215,
+        "correlation": 0.9223
+      },
+      {
+        "week": 216,
+        "correlation": 0.9137
+      },
+      {
+        "week": 217,
+        "correlation": 0.9161
+      },
+      {
+        "week": 218,
+        "correlation": 0.9197
+      },
+      {
+        "week": 219,
+        "correlation": 0.9259
+      },
+      {
+        "week": 220,
+        "correlation": 0.9082
+      },
+      {
+        "week": 221,
+        "correlation": 0.714
+      },
+      {
+        "week": 222,
+        "correlation": 0.8181
+      },
+      {
+        "week": 223,
+        "correlation": 0.8333
+      },
+      {
+        "week": 224,
+        "correlation": 0.85
+      },
+      {
+        "week": 225,
+        "correlation": 0.8804
+      },
+      {
+        "week": 226,
+        "correlation": 0.9036
+      },
+      {
+        "week": 227,
+        "correlation": 0.9192
+      },
+      {
+        "week": 228,
+        "correlation": 0.9406
+      },
+      {
+        "week": 229,
+        "correlation": 0.9423
+      },
+      {
+        "week": 230,
+        "correlation": 0.9473
+      },
+      {
+        "week": 231,
+        "correlation": 0.9438
+      },
+      {
+        "week": 232,
+        "correlation": 0.9411
+      },
+      {
+        "week": 233,
+        "correlation": 0.9318
+      },
+      {
+        "week": 234,
+        "correlation": 0.9306
+      },
+      {
+        "week": 235,
+        "correlation": 0.9322
+      },
+      {
+        "week": 236,
+        "correlation": 0.9034
+      },
+      {
+        "week": 237,
+        "correlation": 0.8716
+      },
+      {
+        "week": 238,
+        "correlation": 0.8665
+      },
+      {
+        "week": 239,
+        "correlation": 0.8727
+      },
+      {
+        "week": 240,
+        "correlation": 0.8773
+      },
+      {
+        "week": 241,
+        "correlation": 0.7949
+      },
+      {
+        "week": 242,
+        "correlation": 0.7576
+      },
+      {
+        "week": 243,
+        "correlation": 0.6728
+      },
+      {
+        "week": 244,
+        "correlation": 0.6342
+      },
+      {
+        "week": 245,
+        "correlation": 0.5594
+      },
+      {
+        "week": 246,
+        "correlation": 0.5601
+      },
+      {
+        "week": 247,
+        "correlation": 0.79
+      },
+      {
+        "week": 248,
+        "correlation": 0.7664
+      },
+      {
+        "week": 249,
+        "correlation": 0.7994
+      },
+      {
+        "week": 250,
+        "correlation": 0.8101
+      },
+      {
+        "week": 251,
+        "correlation": 0.8213
+      },
+      {
+        "week": 252,
+        "correlation": 0.8228
+      },
+      {
+        "week": 253,
+        "correlation": 0.8307
+      },
+      {
+        "week": 254,
+        "correlation": 0.8293
+      },
+      {
+        "week": 255,
+        "correlation": 0.8409
+      },
+      {
+        "week": 256,
+        "correlation": 0.8493
+      },
+      {
+        "week": 257,
+        "correlation": 0.8585
+      },
+      {
+        "week": 258,
+        "correlation": 0.8681
+      },
+      {
+        "week": 259,
+        "correlation": 0.8786
       }
     ],
     "interpretation": "No statistically significant national lead/lag detected"
   },
   "signalPairs": [
     {
+      "behavioral": "google_trends_anxiety",
+      "official": "unemployment_rate",
+      "behavioralName": "Search Anxiety",
+      "officialName": "Unemployment Rate",
+      "peakLag": 15,
+      "peakCorrelation": 0.1306,
+      "pValue": 0.03,
+      "significant": true,
+      "interpretation": "Search Anxiety leads Unemployment Rate by 15 weeks"
+    },
+    {
+      "behavioral": "housing_inventory",
+      "official": "initial_claims",
+      "behavioralName": "Housing Inventory",
+      "officialName": "Jobless Claims",
+      "peakLag": 15,
+      "peakCorrelation": 0.3207,
+      "pValue": 0.0,
+      "significant": true,
+      "interpretation": "Housing Inventory leads Jobless Claims by 15 weeks"
+    },
+    {
       "behavioral": "housing_dom",
       "official": "unemployment_rate",
       "behavioralName": "Days on Market",
       "officialName": "Unemployment Rate",
       "peakLag": 14,
-      "peakCorrelation": -0.5317,
+      "peakCorrelation": -0.2752,
       "pValue": 0.0,
       "significant": true,
       "interpretation": "Days on Market leads Unemployment Rate by 14 weeks"
@@ -571,7 +1217,7 @@
       "behavioralName": "Search Anxiety",
       "officialName": "Jobless Claims",
       "peakLag": 11,
-      "peakCorrelation": 0.3087,
+      "peakCorrelation": 0.2078,
       "pValue": 0.0,
       "significant": true,
       "interpretation": "Search Anxiety leads Jobless Claims by 11 weeks"
@@ -582,8 +1228,8 @@
       "behavioralName": "Price Drops",
       "officialName": "New Business Apps",
       "peakLag": 11,
-      "peakCorrelation": 0.307,
-      "pValue": 0.0,
+      "peakCorrelation": 0.1877,
+      "pValue": 0.01,
       "significant": true,
       "interpretation": "Price Drops leads New Business Apps by 11 weeks"
     },
@@ -593,130 +1239,119 @@
       "behavioralName": "Search Anxiety",
       "officialName": "New Business Apps",
       "peakLag": 9,
-      "peakCorrelation": 0.3694,
+      "peakCorrelation": 0.3423,
       "pValue": 0.0,
       "significant": true,
       "interpretation": "Search Anxiety leads New Business Apps by 9 weeks"
     },
     {
-      "behavioral": "housing_price_drops",
-      "official": "unemployment_rate",
-      "behavioralName": "Price Drops",
-      "officialName": "Unemployment Rate",
-      "peakLag": 5,
-      "peakCorrelation": 0.5259,
+      "behavioral": "housing_dom",
+      "official": "new_biz_apps",
+      "behavioralName": "Days on Market",
+      "officialName": "New Business Apps",
+      "peakLag": 7,
+      "peakCorrelation": -0.2669,
       "pValue": 0.0,
       "significant": true,
-      "interpretation": "Price Drops leads Unemployment Rate by 5 weeks"
+      "interpretation": "Days on Market leads New Business Apps by 7 weeks"
+    },
+    {
+      "behavioral": "housing_inventory",
+      "official": "new_biz_apps",
+      "behavioralName": "Housing Inventory",
+      "officialName": "New Business Apps",
+      "peakLag": 7,
+      "peakCorrelation": 0.1244,
+      "pValue": 0.03,
+      "significant": true,
+      "interpretation": "Housing Inventory leads New Business Apps by 7 weeks"
+    },
+    {
+      "behavioral": "housing_dom",
+      "official": "initial_claims",
+      "behavioralName": "Days on Market",
+      "officialName": "Jobless Claims",
+      "peakLag": 1,
+      "peakCorrelation": 0.2448,
+      "pValue": 0.0,
+      "significant": true,
+      "interpretation": "Days on Market leads Jobless Claims by 1 weeks"
     },
     {
       "behavioral": "housing_inventory",
       "official": "unemployment_rate",
       "behavioralName": "Housing Inventory",
-      "officialName": "Unemployment Rate",
-      "peakLag": 5,
-      "peakCorrelation": 0.502,
-      "pValue": 0.0,
-      "significant": true,
-      "interpretation": "Housing Inventory leads Unemployment Rate by 5 weeks"
-    },
-    {
-      "behavioral": "google_trends_anxiety",
-      "official": "unemployment_rate",
-      "behavioralName": "Search Anxiety",
       "officialName": "Unemployment Rate",
       "peakLag": 1,
-      "peakCorrelation": 0.3243,
+      "peakCorrelation": 0.4157,
       "pValue": 0.0,
       "significant": true,
-      "interpretation": "Search Anxiety leads Unemployment Rate by 1 weeks"
-    },
-    {
-      "behavioral": "housing_dom",
-      "official": "new_biz_apps",
-      "behavioralName": "Days on Market",
-      "officialName": "New Business Apps",
-      "peakLag": -11,
-      "peakCorrelation": 0.3012,
-      "pValue": 0.0,
-      "significant": true,
-      "interpretation": "New Business Apps leads Days on Market by 11 weeks"
-    },
-    {
-      "behavioral": "housing_inventory",
-      "official": "new_biz_apps",
-      "behavioralName": "Housing Inventory",
-      "officialName": "New Business Apps",
-      "peakLag": -13,
-      "peakCorrelation": -0.242,
-      "pValue": 0.01,
-      "significant": true,
-      "interpretation": "New Business Apps leads Housing Inventory by 13 weeks"
-    },
-    {
-      "behavioral": "housing_dom",
-      "official": "initial_claims",
-      "behavioralName": "Days on Market",
-      "officialName": "Jobless Claims",
-      "peakLag": -16,
-      "peakCorrelation": -0.378,
-      "pValue": 0.0,
-      "significant": true,
-      "interpretation": "Jobless Claims leads Days on Market by 16 weeks"
+      "interpretation": "Housing Inventory leads Unemployment Rate by 1 weeks"
     },
     {
       "behavioral": "housing_price_drops",
       "official": "initial_claims",
       "behavioralName": "Price Drops",
       "officialName": "Jobless Claims",
-      "peakLag": -16,
-      "peakCorrelation": 0.2545,
-      "pValue": 0.02,
+      "peakLag": -3,
+      "peakCorrelation": -0.3675,
+      "pValue": 0.0,
       "significant": true,
-      "interpretation": "Jobless Claims leads Price Drops by 16 weeks"
+      "interpretation": "Jobless Claims leads Price Drops by 3 weeks"
     },
     {
-      "behavioral": "housing_inventory",
-      "official": "initial_claims",
-      "behavioralName": "Housing Inventory",
-      "officialName": "Jobless Claims",
+      "behavioral": "housing_price_drops",
+      "official": "unemployment_rate",
+      "behavioralName": "Price Drops",
+      "officialName": "Unemployment Rate",
       "peakLag": -16,
-      "peakCorrelation": 0.2142,
-      "pValue": 0.04,
+      "peakCorrelation": -0.3844,
+      "pValue": 0.0,
       "significant": true,
-      "interpretation": "Jobless Claims leads Housing Inventory by 16 weeks"
+      "interpretation": "Unemployment Rate leads Price Drops by 16 weeks"
     }
   ],
   "signalSummary": {
     "totalPairsTested": 12,
-    "significantLeading": 7,
-    "significantLagging": 5,
+    "significantLeading": 10,
+    "significantLagging": 2,
     "topLeadingPair": {
-      "behavioral": "housing_dom",
+      "behavioral": "google_trends_anxiety",
       "official": "unemployment_rate",
-      "behavioralName": "Days on Market",
+      "behavioralName": "Search Anxiety",
       "officialName": "Unemployment Rate",
-      "peakLag": 14,
-      "peakCorrelation": -0.5317,
-      "pValue": 0.0,
+      "peakLag": 15,
+      "peakCorrelation": 0.1306,
+      "pValue": 0.03,
       "significant": true,
-      "interpretation": "Days on Market leads Unemployment Rate by 14 weeks"
+      "interpretation": "Search Anxiety leads Unemployment Rate by 15 weeks"
     }
   },
   "summary": {
     "metrosAnalyzed": 50,
-    "metrosLeading": 0,
-    "metrosLagging": 50,
+    "metrosLeading": 1,
+    "metrosLagging": 49,
     "metrosInsignificant": 0,
-    "avgLeadWeeks": 0
+    "avgLeadWeeks": 14
   },
   "metros": [
+    {
+      "id": "sfo",
+      "name": "San Francisco",
+      "state": "CA",
+      "peakLag": 14,
+      "peakCorrelation": 0.5686,
+      "pValue": 0.0,
+      "significant": true,
+      "leads": true,
+      "interpretation": "Behavioral leads by 14 weeks (p=0.000)"
+    },
     {
       "id": "nyc",
       "name": "New York",
       "state": "NY",
       "peakLag": 0,
-      "peakCorrelation": 0.7217,
+      "peakCorrelation": 0.7859,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -727,7 +1362,7 @@
       "name": "Los Angeles",
       "state": "CA",
       "peakLag": 0,
-      "peakCorrelation": 0.7615,
+      "peakCorrelation": 0.8155,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -738,7 +1373,7 @@
       "name": "Chicago",
       "state": "IL",
       "peakLag": 0,
-      "peakCorrelation": 0.6815,
+      "peakCorrelation": 0.8044,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -749,7 +1384,7 @@
       "name": "Houston",
       "state": "TX",
       "peakLag": 0,
-      "peakCorrelation": 0.8079,
+      "peakCorrelation": 0.7936,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -760,7 +1395,7 @@
       "name": "Phoenix",
       "state": "AZ",
       "peakLag": 0,
-      "peakCorrelation": 0.777,
+      "peakCorrelation": 0.5164,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -771,7 +1406,7 @@
       "name": "Philadelphia",
       "state": "PA",
       "peakLag": 0,
-      "peakCorrelation": 0.8512,
+      "peakCorrelation": 0.6635,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -782,7 +1417,7 @@
       "name": "San Antonio",
       "state": "TX",
       "peakLag": 0,
-      "peakCorrelation": 0.8293,
+      "peakCorrelation": 0.8221,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -793,7 +1428,7 @@
       "name": "San Diego",
       "state": "CA",
       "peakLag": 0,
-      "peakCorrelation": 0.8277,
+      "peakCorrelation": 0.5629,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -804,7 +1439,7 @@
       "name": "Dallas",
       "state": "TX",
       "peakLag": 0,
-      "peakCorrelation": 0.6211,
+      "peakCorrelation": 0.584,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -815,7 +1450,7 @@
       "name": "San Jose",
       "state": "CA",
       "peakLag": 0,
-      "peakCorrelation": 0.6035,
+      "peakCorrelation": 0.3283,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -826,7 +1461,7 @@
       "name": "Austin",
       "state": "TX",
       "peakLag": 0,
-      "peakCorrelation": 0.6678,
+      "peakCorrelation": 0.6235,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -837,18 +1472,7 @@
       "name": "Jacksonville",
       "state": "FL",
       "peakLag": 0,
-      "peakCorrelation": 0.6967,
-      "pValue": 0.0,
-      "significant": true,
-      "leads": false,
-      "interpretation": "No significant lead/lag"
-    },
-    {
-      "id": "sfo",
-      "name": "San Francisco",
-      "state": "CA",
-      "peakLag": 0,
-      "peakCorrelation": 0.7948,
+      "peakCorrelation": 0.7331,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -859,7 +1483,7 @@
       "name": "Columbus",
       "state": "OH",
       "peakLag": 0,
-      "peakCorrelation": 0.6,
+      "peakCorrelation": 0.5399,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -870,7 +1494,7 @@
       "name": "Charlotte",
       "state": "NC",
       "peakLag": 0,
-      "peakCorrelation": 0.792,
+      "peakCorrelation": 0.8702,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -881,7 +1505,7 @@
       "name": "Indianapolis",
       "state": "IN",
       "peakLag": 0,
-      "peakCorrelation": 0.7681,
+      "peakCorrelation": 0.7145,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -892,7 +1516,7 @@
       "name": "Seattle",
       "state": "WA",
       "peakLag": 0,
-      "peakCorrelation": 0.6466,
+      "peakCorrelation": 0.6538,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -903,7 +1527,7 @@
       "name": "Denver",
       "state": "CO",
       "peakLag": 0,
-      "peakCorrelation": 0.7475,
+      "peakCorrelation": 0.7904,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -914,7 +1538,7 @@
       "name": "Washington",
       "state": "DC",
       "peakLag": 0,
-      "peakCorrelation": 0.8661,
+      "peakCorrelation": 0.7732,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -925,7 +1549,7 @@
       "name": "Nashville",
       "state": "TN",
       "peakLag": 0,
-      "peakCorrelation": 0.8109,
+      "peakCorrelation": 0.7813,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -936,7 +1560,7 @@
       "name": "Fort Worth",
       "state": "TX",
       "peakLag": 0,
-      "peakCorrelation": 0.8957,
+      "peakCorrelation": 0.8572,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -947,7 +1571,7 @@
       "name": "Oklahoma City",
       "state": "OK",
       "peakLag": 0,
-      "peakCorrelation": 0.7433,
+      "peakCorrelation": 0.8046,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -958,7 +1582,7 @@
       "name": "El Paso",
       "state": "TX",
       "peakLag": 0,
-      "peakCorrelation": 0.8452,
+      "peakCorrelation": 0.8751,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -969,7 +1593,7 @@
       "name": "Las Vegas",
       "state": "NV",
       "peakLag": 0,
-      "peakCorrelation": 0.8018,
+      "peakCorrelation": 0.5494,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -980,7 +1604,7 @@
       "name": "Portland",
       "state": "OR",
       "peakLag": 0,
-      "peakCorrelation": 0.9112,
+      "peakCorrelation": 0.8178,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -991,7 +1615,7 @@
       "name": "Memphis",
       "state": "TN",
       "peakLag": 0,
-      "peakCorrelation": 0.8583,
+      "peakCorrelation": 0.7957,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1002,7 +1626,7 @@
       "name": "Louisville",
       "state": "KY",
       "peakLag": 0,
-      "peakCorrelation": 0.8272,
+      "peakCorrelation": 0.7626,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1013,7 +1637,7 @@
       "name": "Baltimore",
       "state": "MD",
       "peakLag": 0,
-      "peakCorrelation": 0.7632,
+      "peakCorrelation": 0.7167,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1024,7 +1648,7 @@
       "name": "Milwaukee",
       "state": "WI",
       "peakLag": 0,
-      "peakCorrelation": 0.839,
+      "peakCorrelation": 0.67,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1035,7 +1659,7 @@
       "name": "Albuquerque",
       "state": "NM",
       "peakLag": 0,
-      "peakCorrelation": 0.973,
+      "peakCorrelation": 0.9667,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1046,7 +1670,7 @@
       "name": "Tucson",
       "state": "AZ",
       "peakLag": 0,
-      "peakCorrelation": 0.7559,
+      "peakCorrelation": 0.7703,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1057,7 +1681,7 @@
       "name": "Mesa",
       "state": "AZ",
       "peakLag": 0,
-      "peakCorrelation": 0.9355,
+      "peakCorrelation": 0.9581,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1068,7 +1692,7 @@
       "name": "Atlanta",
       "state": "GA",
       "peakLag": 0,
-      "peakCorrelation": 0.8732,
+      "peakCorrelation": 0.5335,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1079,7 +1703,7 @@
       "name": "Kansas City",
       "state": "MO",
       "peakLag": 0,
-      "peakCorrelation": 0.929,
+      "peakCorrelation": 0.881,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1090,7 +1714,7 @@
       "name": "Raleigh",
       "state": "NC",
       "peakLag": 0,
-      "peakCorrelation": 0.867,
+      "peakCorrelation": 0.7311,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1101,7 +1725,7 @@
       "name": "Miami",
       "state": "FL",
       "peakLag": 0,
-      "peakCorrelation": 0.8557,
+      "peakCorrelation": 0.8798,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1112,7 +1736,7 @@
       "name": "Tampa",
       "state": "FL",
       "peakLag": 0,
-      "peakCorrelation": 0.8489,
+      "peakCorrelation": 0.7982,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1123,7 +1747,7 @@
       "name": "St. Louis",
       "state": "MO",
       "peakLag": 0,
-      "peakCorrelation": 0.8503,
+      "peakCorrelation": 0.7051,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1134,7 +1758,7 @@
       "name": "Pittsburgh",
       "state": "PA",
       "peakLag": 0,
-      "peakCorrelation": 0.8769,
+      "peakCorrelation": 0.7207,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1145,7 +1769,7 @@
       "name": "Cincinnati",
       "state": "OH",
       "peakLag": 0,
-      "peakCorrelation": 0.8383,
+      "peakCorrelation": 0.5264,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1156,7 +1780,7 @@
       "name": "Orlando",
       "state": "FL",
       "peakLag": 0,
-      "peakCorrelation": 0.7945,
+      "peakCorrelation": 0.8408,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1167,7 +1791,7 @@
       "name": "Cleveland",
       "state": "OH",
       "peakLag": 0,
-      "peakCorrelation": 0.8521,
+      "peakCorrelation": 0.5926,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1178,7 +1802,7 @@
       "name": "Minneapolis",
       "state": "MN",
       "peakLag": 0,
-      "peakCorrelation": 0.9026,
+      "peakCorrelation": 0.6197,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1189,7 +1813,7 @@
       "name": "Detroit",
       "state": "MI",
       "peakLag": 0,
-      "peakCorrelation": 0.7728,
+      "peakCorrelation": 0.6485,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1200,7 +1824,7 @@
       "name": "Salt Lake City",
       "state": "UT",
       "peakLag": 0,
-      "peakCorrelation": 0.7585,
+      "peakCorrelation": 0.5978,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1211,7 +1835,7 @@
       "name": "Boston",
       "state": "MA",
       "peakLag": 0,
-      "peakCorrelation": 0.8443,
+      "peakCorrelation": 0.6276,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1222,7 +1846,7 @@
       "name": "Richmond",
       "state": "VA",
       "peakLag": 0,
-      "peakCorrelation": 0.7919,
+      "peakCorrelation": 0.7653,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1233,7 +1857,7 @@
       "name": "Birmingham",
       "state": "AL",
       "peakLag": 0,
-      "peakCorrelation": 0.8328,
+      "peakCorrelation": 0.8881,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1244,7 +1868,7 @@
       "name": "Hartford",
       "state": "CT",
       "peakLag": 0,
-      "peakCorrelation": 0.8857,
+      "peakCorrelation": 0.7118,
       "pValue": 0.0,
       "significant": true,
       "leads": false,
@@ -1255,7 +1879,7 @@
       "name": "Buffalo",
       "state": "NY",
       "peakLag": 0,
-      "peakCorrelation": 0.824,
+      "peakCorrelation": 0.6004,
       "pValue": 0.0,
       "significant": true,
       "leads": false,

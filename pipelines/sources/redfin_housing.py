@@ -29,7 +29,7 @@ REDFIN_REGION_MAP["ftw"] = "Fort Worth, TX metro area"
 
 def main():
     print("=== Redfin Housing Pipeline ===")
-    cutoff = (datetime.now() - timedelta(days=400)).strftime("%Y-%m-%d")
+    cutoff = (datetime.now() - timedelta(days=1900)).strftime("%Y-%m-%d")
 
     print(f"Downloading Redfin metro data (large file, may take a minute)...")
     df = pd.read_csv(REDFIN_METRO_URL, sep="\t", compression="gzip")
