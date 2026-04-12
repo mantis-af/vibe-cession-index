@@ -60,6 +60,8 @@ export default function Home() {
       <div id="predictive" className="scroll-mt-28">
         <LeadLagSection
           national={leadlagJson.national}
+          signalPairs={leadlagJson.signalPairs ?? []}
+          signalSummary={leadlagJson.signalSummary ?? { totalPairsTested: 0, significantLeading: 0, significantLagging: 0, topLeadingPair: null }}
           summary={leadlagJson.summary}
           metros={leadlagJson.metros}
         />
