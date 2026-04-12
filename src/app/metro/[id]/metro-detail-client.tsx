@@ -9,6 +9,7 @@ import { SignalsRadarChart } from "@/components/charts/signals-radar-chart";
 import { VibesGapChart } from "@/components/charts/vibes-gap-chart";
 import { SignalBars } from "@/components/charts/signal-bars";
 import { MetroDrivers } from "@/components/dashboard/metro-drivers";
+import { MetroContextCards } from "@/components/dashboard/metro-context-cards";
 import { TrendingUp, TrendingDown, Minus, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
 
 interface NeighborMetro {
@@ -49,6 +50,9 @@ export function MetroDetailClient({ metro, neighbors }: { metro: Metro; neighbor
           />
         </div>
       </FadeIn>
+
+      {/* Local Economic Context */}
+      <MetroContextCards metro={metro} />
 
       {/* Charts row 1: Composite Trend + Radar */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">

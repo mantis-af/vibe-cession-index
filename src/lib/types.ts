@@ -31,6 +31,14 @@ export interface Metro {
   history: MetroWeeklySnapshot[];
   quarterly: Array<{ quarter: string; avgScore: number; weeksInQuarter: number; high: number; low: number; qoqChange: number | null }>;
   sentimentDrivers: { drivers: Array<{ signal: string; zScoreChange: number; weight: number; scoreImpact: number; direction: "up" | "down" | "flat"; currentZScore: number }>; periodChange: number; recentAvg: number; priorAvg: number };
+  context: {
+    cpi?: { latestMonth: string; indexValue: number; inflationYoY: number };
+    gas?: { latestWeek: string; price: number; region: string };
+    ai?: { latestAiRatio: number; aiMomentum: number };
+    homeValue?: { latestMonth: string; zhvi: number; yoyPct: number };
+    bizApps?: { latestWeek: string; value: number; change4wk: number | null };
+    coincidentIndex?: { latestMonth: string; value: number };
+  };
 }
 
 export interface NationalSummary {

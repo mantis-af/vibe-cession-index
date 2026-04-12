@@ -150,6 +150,7 @@ function loadMetros(): Metro[] {
       history,
       quarterly: raw.quarterly ?? [],
       sentimentDrivers: raw.sentimentDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 },
+      context: (raw as unknown as { context?: Metro["context"] }).context ?? {},
     };
   });
 }
