@@ -7,6 +7,7 @@ import { QuarterlySection } from "@/components/dashboard/quarterly-section";
 import { DriversSection } from "@/components/dashboard/drivers-section";
 import { AiImpactSection } from "@/components/dashboard/ai-impact-section";
 import { HousingSection } from "@/components/dashboard/housing-section";
+import { AffordabilitySection } from "@/components/dashboard/affordability-section";
 import { MetroGrid } from "@/components/dashboard/metro-grid";
 
 export default function Home() {
@@ -35,6 +36,9 @@ export default function Home() {
 
       {/* Housing Market — Zillow home values, appreciation/decline */}
       <HousingSection metros={METROS} />
+
+      {/* Affordability Index — can people afford to live there? */}
+      <AffordabilitySection metros={METROS} />
 
       {/* AI Economic Impact — which metros are seeing AI reshape labor */}
       <AiImpactSection metros={METROS} />

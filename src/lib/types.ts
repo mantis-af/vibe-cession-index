@@ -38,6 +38,7 @@ export interface Metro {
     homeValue?: { latestMonth: string; zhvi: number; yoyPct: number };
     bizApps?: { latestWeek: string; value: number; change4wk: number | null };
     coincidentIndex?: { latestMonth: string; value: number };
+    affordability?: { score: number; income: number; homePrice: number; monthlyMortgage: number; housingBurden: number; homeAppreciation: number };
   };
 }
 

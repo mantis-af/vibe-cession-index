@@ -608,6 +608,7 @@ def main():
     cpi_data = load_json("bls_cpi_metro")
     gas_data = load_json("eia_gas")
     zillow_data = load_json("zillow_zhvi")
+    affordability_data = load_json("affordability")
     # expanded_data and ai_data already loaded above for index signals
 
     context_sources = []
@@ -679,6 +680,16 @@ def main():
                     "latestMonth": latest.get("date"),
                     "value": latest.get("value"),
                 }
+        if affordability_data and m["id"] in affordability_data:
+            aff = affordability_data[m["id"]]
+            metro_context["affordability"] = {
+                "score": aff.get("affordabilityScore"),
+                "income": aff.get("income"),
+                "homePrice": aff.get("homePrice"),
+                "monthlyMortgage": aff.get("monthlyMortgage"),
+                "housingBurden": aff.get("housingBurden"),
+                "homeAppreciation": aff.get("homeAppreciation"),
+            }
         m["context"] = metro_context
 
     dashboard = {
@@ -688,6 +699,7 @@ def main():
         "expanded": expanded_data.get("national", {}) if expanded_data else {},
         "nationalCpi": cpi_data.get("_national", {}) if cpi_data else {},
         "gasNational": gas_data.get("regions", {}).get("national", {}) if gas_data else {},
+        "affordability": affordability_data or {},
     }
 
     with open(DASHBOARD_JSON, "w") as f:

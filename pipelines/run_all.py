@@ -46,6 +46,7 @@ def main():
     run("sources/bls_cpi_metro.py", "BLS CPI — Metro-Level Consumer Prices")
     run("sources/eia_gas.py", "EIA — Regional Gas Prices")
     run("sources/zillow_home_values.py", "Zillow — Metro Home Values (ZHVI)")
+    run("sources/affordability.py", "Affordability Index — Income vs Cost of Living")
 
     if not skip_trends:
         run("sources/ai_impact.py", "AI Impact — AI vs Traditional Job Search Interest")
