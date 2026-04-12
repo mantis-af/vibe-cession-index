@@ -40,6 +40,9 @@ yarn-error.log*
 pipelines/.venv/
 pipelines/output/
 
+# Full dashboard backup (large, generated)
+src/data/dashboard_full.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

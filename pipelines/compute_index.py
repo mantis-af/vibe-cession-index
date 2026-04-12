@@ -18,8 +18,11 @@ sys.path.insert(0, str(Path(__file__).parent))
 from config import METROS, OUTPUT_DIR
 
 # Where Next.js reads from
-DASHBOARD_JSON = Path(__file__).parent.parent / "src" / "data" / "dashboard.json"
-DASHBOARD_JSON.parent.mkdir(parents=True, exist_ok=True)
+DATA_DIR = Path(__file__).parent.parent / "src" / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+METROS_DIR = DATA_DIR / "metros"
+METROS_DIR.mkdir(parents=True, exist_ok=True)
+DASHBOARD_JSON = DATA_DIR / "dashboard.json"
 
 SIGNAL_WEIGHTS = {
     "google_trends_anxiety": 0.18,  # Search behavior — purest vibes signal
@@ -692,9 +695,43 @@ def main():
             }
         m["context"] = metro_context
 
+    # --- Write per-metro files (for metro detail pages) ---
+    # Build lightweight metro summaries for the overview (no full history)
+    metro_summaries = []
+    for m in metros_output:
+        h = m["history"]
+        current = h[-1] if h else {}
+        previous = h[-2] if len(h) > 1 else current
+
+        # Write full metro data to individual file
+        with open(METROS_DIR / f"{m['id']}.json", "w") as f:
+            json.dump(m, f)
+
+        # Build lightweight summary for overview
+        # Include only last 26 weeks of history for sparklines
+        metro_summaries.append({
+            "id": m["id"],
+            "name": m["name"],
+            "state": m["state"],
+            "population": m["population"],
+            "currentScore": current.get("compositeScore", 50),
+            "previousScore": previous.get("compositeScore", 50),
+            "weekOverWeekChange": current.get("compositeScore", 50) - previous.get("compositeScore", 50),
+            "vibesGap": current.get("vibesGap", 0),
+            "trend": m.get("trend", "stable") if "trend" in m else ("improving" if current.get("compositeScore", 50) > previous.get("compositeScore", 50) else "declining" if current.get("compositeScore", 50) < previous.get("compositeScore", 50) else "stable"),
+            "signalsAvailable": m.get("signalsAvailable", []),
+            "quarterly": m.get("quarterly", []),
+            "sentimentDrivers": m.get("sentimentDrivers", {}),
+            "context": m.get("context", {}),
+            "sparkHistory": [{"week": w["week"], "compositeScore": w["compositeScore"]} for w in h[-26:]],
+        })
+
+    print(f"  Wrote {len(metros_output)} per-metro files to {METROS_DIR}/")
+
+    # --- Write main dashboard (lightweight for overview) ---
     dashboard = {
         "summary": summary,
-        "metros": metros_output,
+        "metros": metro_summaries,  # lightweight summaries
         "macro": macro_data or {},
         "expanded": expanded_data.get("national", {}) if expanded_data else {},
         "nationalCpi": cpi_data.get("_national", {}) if cpi_data else {},
@@ -703,8 +740,23 @@ def main():
     }
 
     with open(DASHBOARD_JSON, "w") as f:
-        json.dump(dashboard, f, indent=2)
-    print(f"\nDashboard data saved to {DASHBOARD_JSON}")
+        json.dump(dashboard, f)  # no indent — smaller file
+    size_kb = DASHBOARD_JSON.stat().st_size / 1024
+    print(f"\nDashboard summary saved to {DASHBOARD_JSON} ({size_kb:.0f} KB)")
+
+    # Also write full dashboard for backwards compat during transition
+    full_dashboard = {
+        "summary": summary,
+        "metros": metros_output,
+        "macro": macro_data or {},
+        "expanded": expanded_data.get("national", {}) if expanded_data else {},
+        "nationalCpi": cpi_data.get("_national", {}) if cpi_data else {},
+        "gasNational": gas_data.get("regions", {}).get("national", {}) if gas_data else {},
+        "affordability": affordability_data or {},
+    }
+    with open(DATA_DIR / "dashboard_full.json", "w") as f:
+        json.dump(full_dashboard, f)
+
     print(f"Metros: {len(metros_output)}, Index sources: {sources_available}, Context sources: {context_sources}")
 
 

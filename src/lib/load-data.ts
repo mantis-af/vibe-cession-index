@@ -124,33 +124,46 @@ function getTrend(history: MetroWeeklySnapshot[]): "improving" | "declining" | "
 function loadMetros(): Metro[] {
   const data = dashboardJson as unknown as RawDashboard;
 
-  return data.metros.map((raw) => {
-    const history: MetroWeeklySnapshot[] = raw.history.map((h) => ({
+  return data.metros.map((rawMetro) => {
+    const raw = rawMetro as unknown as Record<string, unknown>;
+    // Support both full history (old format) and sparkHistory (new split format)
+    const rawHistory = (raw.history ?? raw.sparkHistory ?? []) as Array<{
+      week: string; compositeScore: number; officialIndex?: number; vibesGap?: number; signals?: Record<string, number>;
+    }>;
+
+    const history: MetroWeeklySnapshot[] = rawHistory.map((h) => ({
       week: h.week,
       compositeScore: h.compositeScore,
-      officialIndex: h.officialIndex,
-      vibesGap: h.vibesGap,
-      signals: mapSignals(h.signals),
+      officialIndex: h.officialIndex ?? 50,
+      vibesGap: h.vibesGap ?? 0,
+      signals: h.signals ? mapSignals(h.signals) : EMPTY_SIGNALS,
     }));
 
-    const current = history[history.length - 1];
+    const current = history[history.length - 1] ?? { compositeScore: 50, vibesGap: 0, signals: EMPTY_SIGNALS };
     const previous = history.length > 1 ? history[history.length - 2] : current;
 
+    // Use pre-computed fields if available (from lightweight summaries)
+    const preScore = raw.currentScore as number | undefined;
+    const prePrev = raw.previousScore as number | undefined;
+    const preWow = raw.weekOverWeekChange as number | undefined;
+    const preGap = raw.vibesGap as number | undefined;
+    const preTrend = raw.trend as Metro["trend"] | undefined;
+
     return {
-      id: raw.id,
-      name: raw.name,
-      state: raw.state,
-      population: raw.population,
-      currentScore: current.compositeScore,
-      previousScore: previous.compositeScore,
-      weekOverWeekChange: current.compositeScore - previous.compositeScore,
-      vibesGap: current.vibesGap,
+      id: raw.id as string,
+      name: raw.name as string,
+      state: raw.state as string,
+      population: raw.population as number,
+      currentScore: preScore ?? current.compositeScore,
+      previousScore: prePrev ?? previous.compositeScore,
+      weekOverWeekChange: preWow ?? (current.compositeScore - previous.compositeScore),
+      vibesGap: preGap ?? current.vibesGap,
       currentSignals: current.signals,
-      trend: getTrend(history),
+      trend: preTrend ?? getTrend(history),
       history,
-      quarterly: raw.quarterly ?? [],
-      sentimentDrivers: raw.sentimentDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 },
-      context: (raw as unknown as { context?: Metro["context"] }).context ?? {},
+      quarterly: (raw.quarterly ?? []) as Metro["quarterly"],
+      sentimentDrivers: (raw.sentimentDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 }) as Metro["sentimentDrivers"],
+      context: (raw.context ?? {}) as Metro["context"],
     };
   });
 }
@@ -189,3 +202,46 @@ export const GAS_NATIONAL = raw.gasNational ?? {};
 export const EXPANDED_DATA = raw.expanded ?? {};
 
 export const GENERATED_AT = raw.summary.generatedAt ?? "";
+
+/**
+ * Load full metro data (with complete 5-year history) from per-metro file.
+ * Falls back to the summary data if per-metro file doesn't exist.
+ */
+export function loadFullMetro(metroId: string): Metro | null {
+  try {
+    // Dynamic require from per-metro files
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const fullData = require(`@/data/metros/${metroId}.json`);
+
+    const history: MetroWeeklySnapshot[] = (fullData.history ?? []).map((h: { week: string; compositeScore: number; officialIndex?: number; vibesGap?: number; signals?: Record<string, number> }) => ({
+      week: h.week,
+      compositeScore: h.compositeScore,
+      officialIndex: h.officialIndex ?? 50,
+      vibesGap: h.vibesGap ?? 0,
+      signals: h.signals ? mapSignals(h.signals) : EMPTY_SIGNALS,
+    }));
+
+    const current = history[history.length - 1] ?? { compositeScore: 50, vibesGap: 0, signals: EMPTY_SIGNALS };
+    const previous = history.length > 1 ? history[history.length - 2] : current;
+
+    return {
+      id: fullData.id,
+      name: fullData.name,
+      state: fullData.state,
+      population: fullData.population,
+      currentScore: current.compositeScore,
+      previousScore: previous.compositeScore,
+      weekOverWeekChange: current.compositeScore - previous.compositeScore,
+      vibesGap: current.vibesGap,
+      currentSignals: current.signals,
+      trend: getTrend(history),
+      history,
+      quarterly: fullData.quarterly ?? [],
+      sentimentDrivers: fullData.sentimentDrivers ?? { drivers: [], periodChange: 0, recentAvg: 0, priorAvg: 0 },
+      context: fullData.context ?? {},
+    };
+  } catch {
+    // Fall back to summary data
+    return METROS.find((m) => m.id === metroId) ?? null;
+  }
+}

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { METROS } from "@/lib/load-data";
+import { METROS, loadFullMetro } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { MetroDetailClient } from "./metro-detail-client";
 import { scoreColor, scoreLabel, gapLabel } from "@/lib/colors";
@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export default async function MetroPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params;
-  const metro = METROS.find((m) => m.id === id);
+  const metro = loadFullMetro(id);
   if (!metro) notFound();
 
   const rank = [...METROS].sort((a, b) => b.currentScore - a.currentScore).findIndex((m) => m.id === id) + 1;
