@@ -1,5 +1,4 @@
 import Anthropic from "@anthropic-ai/sdk";
-import dashboardData from "@/data/dashboard.json";
 import { getDb, getDbStats as getStats, searchSeries, getSeriesData, getTaxonomy } from "@/lib/db";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" });
@@ -194,11 +193,26 @@ function executeTool(name: string, input: Record<string, unknown>): unknown {
 
     case "get_metro_summary": {
       const metroId = input.metroId as string;
-      const metros = (dashboardData as unknown as { metros: Array<Record<string, unknown>> }).metros;
-      const metro = metros.find((m) => m.id === metroId);
-      if (!metro) return { error: `Metro '${metroId}' not found` };
-      const { sparkHistory, ...summary } = metro as Record<string, unknown>;
-      return summary;
+      // Get metro info from SQLite
+      const metroInfo = d.prepare("SELECT metro, metro_name, state FROM series WHERE metro = ? AND scope = 'metro' LIMIT 1").get(metroId) as { metro: string; metro_name: string; state: string } | undefined;
+      if (!metroInfo) return { error: `Metro '${metroId}' not found` };
+
+      // Get latest scores
+      const indexPt = d.prepare("SELECT value FROM datapoints WHERE series_id = ? ORDER BY date DESC LIMIT 1").get(`metro_${metroId}_index`) as { value: number } | undefined;
+      const officialPt = d.prepare("SELECT value FROM datapoints WHERE series_id = ? ORDER BY date DESC LIMIT 1").get(`metro_${metroId}_official`) as { value: number } | undefined;
+
+      // Get all series for this metro
+      const metroSeries = d.prepare("SELECT id, name, category FROM series WHERE metro = ?").all(metroId) as Array<{ id: string; name: string; category: string }>;
+
+      return {
+        id: metroId,
+        name: metroInfo.metro_name,
+        state: metroInfo.state,
+        currentScore: indexPt ? Math.round(indexPt.value) : null,
+        officialIndex: officialPt ? Math.round(officialPt.value) : null,
+        vibesGap: indexPt && officialPt ? Math.round(indexPt.value - officialPt.value) : null,
+        availableSeries: metroSeries.map(s => ({ id: s.id, name: s.name })),
+      };
     }
 
     case "render_chart": {

@@ -33,7 +33,7 @@ export default function InsightsPage() {
           </p>
         </div>
 
-        <div id="macro"><MacroContext macro={MACRO_DATA} expanded={EXPANDED_DATA} cpi={NATIONAL_CPI} gas={GAS_NATIONAL} /></div>
+        <div id="macro"><MacroContext macro={MACRO_DATA as Record<string, never>} expanded={EXPANDED_DATA as Record<string, never>} cpi={NATIONAL_CPI as Record<string, never>} gas={GAS_NATIONAL as Record<string, never>} /></div>
         <div id="quarterly"><QuarterlySection quarterly={NATIONAL_QUARTERLY} /></div>
         <div id="drivers"><DriversSection drivers={NATIONAL_DRIVERS} /></div>
         <div id="predictive">
