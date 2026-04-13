@@ -42,6 +42,12 @@ NATIONAL_SERIES = {
     # Leading
     "transport_index": {"id": "TSIFRGHT", "name": "Transportation Index", "unit": "Index", "freq": "monthly"},
     "m2_money": {"id": "M2SL", "name": "M2 Money Supply", "unit": "Billions $", "freq": "monthly"},
+    # Delinquency / Financial Stress
+    "delinq_credit_card": {"id": "DRCCLACBS", "name": "Credit Card Delinquency Rate", "unit": "%", "freq": "quarterly"},
+    "delinq_mortgage": {"id": "DRSFRMACBS", "name": "Mortgage Delinquency Rate", "unit": "%", "freq": "quarterly"},
+    "delinq_auto": {"id": "DRALACBS", "name": "Auto Loan Delinquency Rate", "unit": "%", "freq": "quarterly"},
+    "delinq_business": {"id": "DRBLACBS", "name": "Business Loan Delinquency Rate", "unit": "%", "freq": "quarterly"},
+    "chargeoff_credit_card": {"id": "CORCCACBS", "name": "Credit Card Charge-Off Rate", "unit": "%", "freq": "quarterly"},
 }
 
 # --- State-level series ---
