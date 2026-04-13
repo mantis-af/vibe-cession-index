@@ -1,179 +1,188 @@
 "use client";
 
-import { Metro } from "@/lib/types";
-import { useMemo } from "react";
+import { ChannelTimeseries } from "@/lib/types";
 import {
-  ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, LineChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
 } from "recharts";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 
-// Channel definitions — maps MetroSignals keys to channels
-// The MetroSignals field names are repurposed from v1:
-//   jobPostingsVelocity = new biz apps
-//   unemploymentClaims = unemployment rate + claims
-//   googleTrendsAnxiety = search anxiety
-//   housingInventory = housing inventory
-//   restaurantActivity = days on market
-//   buildingPermits = price drops
-//   wageToRentRatio = AI job ratio
-const CHANNELS = [
-  {
-    key: "labor",
-    name: "Labor Demand",
-    signals: ["unemploymentClaims", "jobPostingsVelocity"] as const,
-    directions: [-1, 1], // lower unemployment = better, more biz apps = better
-    color: "#6366f1",
-    description: "Unemployment claims, new business formation",
-  },
-  {
-    key: "cost",
-    name: "Cost of Living",
-    signals: ["googleTrendsAnxiety", "housingInventory"] as const,
-    directions: [-1, -1], // lower anxiety = better, lower inventory = tighter market
-    color: "#f59e0b",
-    description: "Search anxiety, housing supply pressure",
-  },
-  {
-    key: "confidence",
-    name: "Consumer Confidence",
-    signals: ["googleTrendsAnxiety", "wageToRentRatio"] as const,
-    directions: [-1, 1], // lower anxiety = better, more AI adoption = adapting
-    color: "#22c55e",
-    description: "Sentiment, AI job market transition",
-  },
-  {
-    key: "financial",
-    name: "Financial Stress",
-    signals: ["buildingPermits"] as const, // price drops as proxy
-    directions: [-1], // fewer price drops = less stress
-    color: "#ef4444",
-    description: "Housing price drops, credit conditions",
-  },
-  {
-    key: "housing",
-    name: "Housing Market",
-    signals: ["housingInventory", "restaurantActivity", "buildingPermits"] as const,
-    directions: [-1, -1, -1], // lower inventory, fewer DOM, fewer drops = stronger
-    color: "#8b5cf6",
-    description: "Inventory, days on market, price reductions",
-  },
-];
-
-type SignalKey = keyof Metro["currentSignals"];
-
-export function ChannelBreakdown({ metros }: { metros: Metro[] }) {
-  const { channelScores, channelHistory } = useMemo(() => {
-    if (metros.length === 0) return { channelScores: [], channelHistory: [] };
-
-    // Compute current channel scores
-    const scores = CHANNELS.map((ch) => {
-      let totalZ = 0;
-      let count = 0;
-      for (const metro of metros) {
-        ch.signals.forEach((sigKey, idx) => {
-          const val = metro.currentSignals[sigKey as SignalKey];
-          if (val !== undefined && val !== 0) {
-            totalZ += val * ch.directions[idx];
-            count++;
-          }
-        });
-      }
-      const avgZ = count > 0 ? totalZ / count : 0;
-      const score = Math.max(0, Math.min(100, Math.round((avgZ + 3) / 6 * 100)));
-      return { ...ch, score, avgZ };
-    });
-
-    // Compute channel history over time (from metro histories)
-    // Build weekly national average per channel
-    const weekCount = Math.min(...metros.filter(m => m.history.length > 0).map(m => m.history.length));
-    const history: Array<{ week: string; composite: number }> = [];
-
-    for (let w = Math.max(0, weekCount - 52); w < weekCount; w++) {
-      let week = "";
-      let composite = 50;
-
-      const firstMetro = metros.find(m => m.history[w]);
-      if (firstMetro?.history[w]) {
-        const d = new Date(firstMetro.history[w].week + "T00:00:00");
-        week = d.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
-
-        let total = 0;
-        let mCount = 0;
-        for (const metro of metros) {
-          if (metro.history[w]) {
-            total += metro.history[w].compositeScore;
-            mCount++;
-          }
-        }
-        if (mCount > 0) composite = Math.round(total / mCount);
-      }
-
-      history.push({ week, composite });
-    }
-
-    return { channelScores: scores, channelHistory: history };
-  }, [metros]);
-
-  if (channelScores.length === 0) return null;
+export function ChannelBreakdown({ channels }: { channels: ChannelTimeseries[] }) {
+  if (channels.length === 0) return null;
 
   return (
     <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 className="text-lg font-semibold text-foreground mb-1">What&apos;s Driving the Score</h2>
-      <p className="text-sm text-muted-foreground mb-6">Five channels of economic welfare — each scored independently.</p>
+      <h2 className="text-lg font-semibold text-foreground mb-1">Index Channels</h2>
+      <p className="text-sm text-muted-foreground mb-8">
+        Each channel pairs our weekly alt-data signal (solid) with the official monthly benchmark (dashed) it&apos;s trying to predict.
+        Dotted line = ML projection of where the official reading is heading.
+      </p>
 
-      {/* Channel bars */}
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-6 mb-10">
-        {channelScores.map((ch) => (
-          <div key={ch.key}>
-            <div className="text-xs font-medium text-muted-foreground mb-2">{ch.name}</div>
-            <div className="relative h-1.5 bg-zinc-100 rounded-full mb-2">
-              <div
-                className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
-                style={{ width: `${ch.score}%`, backgroundColor: ch.color, opacity: 0.7 }}
-              />
-              <div className="absolute inset-y-0 left-1/2 w-px bg-zinc-300" />
-            </div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-mono font-bold tabular-nums" style={{ color: ch.color }}>
-                {ch.score}
-              </span>
-              <span className="text-[10px] text-muted-foreground">/100</span>
-            </div>
-            <div className="text-[10px] text-muted-foreground mt-1 leading-relaxed">{ch.description}</div>
-          </div>
+      <div className="space-y-8">
+        {channels.map((ch) => (
+          <ChannelChart key={ch.key} channel={ch} />
         ))}
       </div>
-
-      {/* National composite trend */}
-      {channelHistory.length > 0 && (
-        <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">National Composite — Last 52 Weeks</h3>
-          <div className="h-40">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={channelHistory} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="channelGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.12} />
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f4f4f5" />
-                <XAxis dataKey="week" tick={{ fill: "#a1a1aa", fontSize: 9 }} tickLine={false} axisLine={false} interval={Math.max(0, Math.floor(channelHistory.length / 6) - 1)} />
-                <YAxis domain={[30, 70]} tick={{ fill: "#a1a1aa", fontSize: 9 }} tickLine={false} axisLine={false} />
-                <Tooltip content={({ active, payload, label }) => {
-                  if (!active || !payload?.length) return null;
-                  return (
-                    <div className="bg-white border border-zinc-200 rounded-lg px-3 py-1.5 shadow-lg text-xs">
-                      <span className="text-zinc-500">{label}: </span>
-                      <span className="font-mono font-semibold">{payload[0].value}</span>
-                    </div>
-                  );
-                }} />
-                <Area type="monotone" dataKey="composite" stroke="#6366f1" strokeWidth={2} fill="url(#channelGrad)" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      )}
     </section>
   );
+}
+
+function ChannelChart({ channel: ch }: { channel: ChannelTimeseries }) {
+  if (ch.data.length === 0) return null;
+
+  // Format dates for display
+  const chartData = ch.data.map((d) => ({
+    ...d,
+    label: formatDate(d.date),
+  }));
+
+  return (
+    <div>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-foreground">{ch.name}</h3>
+            <span className={`flex items-center gap-0.5 text-xs ${
+              ch.predictionDirection === "improving" ? "text-emerald-600" :
+              ch.predictionDirection === "worsening" ? "text-red-600" : "text-zinc-500"
+            }`}>
+              {ch.predictionDirection === "improving" ? <TrendingUp className="h-3 w-3" /> :
+               ch.predictionDirection === "worsening" ? <TrendingDown className="h-3 w-3" /> :
+               <Minus className="h-3 w-3" />}
+              {ch.predictionDirection}
+            </span>
+            {ch.rSquared > 0.02 && (
+              <span className="text-[10px] font-mono text-muted-foreground">R²={ch.rSquared.toFixed(2)}</span>
+            )}
+          </div>
+        </div>
+        <div className="flex items-center gap-4 text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="w-4 h-[2px] rounded" style={{ backgroundColor: ch.color }} />
+            {ch.altLabel}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-4 h-[2px] rounded bg-zinc-400" style={{ borderTop: "2px dashed #94a3b8", background: "transparent" }} />
+            {ch.officialLabel}
+          </span>
+        </div>
+      </div>
+
+      {/* Chart */}
+      <div className="h-44 sm:h-52">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={chartData} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
+            <defs>
+              <linearGradient id={`pred-${ch.key}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={ch.color} stopOpacity={0.08} />
+                <stop offset="100%" stopColor={ch.color} stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f4f4f5" />
+            <XAxis
+              dataKey="label"
+              tick={{ fill: "#a1a1aa", fontSize: 9 }}
+              tickLine={false}
+              axisLine={false}
+              interval={Math.max(0, Math.floor(chartData.length / 8) - 1)}
+            />
+            <YAxis
+              domain={[-3, 3]}
+              tick={{ fill: "#a1a1aa", fontSize: 9 }}
+              tickLine={false}
+              axisLine={false}
+              ticks={[-2, -1, 0, 1, 2]}
+            />
+            <ReferenceLine y={0} stroke="#e4e4e7" />
+            <Tooltip content={({ active, payload, label }) => {
+              if (!active || !payload?.length) return null;
+              const d = payload[0]?.payload;
+              return (
+                <div className="bg-white border border-zinc-200 rounded-lg px-3 py-2 shadow-lg text-xs">
+                  <div className="text-zinc-500 mb-1">{label}</div>
+                  {d?.alt !== null && d?.alt !== undefined && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: ch.color }} />
+                      <span>Alt: <span className="font-mono font-semibold">{d.alt.toFixed(2)}σ</span></span>
+                    </div>
+                  )}
+                  {d?.official !== null && d?.official !== undefined && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-zinc-400" />
+                      <span>Official: <span className="font-mono font-semibold">{d.official.toFixed(2)}σ</span></span>
+                    </div>
+                  )}
+                  {d?.prediction !== null && d?.prediction !== undefined && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full opacity-60" style={{ backgroundColor: ch.color }} />
+                      <span>Predicted: <span className="font-mono font-semibold">{d.prediction.toFixed(2)}σ</span></span>
+                    </div>
+                  )}
+                </div>
+              );
+            }} />
+
+            {/* Confidence interval band */}
+            <Area
+              type="monotone"
+              dataKey="predUpper"
+              stroke="none"
+              fill={ch.color}
+              fillOpacity={0.06}
+              connectNulls={false}
+            />
+            <Area
+              type="monotone"
+              dataKey="predLower"
+              stroke="none"
+              fill="#fafafa"
+              fillOpacity={1}
+              connectNulls={false}
+            />
+
+            {/* Alt signal — solid colored line */}
+            <Line
+              type="monotone"
+              dataKey="alt"
+              stroke={ch.color}
+              strokeWidth={2}
+              dot={false}
+              connectNulls
+            />
+
+            {/* Official benchmark — dashed gray with dots */}
+            <Line
+              type="monotone"
+              dataKey="official"
+              stroke="#94a3b8"
+              strokeWidth={1.5}
+              strokeDasharray="5 3"
+              dot={{ r: 2, fill: "#94a3b8" }}
+              connectNulls
+            />
+
+            {/* ML prediction — dotted colored line */}
+            <Line
+              type="monotone"
+              dataKey="prediction"
+              stroke={ch.color}
+              strokeWidth={1.5}
+              strokeDasharray="3 3"
+              strokeOpacity={0.6}
+              dot={false}
+              connectNulls={false}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Insight */}
+      <p className="text-xs text-muted-foreground mt-2">{ch.insight}</p>
+    </div>
+  );
+}
+
+function formatDate(iso: string): string {
+  const d = new Date(iso + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
 }

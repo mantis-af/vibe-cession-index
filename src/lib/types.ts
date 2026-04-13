@@ -54,6 +54,29 @@ export interface NationalSummary {
   weekOf: string;
 }
 
+// ─── Channel timeseries types (paired alt vs official charts) ───
+
+export interface ChannelTimeseriesPoint {
+  date: string;
+  alt: number | null;           // Z-scored alt signal
+  official: number | null;      // Z-scored official benchmark (null between monthly readings)
+  prediction: number | null;    // ML forward projection
+  predLower: number | null;     // 95% CI lower
+  predUpper: number | null;     // 95% CI upper
+}
+
+export interface ChannelTimeseries {
+  key: string;
+  name: string;
+  color: string;
+  altLabel: string;
+  officialLabel: string;
+  insight: string;
+  rSquared: number;
+  predictionDirection: "improving" | "worsening" | "stable";
+  data: ChannelTimeseriesPoint[];
+}
+
 export const SIGNAL_LABELS: Record<keyof MetroSignals, string> = {
   jobPostingsVelocity: "New Business Apps",
   wageToRentRatio: "AI Job Search",
