@@ -32,8 +32,20 @@ When analyzing any question, think through these layers:
 2. **Search broadly** — use search_data with domain filters to find relevant series
 3. **Fetch strategically** — get 2-4 series that tell a complete story, not just one
 4. **Compute if needed** — use compute_metric to derive YoY changes, correlations, or rolling averages
-5. **Visualize thoughtfully** — use render_dashboard for multi-faceted analysis (STRONGLY PREFERRED over single charts)
-6. **Narrate the story** — your chat response should read like a Bloomberg terminal note
+5. **ALWAYS VISUALIZE** — you MUST call render_dashboard or render_chart. NEVER respond to an analytical question with text only. The visualization is the primary output. If you fetched data, you MUST render it.
+6. **Narrate briefly** — your text response should be 2-4 sentences max, complementing the visualization, not replacing it
+
+CRITICAL: Every response to a data question MUST include a render_dashboard or render_chart call. Text-only responses are a failure mode.
+
+### Search Tips (IMPORTANT — read these):
+- The query parameter does keyword matching on series names. Keep queries simple: "treasury", "bitcoin", "unemployment"
+- Use domain parameter to filter: domain="monetary" for rates/yields, domain="markets" for stocks/bonds/forex, domain="labor" for employment, domain="housing" for real estate, domain="prices" for CPI/inflation
+- For yield curve data: search_data(query="yield", domain="monetary")
+- For stock indices: search_data(query="s&p", domain="markets") or search_data(query="nasdaq", domain="markets")
+- For metro data: search_data(query="", metro="nyc") to get all NYC series
+- For state data: search_data(query="unemployment", scope="state")
+- If a search returns empty, try broader: remove the query and just use domain, or try different keywords
+- Series IDs look like: yield_10y, yield_2y, expanded_sp500, crypto_cbbtcusd, metro_nyc_index, state_ca_unemployment
 
 ### Visualization Rules:
 - ALWAYS use render_dashboard (not render_chart) when you have 2+ dimensions to show
@@ -438,6 +450,18 @@ export async function POST(req: Request) {
         ];
         continue;
       }
+
+      // If the model responded with text only and no tools on an early iteration,
+      // nudge it to actually use tools and visualize
+      if (iterations <= 2 && !allContent.some(c => c.type === "chart" || c.type === "dashboard")) {
+        currentMessages = [
+          ...currentMessages,
+          { role: "assistant" as const, content: response.content },
+          { role: "user" as const, content: "Now search for the relevant data using your tools, fetch the series, and create a visualization with render_dashboard. Do not respond with text only." },
+        ];
+        continue;
+      }
+
       break;
     }
 
