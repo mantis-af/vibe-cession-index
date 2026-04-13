@@ -1,8 +1,12 @@
 import { METROS, NATIONAL_SUMMARY, NOWCAST_CHANNELS, GENERATED_AT } from "@/lib/load-data";
+import { loadDashboard } from "@/lib/dashboard-data";
 import { Header } from "@/components/dashboard/header";
 import { IndexHero } from "@/components/index/hero";
+import { EconomicDashboard } from "@/components/index/dashboard";
 import { ChannelBreakdown } from "@/components/index/channel-breakdown";
 import { MetroList } from "@/components/index/metro-list";
+
+const DASHBOARD = loadDashboard();
 
 export default function Home() {
   return (
@@ -10,12 +14,17 @@ export default function Home() {
       <Header />
 
       <main className="pt-20">
-        {/* Hero — score + status */}
+        {/* Hero — national score */}
         <IndexHero summary={NATIONAL_SUMMARY} />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
-        {/* Channel breakdown + trend chart */}
+        {/* Economic Dashboard — real numbers, sparklines */}
+        <EconomicDashboard domains={DASHBOARD} />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
+
+        {/* Nowcast Channels — alt-data estimates of official readings */}
         <ChannelBreakdown channels={NOWCAST_CHANNELS} />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
