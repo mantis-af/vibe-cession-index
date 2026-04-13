@@ -54,27 +54,28 @@ export interface NationalSummary {
   weekOf: string;
 }
 
-// ─── Channel timeseries types (paired alt vs official charts) ───
+// ─── Nowcast channel types ───
 
-export interface ChannelTimeseriesPoint {
+export interface NowcastPoint {
   date: string;
-  alt: number | null;           // Z-scored alt signal
-  official: number | null;      // Z-scored official benchmark (null between monthly readings)
-  prediction: number | null;    // ML forward projection
-  predLower: number | null;     // 95% CI lower
-  predUpper: number | null;     // 95% CI upper
+  official: number | null;     // Actual official value (only on release dates)
+  nowcast: number | null;      // Our weekly estimate of the current official level
+  isCurrentNowcast: boolean;   // True for the latest nowcast (the "prediction")
 }
 
-export interface ChannelTimeseries {
+export interface NowcastChannel {
   key: string;
   name: string;
   color: string;
-  altLabel: string;
-  officialLabel: string;
-  insight: string;
-  rSquared: number;
-  predictionDirection: "improving" | "worsening" | "stable";
-  data: ChannelTimeseriesPoint[];
+  altSignal: string;           // What we measure weekly
+  officialMetric: string;      // What we're nowcasting
+  unit: string;                // "%" , "Index", "Thousands"
+  oosR2: number;               // Validated nowcast quality
+  currentNowcast: number | null;
+  lastOfficial: number | null;
+  lastOfficialDate: string;
+  direction: "up" | "down" | "flat";
+  data: NowcastPoint[];
 }
 
 export const SIGNAL_LABELS: Record<keyof MetroSignals, string> = {

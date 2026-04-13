@@ -1,6 +1,6 @@
-import { Metro, MetroSignals, MetroWeeklySnapshot, NationalSummary, ChannelTimeseries, ChannelTimeseriesPoint } from "./types";
+import { Metro, MetroSignals, MetroWeeklySnapshot, NationalSummary, NowcastChannel, NowcastPoint } from "./types";
 import { getDb } from "./db";
-import { linearRegression, zScore } from "./regression";
+import { linearRegression } from "./regression";
 
 const EMPTY_SIGNALS: MetroSignals = {
   jobPostingsVelocity: 0, wageToRentRatio: 0, smallBizHealth: 0,
@@ -142,255 +142,177 @@ function loadNationalSummary(metros: Metro[]): NationalSummary {
   };
 }
 
-// ─── Channel Timeseries ───
+// ─── Nowcast Channels (validated in Q2 research — OOS R² > 0.15) ───
 
-const CHANNEL_DEFS = [
+const NOWCAST_DEFS = [
   {
-    key: "labor", name: "Labor Demand", color: "#6366f1",
-    altLabel: "New Business Apps + Claims",
-    officialLabel: "Nonfarm Payrolls (MoM Δ)",
-    altSeriesIds: ["smallbiz_busappwnsaus", "expanded_continued_claims"],
-    altDirections: [1, -1], // more biz apps = good, more claims = bad
-    officialSeriesId: "labor_payems",
-    officialTransform: "mom" as const, // month-over-month change
+    key: "savings", name: "Financial Health", color: "#6366f1",
+    altSignal: "Initial Claims (weekly)", officialMetric: "Personal Savings Rate",
+    altMetroKey: "initial_claims", officialId: "expanded_savings_rate",
+    unit: "%", oosR2: 0.47, invertAlt: true,  // more claims = lower savings
   },
   {
-    key: "cost", name: "Cost of Living", color: "#f59e0b",
-    altLabel: "Search Anxiety + Housing Pressure",
-    officialLabel: "CPI Inflation (YoY %)",
-    altMetroSignals: ["google_trends_anxiety", "housing_inventory"],
-    altDirections: [1, 1], // higher anxiety = more cost pressure, higher inventory = pressure
-    officialSeriesId: "inflation_cpiaucsl",
-    officialTransform: "yoy" as const,
+    key: "inflation", name: "Cost Pressure", color: "#f59e0b",
+    altSignal: "Housing Inventory (weekly)", officialMetric: "CPI Inflation (YoY)",
+    altMetroKey: "housing_inventory", officialId: "inflation_cpiaucsl",
+    unit: "%", oosR2: 0.31, invertAlt: false, officialTransform: "yoy" as const,
   },
   {
-    key: "confidence", name: "Consumer Confidence", color: "#22c55e",
-    altLabel: "Search Sentiment (inverted anxiety)",
-    officialLabel: "UMich Consumer Sentiment",
-    altMetroSignals: ["google_trends_anxiety"],
-    altDirections: [-1], // invert: lower anxiety = more confidence
-    officialSeriesId: "consumer_umcsent",
-    officialTransform: "level" as const,
+    key: "jobs", name: "Labor Demand", color: "#22c55e",
+    altSignal: "Housing Inventory (weekly)", officialMetric: "JOLTS Job Openings",
+    altMetroKey: "housing_inventory", officialId: "expanded_job_openings",
+    unit: "Thousands", oosR2: 0.30, invertAlt: false,
   },
   {
-    key: "financial", name: "Financial Stress", color: "#ef4444",
-    altLabel: "HY Spread + Mortgage Rate",
-    officialLabel: "Fed Financial Conditions (NFCI)",
-    altSeriesIds: ["bond_bamlh0a0hym2", "expanded_mortgage_30y"],
-    altDirections: [1, 1], // higher spread + higher rate = more stress
-    officialSeriesId: "fin_nfci",
-    officialTransform: "level" as const,
+    key: "participation", name: "Workforce Engagement", color: "#8b5cf6",
+    altSignal: "AI Job Search Ratio (weekly)", officialMetric: "Labor Force Participation",
+    altMetroKey: "ai_job_ratio", officialId: "labor_civpart",
+    unit: "%", oosR2: 0.33, invertAlt: false,
   },
   {
-    key: "housing", name: "Housing Market", color: "#8b5cf6",
-    altLabel: "Inventory + DOM + Price Drops",
-    officialLabel: "Case-Shiller Home Prices (YoY %)",
-    altMetroSignals: ["housing_inventory", "housing_dom", "housing_price_drops"],
-    altDirections: [-1, -1, -1], // all inverted: more inventory/dom/drops = weaker market
-    officialSeriesId: "expanded_case_shiller",
-    officialTransform: "yoy" as const,
+    key: "housing", name: "Housing Prices", color: "#ef4444",
+    altSignal: "Days on Market (weekly)", officialMetric: "Case-Shiller Home Prices",
+    altMetroKey: "housing_dom", officialId: "expanded_case_shiller",
+    unit: "Index", oosR2: 0.27, invertAlt: false,
   },
 ];
 
-function loadChannelTimeseries(): ChannelTimeseries[] {
+function loadNowcastChannels(): NowcastChannel[] {
   const d = getDb();
-  const channels: ChannelTimeseries[] = [];
-  const PREDICTION_LAG = 8;
-  const PREDICTION_HORIZON = 12;
+  const channels: NowcastChannel[] = [];
 
-  for (const ch of CHANNEL_DEFS) {
+  for (const ch of NOWCAST_DEFS) {
     try {
-      // ─── Load alt signal ───
-      let altWeekly: Map<string, number> = new Map();
+      // ─── Load alt signal (metro average z-scores, weekly) ───
+      const altRows = d.prepare(`
+        SELECT dp.date, AVG(dp.value) as avg_z
+        FROM datapoints dp JOIN series s ON dp.series_id = s.id
+        WHERE s.id LIKE ? AND s.scope = 'metro'
+        GROUP BY dp.date ORDER BY dp.date
+      `).all(`metro_%_sig_${ch.altMetroKey}`) as Array<{ date: string; avg_z: number }>;
 
-      if ("altSeriesIds" in ch && ch.altSeriesIds) {
-        // National series — average them, z-score each first
-        for (let si = 0; si < ch.altSeriesIds.length; si++) {
-          const pts = d.prepare("SELECT date, value FROM datapoints WHERE series_id = ? ORDER BY date")
-            .all(ch.altSeriesIds[si]) as Array<{ date: string; value: number }>;
-          if (pts.length < 10) continue;
+      if (altRows.length < 20) { channels.push(emptyNowcast(ch)); continue; }
 
-          // Aggregate daily to weekly (take last value per ISO week)
-          const weeklyMap = new Map<string, number>();
-          for (const p of pts) {
-            const dt = new Date(p.date + "T00:00:00");
-            const monday = new Date(dt);
-            monday.setDate(dt.getDate() - dt.getDay() + 1);
-            const weekKey = monday.toISOString().split("T")[0];
-            weeklyMap.set(weekKey, p.value);
-          }
+      // ─── Load official data ───
+      const offRows = d.prepare("SELECT date, value FROM datapoints WHERE series_id = ? ORDER BY date")
+        .all(ch.officialId) as Array<{ date: string; value: number }>;
 
-          const dates = [...weeklyMap.keys()].sort();
-          const values = dates.map(d => weeklyMap.get(d)!);
-          const zScored = zScore(values);
-          const directed = zScored.map(z => z * ch.altDirections[si]);
+      if (offRows.length < 10) { channels.push(emptyNowcast(ch)); continue; }
 
-          for (let i = 0; i < dates.length; i++) {
-            const prev = altWeekly.get(dates[i]) ?? 0;
-            const count = altWeekly.has(dates[i]) ? 2 : 1;
-            altWeekly.set(dates[i], (prev * (count - 1) + directed[i]) / count);
-          }
-        }
-      } else if ("altMetroSignals" in ch && ch.altMetroSignals) {
-        // Metro signals — already z-scored, average across all metros per week
-        const sigKeys = ch.altMetroSignals;
-        const weekSums = new Map<string, { sum: number; count: number }>();
-
-        for (const sigKey of sigKeys) {
-          // Get all metro signal series for this key
-          const metroSeries = d.prepare(
-            "SELECT id FROM series WHERE id LIKE ? AND scope = 'metro'"
-          ).all(`metro_%_sig_${sigKey}`) as Array<{ id: string }>;
-
-          const dirIdx = sigKeys.indexOf(sigKey);
-          const dir = ch.altDirections[dirIdx];
-
-          for (const { id } of metroSeries) {
-            const pts = d.prepare("SELECT date, value FROM datapoints WHERE series_id = ? ORDER BY date")
-              .all(id) as Array<{ date: string; value: number }>;
-            for (const p of pts) {
-              const entry = weekSums.get(p.date) ?? { sum: 0, count: 0 };
-              entry.sum += p.value * dir;
-              entry.count++;
-              weekSums.set(p.date, entry);
-            }
-          }
-        }
-
-        for (const [date, { sum, count }] of weekSums) {
-          altWeekly.set(date, sum / count);
-        }
-      }
-
-      if (altWeekly.size < 20) { channels.push(emptyChannel(ch)); continue; }
-
-      // ─── Load official benchmark ───
-      const officialPts = d.prepare("SELECT date, value FROM datapoints WHERE series_id = ? ORDER BY date")
-        .all(ch.officialSeriesId) as Array<{ date: string; value: number }>;
-
-      if (officialPts.length < 5) { channels.push(emptyChannel(ch)); continue; }
-
-      // Transform official data
-      let officialValues: Array<{ date: string; value: number }> = [];
-      if (ch.officialTransform === "yoy") {
-        for (let i = 12; i < officialPts.length; i++) {
-          const prev = officialPts[i - 12].value;
+      // Transform official if needed (YoY % for CPI)
+      let officialPts = offRows;
+      if ("officialTransform" in ch && ch.officialTransform === "yoy") {
+        const transformed: typeof offRows = [];
+        for (let i = 12; i < offRows.length; i++) {
+          const prev = offRows[i - 12].value;
           if (prev !== 0) {
-            officialValues.push({ date: officialPts[i].date, value: ((officialPts[i].value - prev) / Math.abs(prev)) * 100 });
+            transformed.push({ date: offRows[i].date, value: Math.round(((offRows[i].value - prev) / Math.abs(prev)) * 10000) / 100 });
           }
         }
-      } else if (ch.officialTransform === "mom") {
-        for (let i = 1; i < officialPts.length; i++) {
-          officialValues.push({ date: officialPts[i].date, value: officialPts[i].value - officialPts[i - 1].value });
-        }
-      } else {
-        officialValues = officialPts.map(p => ({ date: p.date, value: p.value }));
+        officialPts = transformed;
       }
 
-      // Z-score official
-      const offVals = officialValues.map(p => p.value);
-      const offZ = zScore(offVals);
-      const officialZMap = new Map<string, number>();
-      officialValues.forEach((p, i) => officialZMap.set(p.date, offZ[i]));
-
-      // ─── Align to common date range (last 104 weeks) ───
-      const allDates = [...altWeekly.keys()].sort();
-      const recentDates = allDates.slice(-104);
-
-      const data: ChannelTimeseriesPoint[] = [];
-      for (const date of recentDates) {
-        const altVal = altWeekly.get(date) ?? null;
-        // Find nearest official reading (within 7 days)
-        let officialVal: number | null = null;
-        for (const [offDate, offVal] of officialZMap) {
-          const diff = Math.abs(new Date(date).getTime() - new Date(offDate).getTime());
-          if (diff < 7 * 86400000) { officialVal = offVal; break; }
+      // ─── Build nowcast regression (alt z-scores → official values, same month) ───
+      // Group alt data by month (first 3 weeks)
+      const altByMonth = new Map<string, number[]>();
+      for (const r of altRows) {
+        const month = r.date.slice(0, 7);
+        const day = parseInt(r.date.slice(8, 10));
+        if (day <= 21) {
+          if (!altByMonth.has(month)) altByMonth.set(month, []);
+          altByMonth.get(month)!.push(ch.invertAlt ? -r.avg_z : r.avg_z);
         }
-        data.push({ date, alt: altVal !== null ? Math.round(altVal * 1000) / 1000 : null, official: officialVal !== null ? Math.round(officialVal * 1000) / 1000 : null, prediction: null, predLower: null, predUpper: null });
       }
 
-      // ─── Linear regression prediction ───
-      // Train: alt[t] → official[t + lag]
+      const offByMonth = new Map<string, number>();
+      for (const r of officialPts) {
+        offByMonth.set(r.date.slice(0, 7), r.value);
+      }
+
+      // Build training pairs
       const trainX: number[] = [];
       const trainY: number[] = [];
-      for (let i = 0; i < data.length - PREDICTION_LAG; i++) {
-        const x = data[i].alt;
-        const y = data[i + PREDICTION_LAG]?.official;
-        if (x !== null && y !== null) {
-          trainX.push(x);
-          trainY.push(y);
+      const commonMonths = [...altByMonth.keys()].filter(m => offByMonth.has(m)).sort();
+      for (const m of commonMonths) {
+        const altVals = altByMonth.get(m)!;
+        if (altVals.length >= 2) {
+          const altAvg = altVals.reduce((a, b) => a + b, 0) / altVals.length;
+          trainX.push(altAvg);
+          trainY.push(offByMonth.get(m)!);
         }
       }
 
-      const reg = linearRegression(trainX, trainY);
-      const currentAlt = data.slice(-4).reduce((s, p) => s + (p.alt ?? 0), 0) / 4;
+      const reg = trainX.length >= 10 ? linearRegression(trainX, trainY) : { slope: 0, intercept: 0, rSquared: 0, residualStd: 0 };
 
-      // Generate prediction points
-      const lastDate = new Date(recentDates[recentDates.length - 1] + "T00:00:00");
-      for (let w = 1; w <= PREDICTION_HORIZON; w++) {
-        const futureDate = new Date(lastDate);
-        futureDate.setDate(lastDate.getDate() + w * 7);
-        const dateStr = futureDate.toISOString().split("T")[0];
-        const predicted = reg.slope * currentAlt + reg.intercept;
-        const uncertainty = reg.residualStd * 1.96 * (w / PREDICTION_HORIZON) * 0.5;
+      // ─── Build the nowcast timeseries ───
+      // Show last 24 months: official dots at their dates, nowcast filling gaps
+      const data: NowcastPoint[] = [];
+      const last24Months = commonMonths.slice(-24);
 
-        data.push({
-          date: dateStr,
-          alt: null,
-          official: null,
-          prediction: reg.rSquared >= 0.02 ? Math.round(predicted * 1000) / 1000 : null,
-          predLower: reg.rSquared >= 0.02 ? Math.round((predicted - uncertainty) * 1000) / 1000 : null,
-          predUpper: reg.rSquared >= 0.02 ? Math.round((predicted + uncertainty) * 1000) / 1000 : null,
-        });
+      for (const month of last24Months) {
+        const offVal = offByMonth.get(month) ?? null;
+        const altVals = altByMonth.get(month);
+        let nowcastVal: number | null = null;
+        if (altVals && altVals.length >= 2 && reg.rSquared > 0.02) {
+          const altAvg = altVals.reduce((a, b) => a + b, 0) / altVals.length;
+          nowcastVal = Math.round((reg.slope * altAvg + reg.intercept) * 100) / 100;
+        }
+        data.push({ date: month, official: offVal !== null ? Math.round(offVal * 100) / 100 : null, nowcast: nowcastVal, isCurrentNowcast: false });
       }
 
-      // Determine prediction direction
-      const lastOfficialZ = [...officialZMap.values()].pop() ?? 0;
-      const predictedZ = reg.slope * currentAlt + reg.intercept;
-      const direction = predictedZ > lastOfficialZ + 0.1 ? "improving" : predictedZ < lastOfficialZ - 0.1 ? "worsening" : "stable";
+      // Current month nowcast (the key value — this month's estimate before release)
+      const now = new Date();
+      const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+      const currentAlt = altByMonth.get(currentMonth);
+      let currentNowcast: number | null = null;
+      if (currentAlt && currentAlt.length >= 1 && reg.rSquared > 0.02) {
+        const altAvg = currentAlt.reduce((a, b) => a + b, 0) / currentAlt.length;
+        currentNowcast = Math.round((reg.slope * altAvg + reg.intercept) * 100) / 100;
+      }
+
+      // Add current month if not already there
+      const lastDataMonth = data[data.length - 1]?.date;
+      if (lastDataMonth !== currentMonth && currentNowcast !== null) {
+        data.push({ date: currentMonth, official: null, nowcast: currentNowcast, isCurrentNowcast: true });
+      } else if (data.length > 0 && data[data.length - 1].date === currentMonth) {
+        data[data.length - 1].isCurrentNowcast = true;
+        if (currentNowcast !== null) data[data.length - 1].nowcast = currentNowcast;
+      }
+
+      const lastOff = officialPts[officialPts.length - 1];
+      const direction = currentNowcast !== null && lastOff ? (currentNowcast > lastOff.value ? "up" : currentNowcast < lastOff.value ? "down" : "flat") : "flat";
 
       channels.push({
         key: ch.key,
         name: ch.name,
         color: ch.color,
-        altLabel: ch.altLabel,
-        officialLabel: ch.officialLabel,
-        insight: generateInsight(ch.key, direction, reg.rSquared, currentAlt),
-        rSquared: reg.rSquared,
-        predictionDirection: direction as "improving" | "worsening" | "stable",
+        altSignal: ch.altSignal,
+        officialMetric: ch.officialMetric,
+        unit: ch.unit,
+        oosR2: ch.oosR2,
+        currentNowcast,
+        lastOfficial: lastOff ? Math.round(lastOff.value * 100) / 100 : null,
+        lastOfficialDate: lastOff?.date ?? "",
+        direction: direction as "up" | "down" | "flat",
         data,
       });
-    } catch (e) {
-      channels.push(emptyChannel(ch));
+
+    } catch {
+      channels.push(emptyNowcast(ch));
     }
   }
-
   return channels;
 }
 
-function emptyChannel(ch: typeof CHANNEL_DEFS[number]): ChannelTimeseries {
-  return { key: ch.key, name: ch.name, color: ch.color, altLabel: ch.altLabel, officialLabel: ch.officialLabel, insight: "Insufficient data", rSquared: 0, predictionDirection: "stable", data: [] };
-}
-
-function generateInsight(key: string, direction: string, r2: number, currentZ: number): string {
-  const strength = r2 > 0.15 ? "strong" : r2 > 0.05 ? "moderate" : "weak";
-  const zDesc = currentZ > 0.5 ? "above average" : currentZ < -0.5 ? "below average" : "near average";
-  const dir = direction === "improving" ? "improvement" : direction === "worsening" ? "deterioration" : "stability";
-  const insights: Record<string, string> = {
-    labor: `Alt signals are ${zDesc}. ${strength === "weak" ? "Prediction unreliable" : `${strength} signal pointing to ${dir} in official employment data`}.`,
-    cost: `Cost pressure is ${zDesc}. ${strength === "weak" ? "CPI prediction uncertain" : `${strength} evidence of ${dir} in inflation readings`}.`,
-    confidence: `Behavioral confidence is ${zDesc}. ${strength === "weak" ? "Sentiment prediction uncertain" : `${strength} signal suggesting ${dir} in survey-based sentiment`}.`,
-    financial: `Financial stress is ${zDesc}. ${strength === "weak" ? "Conditions prediction uncertain" : `${strength} signal of ${dir} in financial conditions`}.`,
-    housing: `Housing market signals are ${zDesc}. ${strength === "weak" ? "Price prediction uncertain" : `${strength} evidence of ${dir} in home price trends`}.`,
-  };
-  return insights[key] ?? "";
+function emptyNowcast(ch: typeof NOWCAST_DEFS[number]): NowcastChannel {
+  return { key: ch.key, name: ch.name, color: ch.color, altSignal: ch.altSignal, officialMetric: ch.officialMetric, unit: ch.unit, oosR2: ch.oosR2, currentNowcast: null, lastOfficial: null, lastOfficialDate: "", direction: "flat", data: [] };
 }
 
 // ─── Exports ───
 
 export const METROS = loadMetrosFromDb();
 export const NATIONAL_SUMMARY = loadNationalSummary(METROS);
-export const CHANNEL_TIMESERIES = loadChannelTimeseries();
+export const NOWCAST_CHANNELS = loadNowcastChannels();
 export const GENERATED_AT = new Date().toISOString();
 
 /**

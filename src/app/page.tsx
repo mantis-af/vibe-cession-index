@@ -1,4 +1,4 @@
-import { METROS, NATIONAL_SUMMARY, CHANNEL_TIMESERIES, GENERATED_AT } from "@/lib/load-data";
+import { METROS, NATIONAL_SUMMARY, NOWCAST_CHANNELS, GENERATED_AT } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { IndexHero } from "@/components/index/hero";
 import { ChannelBreakdown } from "@/components/index/channel-breakdown";
@@ -16,7 +16,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
         {/* Channel breakdown + trend chart */}
-        <ChannelBreakdown channels={CHANNEL_TIMESERIES} />
+        <ChannelBreakdown channels={NOWCAST_CHANNELS} />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
