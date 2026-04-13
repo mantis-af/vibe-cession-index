@@ -1,10 +1,6 @@
 import { Metro, MetroSignals, MetroWeeklySnapshot, NationalSummary } from "./types";
 import { getDb } from "./db";
 
-// For pages that still import JSON directly
-import narrativeJson from "@/data/narrative.json";
-export { narrativeJson };
-
 const EMPTY_SIGNALS: MetroSignals = {
   jobPostingsVelocity: 0, wageToRentRatio: 0, smallBizHealth: 0,
   googleTrendsAnxiety: 0, housingInventory: 0, unemploymentClaims: 0,
@@ -122,45 +118,6 @@ function loadMetrosFromDb(): Metro[] {
   return metros;
 }
 
-function loadNationalHistory(): MetroWeeklySnapshot[] {
-  const d = getDb();
-  // Average behavioral index across all metros by date
-  const rows = d.prepare(`
-    SELECT dp.date, AVG(dp.value) as avg_score
-    FROM datapoints dp
-    JOIN series s ON dp.series_id = s.id
-    WHERE s.id LIKE 'metro_%_index'
-    AND s.scope = 'metro'
-    GROUP BY dp.date
-    ORDER BY dp.date
-  `).all() as Array<{ date: string; avg_score: number }>;
-
-  // Also get average official
-  const officialRows = d.prepare(`
-    SELECT dp.date, AVG(dp.value) as avg_score
-    FROM datapoints dp
-    JOIN series s ON dp.series_id = s.id
-    WHERE s.id LIKE 'metro_%_official'
-    AND s.scope = 'metro'
-    GROUP BY dp.date
-    ORDER BY dp.date
-  `).all() as Array<{ date: string; avg_score: number }>;
-
-  const officialMap = new Map(officialRows.map(r => [r.date, r.avg_score]));
-
-  return rows.map(r => {
-    const official = Math.round(officialMap.get(r.date) ?? 50);
-    const composite = Math.round(r.avg_score);
-    return {
-      week: r.date,
-      compositeScore: composite,
-      officialIndex: official,
-      vibesGap: composite - official,
-      signals: EMPTY_SIGNALS,
-    };
-  });
-}
-
 function loadNationalSummary(metros: Metro[]): NationalSummary {
   if (metros.length === 0) {
     return { averageScore: 50, medianScore: 50, highestMetro: { name: "—", score: 50 }, lowestMetro: { name: "—", score: 50 }, averageVibesGap: 0, metrosImproving: 0, metrosDeclining: 0, metrosStable: 0, weekOf: "" };
@@ -188,21 +145,7 @@ function loadNationalSummary(metros: Metro[]): NationalSummary {
 
 export const METROS = loadMetrosFromDb();
 export const NATIONAL_SUMMARY = loadNationalSummary(METROS);
-export const NATIONAL_HISTORY = loadNationalHistory();
-export const NATIONAL_QUARTERLY: Array<{ quarter: string; avgScore: number; weeksInQuarter: number; high: number; low: number; qoqChange: number | null }> = [];
-export const NATIONAL_DRIVERS = { drivers: [] as Array<{ signal: string; zScoreChange: number; weight: number; scoreImpact: number; direction: "up" | "down" | "flat"; currentZScore: number }>, periodChange: 0, recentAvg: 0, priorAvg: 0 };
-export const MACRO_DATA: Record<string, unknown> = {};
-export const NATIONAL_CPI: Record<string, unknown> = {};
-export const GAS_NATIONAL: Record<string, unknown> = {};
-export const EXPANDED_DATA: Record<string, unknown> = {};
 export const GENERATED_AT = new Date().toISOString();
-
-export type { MetroWeeklySnapshot };
-
-// Keep these types for compatibility
-export type QuarterlyBenchmark = { quarter: string; avgScore: number; weeksInQuarter: number; high: number; low: number; qoqChange: number | null };
-export type SentimentDriver = { signal: string; zScoreChange: number; weight: number; scoreImpact: number; direction: "up" | "down" | "flat"; currentZScore: number };
-export type SentimentDrivers = { drivers: SentimentDriver[]; periodChange: number; recentAvg: number; priorAvg: number };
 
 /**
  * Load full metro data from SQLite (all history, not just 52-week sparkline).
