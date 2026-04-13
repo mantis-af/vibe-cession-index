@@ -13,8 +13,8 @@ export function ChannelBreakdown({ channels }: { channels: NowcastChannel[] }) {
     <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h2 className="text-lg font-semibold text-foreground mb-1">Nowcast Channels</h2>
       <p className="text-sm text-muted-foreground mb-8">
-        Each channel uses weekly alt-data to estimate the current official reading before it&apos;s released.
-        Dots = official data. Line = our estimate.
+        Each channel predicts the next official reading using autoregressive momentum and, where it helps, real-time alt-data signals.
+        Dots = official data. Line = model estimate.
       </p>
 
       <div className="space-y-10">

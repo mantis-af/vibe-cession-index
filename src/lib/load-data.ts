@@ -1,6 +1,6 @@
 import { Metro, MetroSignals, MetroWeeklySnapshot, NationalSummary, NowcastChannel, NowcastPoint } from "./types";
 import { getDb } from "./db";
-import { linearRegression } from "./regression";
+import { linearRegression, ridgeRegression } from "./regression";
 
 const EMPTY_SIGNALS: MetroSignals = {
   jobPostingsVelocity: 0, wageToRentRatio: 0, smallBizHealth: 0,
@@ -144,60 +144,64 @@ function loadNationalSummary(metros: Metro[]): NationalSummary {
 
 // ─── Nowcast Channels (validated in Q2 research — OOS R² > 0.15) ───
 
+// Q3 research results: use AR+alt for metrics where alt improves, AR-only otherwise
 const NOWCAST_DEFS = [
   {
     key: "savings", name: "Financial Health", color: "#6366f1",
     altSignal: "Initial Claims (weekly)", officialMetric: "Personal Savings Rate",
     altMetroKey: "initial_claims", officialId: "expanded_savings_rate",
-    unit: "%", oosR2: 0.47, invertAlt: true,  // more claims = lower savings
+    unit: "%", oosR2: 0.864, invertAlt: true, model: "ar_alt" as const,
   },
   {
-    key: "inflation", name: "Cost Pressure", color: "#f59e0b",
-    altSignal: "Housing Inventory (weekly)", officialMetric: "CPI Inflation (YoY)",
-    altMetroKey: "housing_inventory", officialId: "inflation_cpiaucsl",
-    unit: "%", oosR2: 0.31, invertAlt: false, officialTransform: "yoy" as const,
-  },
-  {
-    key: "jobs", name: "Labor Demand", color: "#22c55e",
-    altSignal: "Housing Inventory (weekly)", officialMetric: "JOLTS Job Openings",
-    altMetroKey: "housing_inventory", officialId: "expanded_job_openings",
-    unit: "Thousands", oosR2: 0.30, invertAlt: false,
+    key: "unemployment", name: "Unemployment", color: "#ef4444",
+    altSignal: "Metro Unemployment Claims (weekly)", officialMetric: "Unemployment Rate",
+    altMetroKey: "unemployment_rate", officialId: "macro_unemployment_rate_national",
+    unit: "%", oosR2: 0.142, invertAlt: true, model: "ar_alt" as const,
   },
   {
     key: "participation", name: "Workforce Engagement", color: "#8b5cf6",
     altSignal: "AI Job Search Ratio (weekly)", officialMetric: "Labor Force Participation",
     altMetroKey: "ai_job_ratio", officialId: "labor_civpart",
-    unit: "%", oosR2: 0.33, invertAlt: false,
+    unit: "%", oosR2: 0.789, invertAlt: false, model: "ar_alt" as const,
   },
   {
-    key: "housing", name: "Housing Prices", color: "#ef4444",
+    key: "inflation", name: "Cost Pressure", color: "#f59e0b",
+    altSignal: "Housing Inventory (weekly)", officialMetric: "CPI Inflation (YoY)",
+    altMetroKey: "housing_inventory", officialId: "inflation_cpiaucsl",
+    unit: "%", oosR2: 0.957, invertAlt: false, model: "ar_only" as const, officialTransform: "yoy" as const,
+  },
+  {
+    key: "jobs", name: "Labor Demand", color: "#22c55e",
+    altSignal: "Housing Inventory (weekly)", officialMetric: "JOLTS Job Openings",
+    altMetroKey: "housing_inventory", officialId: "expanded_job_openings",
+    unit: "Thousands", oosR2: 0.908, invertAlt: false, model: "ar_only" as const,
+  },
+  {
+    key: "housing", name: "Housing Prices", color: "#10b981",
     altSignal: "Days on Market (weekly)", officialMetric: "Case-Shiller Home Prices",
     altMetroKey: "housing_dom", officialId: "expanded_case_shiller",
-    unit: "Index", oosR2: 0.27, invertAlt: false,
+    unit: "Index", oosR2: 0.990, invertAlt: false, model: "ar_only" as const,
+  },
+  {
+    key: "sentiment", name: "Consumer Mood", color: "#f97316",
+    altSignal: "Initial Claims (weekly)", officialMetric: "Consumer Sentiment (UMich)",
+    altMetroKey: "initial_claims", officialId: "consumer_umcsent",
+    unit: "Index", oosR2: 0.735, invertAlt: true, model: "ar_only" as const,
   },
 ];
 
 function loadNowcastChannels(): NowcastChannel[] {
   const d = getDb();
   const channels: NowcastChannel[] = [];
+  const AR_LAGS = 3;
 
   for (const ch of NOWCAST_DEFS) {
     try {
-      // ─── Load alt signal (metro average z-scores, weekly) ───
-      const altRows = d.prepare(`
-        SELECT dp.date, AVG(dp.value) as avg_z
-        FROM datapoints dp JOIN series s ON dp.series_id = s.id
-        WHERE s.id LIKE ? AND s.scope = 'metro'
-        GROUP BY dp.date ORDER BY dp.date
-      `).all(`metro_%_sig_${ch.altMetroKey}`) as Array<{ date: string; avg_z: number }>;
-
-      if (altRows.length < 20) { channels.push(emptyNowcast(ch)); continue; }
-
       // ─── Load official data ───
       const offRows = d.prepare("SELECT date, value FROM datapoints WHERE series_id = ? ORDER BY date")
         .all(ch.officialId) as Array<{ date: string; value: number }>;
 
-      if (offRows.length < 10) { channels.push(emptyNowcast(ch)); continue; }
+      if (offRows.length < 15) { channels.push(emptyNowcast(ch)); continue; }
 
       // Transform official if needed (YoY % for CPI)
       let officialPts = offRows;
@@ -212,65 +216,113 @@ function loadNowcastChannels(): NowcastChannel[] {
         officialPts = transformed;
       }
 
-      // ─── Build nowcast regression (alt z-scores → official values, same month) ───
-      // Group alt data by month (first 3 weeks)
-      const altByMonth = new Map<string, number[]>();
-      for (const r of altRows) {
-        const month = r.date.slice(0, 7);
-        const day = parseInt(r.date.slice(8, 10));
-        if (day <= 21) {
-          if (!altByMonth.has(month)) altByMonth.set(month, []);
-          altByMonth.get(month)!.push(ch.invertAlt ? -r.avg_z : r.avg_z);
-        }
-      }
-
+      // Build official by-month map
       const offByMonth = new Map<string, number>();
-      for (const r of officialPts) {
-        offByMonth.set(r.date.slice(0, 7), r.value);
+      for (const r of officialPts) offByMonth.set(r.date.slice(0, 7), r.value);
+      const sortedMonths = [...offByMonth.keys()].sort();
+
+      if (sortedMonths.length < AR_LAGS + 10) { channels.push(emptyNowcast(ch)); continue; }
+
+      // ─── Load alt signal for AR+alt models ───
+      let altByMonth = new Map<string, number>();
+      if (ch.model === "ar_alt") {
+        const altRows = d.prepare(`
+          SELECT dp.date, AVG(dp.value) as avg_z
+          FROM datapoints dp JOIN series s ON dp.series_id = s.id
+          WHERE s.id LIKE ? AND s.scope = 'metro'
+          GROUP BY dp.date ORDER BY dp.date
+        `).all(`metro_%_sig_${ch.altMetroKey}`) as Array<{ date: string; avg_z: number }>;
+
+        // Group alt by month (first 3 weeks)
+        const altMonthly = new Map<string, number[]>();
+        for (const r of altRows) {
+          const month = r.date.slice(0, 7);
+          const day = parseInt(r.date.slice(8, 10));
+          if (day <= 21) {
+            if (!altMonthly.has(month)) altMonthly.set(month, []);
+            altMonthly.get(month)!.push(ch.invertAlt ? -r.avg_z : r.avg_z);
+          }
+        }
+        for (const [m, vals] of altMonthly) {
+          if (vals.length >= 2) altByMonth.set(m, vals.reduce((a, b) => a + b, 0) / vals.length);
+        }
       }
 
-      // Build training pairs
-      const trainX: number[] = [];
+      // ─── Build AR features and train model ───
+      const trainX: number[][] = [];
       const trainY: number[] = [];
-      const commonMonths = [...altByMonth.keys()].filter(m => offByMonth.has(m)).sort();
-      for (const m of commonMonths) {
-        const altVals = altByMonth.get(m)!;
-        if (altVals.length >= 2) {
-          const altAvg = altVals.reduce((a, b) => a + b, 0) / altVals.length;
-          trainX.push(altAvg);
-          trainY.push(offByMonth.get(m)!);
+
+      for (let i = AR_LAGS; i < sortedMonths.length; i++) {
+        const m = sortedMonths[i];
+        const y = offByMonth.get(m)!;
+        const arFeatures = [];
+        for (let j = 1; j <= AR_LAGS; j++) {
+          arFeatures.push(offByMonth.get(sortedMonths[i - j])!);
         }
+
+        if (ch.model === "ar_alt") {
+          const altVal = altByMonth.get(m);
+          if (altVal === undefined) continue; // skip months without alt data
+          trainX.push([...arFeatures, altVal]);
+        } else {
+          trainX.push(arFeatures);
+        }
+        trainY.push(y);
       }
 
-      const reg = trainX.length >= 10 ? linearRegression(trainX, trainY) : { slope: 0, intercept: 0, rSquared: 0, residualStd: 0 };
+      if (trainX.length < 10) { channels.push(emptyNowcast(ch)); continue; }
 
-      // ─── Build the nowcast timeseries ───
-      // Show last 24 months: official dots at their dates, nowcast filling gaps
+      // Train ridge regression
+      const model = ridgeRegression(trainX, trainY, 0.01);
+
+      // ─── Predict function ───
+      const predict = (arLags: number[], altVal?: number): number | null => {
+        if (arLags.length < AR_LAGS) return null;
+        const features = ch.model === "ar_alt" && altVal !== undefined
+          ? [...arLags, altVal]
+          : ch.model === "ar_only" ? arLags : null;
+        if (!features || features.length !== model.beta.length) return null;
+        let pred = model.intercept;
+        for (let j = 0; j < features.length; j++) pred += model.beta[j] * features[j];
+        return Math.round(pred * 100) / 100;
+      };
+
+      // ─── Build the nowcast timeseries (last 24 months) ───
       const data: NowcastPoint[] = [];
-      const last24Months = commonMonths.slice(-24);
+      const startIdx = Math.max(AR_LAGS, sortedMonths.length - 24);
 
-      for (const month of last24Months) {
-        const offVal = offByMonth.get(month) ?? null;
-        const altVals = altByMonth.get(month);
-        let nowcastVal: number | null = null;
-        if (altVals && altVals.length >= 2 && reg.rSquared > 0.02) {
-          const altAvg = altVals.reduce((a, b) => a + b, 0) / altVals.length;
-          nowcastVal = Math.round((reg.slope * altAvg + reg.intercept) * 100) / 100;
+      for (let i = startIdx; i < sortedMonths.length; i++) {
+        const m = sortedMonths[i];
+        const offVal = offByMonth.get(m) ?? null;
+        const arLags = [];
+        for (let j = 1; j <= AR_LAGS; j++) {
+          if (i - j >= 0) arLags.push(offByMonth.get(sortedMonths[i - j])!);
         }
-        data.push({ date: month, official: offVal !== null ? Math.round(offVal * 100) / 100 : null, nowcast: nowcastVal, isCurrentNowcast: false });
+        const altVal = altByMonth.get(m);
+        const nowcastVal = predict(arLags, altVal);
+
+        data.push({
+          date: m,
+          official: offVal !== null ? Math.round(offVal * 100) / 100 : null,
+          nowcast: nowcastVal,
+          isCurrentNowcast: false,
+        });
       }
 
-      // Current month nowcast (the key value — this month's estimate before release)
+      // ─── Current month nowcast (the forward prediction) ───
       const now = new Date();
       const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-      const currentAlt = altByMonth.get(currentMonth);
       let currentNowcast: number | null = null;
-      if (currentAlt && currentAlt.length >= 1 && reg.rSquared > 0.02) {
-        const altAvg = currentAlt.reduce((a, b) => a + b, 0) / currentAlt.length;
-        currentNowcast = Math.round((reg.slope * altAvg + reg.intercept) * 100) / 100;
+
+      // Use last 3 official readings as AR features
+      const lastMonths = sortedMonths.slice(-AR_LAGS);
+      if (lastMonths.length === AR_LAGS) {
+        const arLags = lastMonths.map(m => offByMonth.get(m)!);
+        const altVal = altByMonth.get(currentMonth);
+        currentNowcast = predict(arLags, altVal);
       }
 
-      // Add current month if not already there
+      // Add current month if not already in data
       const lastDataMonth = data[data.length - 1]?.date;
       if (lastDataMonth !== currentMonth && currentNowcast !== null) {
         data.push({ date: currentMonth, official: null, nowcast: currentNowcast, isCurrentNowcast: true });
@@ -280,13 +332,15 @@ function loadNowcastChannels(): NowcastChannel[] {
       }
 
       const lastOff = officialPts[officialPts.length - 1];
-      const direction = currentNowcast !== null && lastOff ? (currentNowcast > lastOff.value ? "up" : currentNowcast < lastOff.value ? "down" : "flat") : "flat";
+      const direction = currentNowcast !== null && lastOff
+        ? (currentNowcast > lastOff.value ? "up" : currentNowcast < lastOff.value ? "down" : "flat")
+        : "flat";
 
       channels.push({
         key: ch.key,
         name: ch.name,
         color: ch.color,
-        altSignal: ch.altSignal,
+        altSignal: ch.model === "ar_alt" ? `AR(3) + ${ch.altSignal}` : "AR(3) momentum",
         officialMetric: ch.officialMetric,
         unit: ch.unit,
         oosR2: ch.oosR2,
