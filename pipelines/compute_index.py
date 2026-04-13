@@ -25,16 +25,25 @@ METROS_DIR.mkdir(parents=True, exist_ok=True)
 DASHBOARD_JSON = DATA_DIR / "dashboard.json"
 
 SIGNAL_WEIGHTS = {
-    "google_trends_anxiety": 0.18,  # Search behavior — purest vibes signal
-    "unemployment_rate": 0.12,       # BLS metro unemployment
-    "initial_claims": 0.12,          # FRED weekly jobless claims
-    "housing_inventory": 0.12,       # Redfin active listings
-    "housing_dom": 0.08,             # Redfin days on market
-    "housing_price_drops": 0.08,     # Redfin % of listings with price cuts
-    "new_biz_apps": 0.15,            # FRED weekly new business applications (state)
-    "ai_job_ratio": 0.07,            # AI vs traditional job search ratio
-    # Placeholder
-    "small_biz_health": 0.08,
+    # --- Behavioral signals (vibes) ---
+    "google_trends_anxiety": 0.12,   # Search behavior — core vibes signal
+    "survival_search": 0.06,         # "food bank near me", "sell plasma" — acute distress
+    "reddit_sentiment": 0.05,        # Community mood from subreddit analysis
+    "ai_job_ratio": 0.04,            # AI vs traditional job search ratio
+    "migration_intent": 0.03,        # Are people trying to leave this metro?
+    # --- Official / market signals ---
+    "unemployment_rate": 0.10,       # BLS metro unemployment
+    "initial_claims": 0.08,          # FRED weekly jobless claims
+    "wage_growth": 0.06,             # QCEW metro wage growth vs inflation
+    "housing_inventory": 0.08,       # Redfin active listings
+    "housing_dom": 0.05,             # Redfin days on market
+    "housing_price_drops": 0.05,     # Redfin % of listings with price cuts
+    "rent_change": 0.06,             # Zillow ZORI YoY rent change
+    "new_biz_apps": 0.10,            # FRED weekly new business applications (state)
+    # --- Inclusivity signals ---
+    "snap_enrollment": 0.04,         # USDA SNAP participation (food insecurity)
+    "delinquency_rate": 0.04,        # FRED credit card/auto delinquency
+    "financial_fragility": 0.04,     # Debt service ratio vs savings rate
 }
 
 
@@ -135,7 +144,14 @@ def compute_metro_index(metro_id: str, weeks: list[str],
                         expanded_data: dict | None = None,
                         ai_data: dict | None = None,
                         cpi_data: dict | None = None,
-                        macro_data: dict | None = None) -> dict | None:
+                        macro_data: dict | None = None,
+                        survival_data: dict | None = None,
+                        migration_data: dict | None = None,
+                        reddit_data: dict | None = None,
+                        zori_data: dict | None = None,
+                        snap_data: dict | None = None,
+                        fed_survey_data: dict | None = None,
+                        qcew_data: dict | None = None) -> dict | None:
     """Compute the composite index for a single metro."""
     metro = next((m for m in METROS if m.id == metro_id), None)
     if not metro:
@@ -230,6 +246,102 @@ def compute_metro_index(metro_id: str, weeks: list[str],
             # but momentum matters — we track the level and let z-score capture change)
             signals["ai_job_ratio"] = filled
             available_weights["ai_job_ratio"] = SIGNAL_WEIGHTS["ai_job_ratio"]
+
+    # --- Survival Search Index ---
+    if survival_data and metro_id in survival_data:
+        surv_weeks = survival_data[metro_id].get("weeks", [])
+        surv_values = map_weekly_data(surv_weeks, "week", "survival_index", weeks)
+        if any(v is not None for v in surv_values):
+            filled = fill_forward(surv_values)
+            # Invert: higher survival search = worse (more distress)
+            inverted = [-v if v is not None else None for v in filled]
+            signals["survival_search"] = inverted
+            available_weights["survival_search"] = SIGNAL_WEIGHTS["survival_search"]
+
+    # --- Reddit Sentiment ---
+    if reddit_data and "metros" in reddit_data and metro_id in reddit_data["metros"]:
+        reddit_metro = reddit_data["metros"][metro_id]
+        sentiment = reddit_metro.get("sentiment", {})
+        ratio = sentiment.get("sentiment_ratio")
+        if ratio is not None:
+            # Repeat the point-in-time value across all weeks (snapshot, not time series)
+            # Higher ratio = more optimism = positive
+            signals["reddit_sentiment"] = [ratio] * n_weeks
+            available_weights["reddit_sentiment"] = SIGNAL_WEIGHTS["reddit_sentiment"]
+
+    # --- Migration Intent ---
+    if migration_data and metro_id in migration_data:
+        mig_weeks = migration_data[metro_id].get("weeks", [])
+        mig_values = map_weekly_data(mig_weeks, "week", "migration_index", weeks)
+        if any(v is not None for v in mig_values):
+            filled = fill_forward(mig_values)
+            # Invert: higher migration search = people wanting to leave = worse
+            inverted = [-v if v is not None else None for v in filled]
+            signals["migration_intent"] = inverted
+            available_weights["migration_intent"] = SIGNAL_WEIGHTS["migration_intent"]
+
+    # --- Rent Change (Zillow ZORI YoY) ---
+    if zori_data and metro_id in zori_data:
+        zori_months = zori_data[metro_id].get("points", [])
+        # Use YoY rent change
+        rent_values = interpolate_monthly_to_weekly(
+            [p for p in zori_months if "yoy_pct" in p],
+            "month", "yoy_pct", weeks
+        )
+        if any(v is not None for v in rent_values):
+            filled = fill_forward(rent_values)
+            # Invert: higher rent increases = worse for renters
+            inverted = [-v if v is not None else None for v in filled]
+            signals["rent_change"] = inverted
+            available_weights["rent_change"] = SIGNAL_WEIGHTS["rent_change"]
+
+    # --- QCEW Wage Growth ---
+    if qcew_data and metro_id in qcew_data:
+        qcew_pts = qcew_data[metro_id].get("points", [])
+        # Quarterly data — use wage_growth_yoy, interpolate to weekly
+        wage_pts = [{"month": p["quarter"][:4] + "-" + {"Q1": "03", "Q2": "06", "Q3": "09", "Q4": "12"}[p["quarter"][5:]], "value": p["wage_growth_yoy"]} for p in qcew_pts if "wage_growth_yoy" in p]
+        wage_values = interpolate_monthly_to_weekly(wage_pts, "month", "value", weeks)
+        if any(v is not None for v in wage_values):
+            filled = fill_forward(wage_values)
+            # Higher wage growth = positive
+            signals["wage_growth"] = filled
+            available_weights["wage_growth"] = SIGNAL_WEIGHTS["wage_growth"]
+
+    # --- SNAP Enrollment ---
+    if snap_data and "metros" in snap_data and metro_id in snap_data["metros"]:
+        snap_pts = snap_data["metros"][metro_id].get("points", [])
+        if snap_pts and isinstance(snap_pts, list) and snap_pts and isinstance(snap_pts[0], dict) and "date" in snap_pts[0]:
+            snap_values = map_weekly_data(snap_pts, "date", "value", weeks)
+            if any(v is not None for v in snap_values):
+                filled = fill_forward(snap_values)
+                # Invert: higher SNAP enrollment = more food insecurity = worse
+                inverted = [-v if v is not None else None for v in filled]
+                signals["snap_enrollment"] = inverted
+                available_weights["snap_enrollment"] = SIGNAL_WEIGHTS["snap_enrollment"]
+
+    # --- Delinquency Rate (from FRED expanded — national, applied to all metros) ---
+    if expanded_data and "national" in expanded_data:
+        delinq = expanded_data["national"].get("delinq_credit_card", {}).get("points", [])
+        if delinq:
+            delinq_values = map_weekly_data(delinq, "date", "value", weeks)
+            if any(v is not None for v in delinq_values):
+                filled = fill_forward(delinq_values)
+                # Invert: higher delinquency = worse
+                inverted = [-v if v is not None else None for v in filled]
+                signals["delinquency_rate"] = inverted
+                available_weights["delinquency_rate"] = SIGNAL_WEIGHTS["delinquency_rate"]
+
+    # --- Financial Fragility ---
+    if fed_survey_data and "series" in fed_survey_data:
+        debt_svc = fed_survey_data["series"].get("debt_service_ratio", {}).get("points", [])
+        if debt_svc:
+            debt_values = map_weekly_data(debt_svc, "date", "value", weeks)
+            if any(v is not None for v in debt_values):
+                filled = fill_forward(debt_values)
+                # Invert: higher debt service ratio = more fragile = worse
+                inverted = [-v if v is not None else None for v in filled]
+                signals["financial_fragility"] = inverted
+                available_weights["financial_fragility"] = SIGNAL_WEIGHTS["financial_fragility"]
 
     if not signals:
         return None
@@ -518,6 +630,13 @@ def main():
     ai_data = load_json("ai_impact")
     cpi_data = load_json("bls_cpi_metro")
     macro_data = load_json("fred_macro")
+    survival_data = load_json("google_trends_survival")
+    migration_data = load_json("google_trends_migration")
+    reddit_data = load_json("reddit_sentiment")
+    zori_data = load_json("zillow_zori")
+    snap_data = load_json("usda_snap")
+    fed_survey_data = load_json("fed_survey")
+    qcew_data = load_json("bls_qcew")
 
     sources_available = []
     if trends_data:
@@ -532,6 +651,20 @@ def main():
         sources_available.append("fred_expanded")
     if ai_data:
         sources_available.append("ai_impact")
+    if survival_data:
+        sources_available.append("google_trends_survival")
+    if migration_data:
+        sources_available.append("google_trends_migration")
+    if reddit_data:
+        sources_available.append("reddit_sentiment")
+    if zori_data:
+        sources_available.append("zillow_zori")
+    if snap_data:
+        sources_available.append("usda_snap")
+    if fed_survey_data:
+        sources_available.append("fed_survey")
+    if qcew_data:
+        sources_available.append("bls_qcew")
 
     print(f"Sources available: {sources_available or 'NONE'}")
     if not sources_available:
@@ -547,7 +680,13 @@ def main():
     metros_output = []
     for metro in METROS:
         print(f"  {metro.name}...", end=" ")
-        result = compute_metro_index(metro.id, weeks, trends_data, bls_data, fred_data, redfin_data, expanded_data, ai_data, cpi_data, macro_data)
+        result = compute_metro_index(
+            metro.id, weeks, trends_data, bls_data, fred_data, redfin_data,
+            expanded_data, ai_data, cpi_data, macro_data,
+            survival_data=survival_data, migration_data=migration_data,
+            reddit_data=reddit_data, zori_data=zori_data, snap_data=snap_data,
+            fed_survey_data=fed_survey_data, qcew_data=qcew_data,
+        )
         if result:
             metros_output.append(result)
             print(f"OK ({len(result['signalsAvailable'])} signals)")
