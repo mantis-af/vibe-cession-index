@@ -1,7 +1,6 @@
-import { METROS, NATIONAL_SUMMARY, NATIONAL_HISTORY, GENERATED_AT } from "@/lib/load-data";
+import { METROS, NATIONAL_SUMMARY, GENERATED_AT } from "@/lib/load-data";
 import { Header } from "@/components/dashboard/header";
 import { IndexHero } from "@/components/index/hero";
-import { NationalChart } from "@/components/index/national-chart";
 import { ChannelBreakdown } from "@/components/index/channel-breakdown";
 import { MetroList } from "@/components/index/metro-list";
 
@@ -14,30 +13,14 @@ export default function Home() {
         {/* Hero — score + status */}
         <IndexHero summary={NATIONAL_SUMMARY} />
 
-        {/* Divider */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="h-px bg-zinc-100" />
-        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
-        {/* Channel breakdown — what's driving the score */}
+        {/* Channel breakdown + trend chart */}
         <ChannelBreakdown metros={METROS} />
 
-        {/* Divider */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="h-px bg-zinc-100" />
-        </div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
-        {/* National trend chart */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <NationalChart history={NATIONAL_HISTORY} />
-        </section>
-
-        {/* Divider */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="h-px bg-zinc-100" />
-        </div>
-
-        {/* Metro highlights — top 5, bottom 5, movers */}
+        {/* Metro highlights */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-24">
           <MetroList metros={METROS} />
         </section>

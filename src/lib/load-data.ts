@@ -47,6 +47,24 @@ function loadMetrosFromDb(): Metro[] {
     const officialMap = new Map(officialPts.map(p => [p.date, p.value]));
     const gapMap = new Map(gapPts.map(p => [p.date, p.value]));
 
+    // Load actual signal z-scores
+    const SIGNAL_DB_MAP: Record<string, keyof MetroSignals> = {
+      google_trends_anxiety: "googleTrendsAnxiety",
+      unemployment_rate: "unemploymentClaims",
+      initial_claims: "unemploymentClaims",
+      housing_inventory: "housingInventory",
+      housing_dom: "restaurantActivity",
+      housing_price_drops: "buildingPermits",
+      new_biz_apps: "jobPostingsVelocity",
+      ai_job_ratio: "wageToRentRatio",
+    };
+    const latestSignals: MetroSignals = { ...EMPTY_SIGNALS };
+    for (const [dbKey, tsKey] of Object.entries(SIGNAL_DB_MAP)) {
+      const sigId = `metro_${mid}_sig_${dbKey}`;
+      const latest = d.prepare("SELECT value FROM datapoints WHERE series_id = ? ORDER BY date DESC LIMIT 1").get(sigId) as { value: number } | undefined;
+      if (latest) latestSignals[tsKey] = latest.value;
+    }
+
     // Build history (use last 52 weeks for sparklines on overview)
     const recentPts = indexPts.slice(-52);
     const history: MetroWeeklySnapshot[] = recentPts.map(p => ({
@@ -54,7 +72,7 @@ function loadMetrosFromDb(): Metro[] {
       compositeScore: Math.round(p.value),
       officialIndex: Math.round(officialMap.get(p.date) ?? 50),
       vibesGap: Math.round(gapMap.get(p.date) ?? 0),
-      signals: EMPTY_SIGNALS,
+      signals: EMPTY_SIGNALS, // per-week signals not needed for sparklines
     }));
 
     const current = history[history.length - 1] ?? { compositeScore: 50, vibesGap: 0 };
@@ -92,7 +110,7 @@ function loadMetrosFromDb(): Metro[] {
       previousScore: previous.compositeScore,
       weekOverWeekChange: current.compositeScore - previous.compositeScore,
       vibesGap: current.vibesGap,
-      currentSignals: EMPTY_SIGNALS,
+      currentSignals: latestSignals,
       trend,
       history,
       quarterly: [],
