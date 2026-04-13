@@ -98,3 +98,21 @@ ASPIRATION_TERMS = [
     "investment account",
     "buy a house",
 ]
+
+# Survival-mode search terms — people in acute financial distress
+SURVIVAL_TERMS = [
+    "food bank near me",
+    "sell plasma",
+    "rent help",
+    "second job",
+    "can't pay rent",
+]
+
+# Migration intent search terms — people considering relocating
+MIGRATION_TERMS = [
+    "moving to",
+    "cost of living",
+    "best places to live",
+    "apartments for rent",
+    "jobs hiring near me",
+]
