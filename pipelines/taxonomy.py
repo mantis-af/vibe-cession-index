@@ -412,7 +412,7 @@ def classify_series(series_id: str, name: str, old_category: str, scope: str,
     elif "healthcare" in name_lower or "hospital" in name_lower or "nursing" in name_lower or "ambulatory" in name_lower:
         primary = "demographics.healthcare"
     elif "snap" in name_lower:
-        primary = "demographics.social"
+        primary = "demographics.safety-net"
 
     # Search anxiety / AI signals
     elif "search anxiety" in name_lower:
