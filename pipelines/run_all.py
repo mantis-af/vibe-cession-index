@@ -51,6 +51,23 @@ def main():
     if not skip_trends:
         run("sources/ai_impact.py", "AI Impact — AI vs Traditional Job Search Interest")
 
+    # --- Inclusivity sources ---
+    run("sources/zillow_rents.py", "Zillow ZORI — Metro Rent Prices")
+    run("sources/apartment_list.py", "Apartment List — Independent Rent Estimates")
+    run("sources/hud_fmr.py", "HUD — Fair Market Rents")
+    run("sources/usda_snap.py", "USDA — SNAP Enrollment (Food Insecurity)")
+    run("sources/bls_qcew.py", "BLS QCEW — Metro Average Weekly Wages")
+    run("sources/census_pulse.py", "Census Pulse — Household Financial Hardship")
+    run("sources/opportunity_insights.py", "Opportunity Insights — Spending by Income Quartile")
+    run("sources/fed_survey.py", "Fed Survey — Financial Fragility Indicators")
+    run("sources/dot_transit.py", "DOT — Transit Ridership")
+    run("sources/reddit_sentiment.py", "Reddit — Economic Sentiment")
+    run("sources/yelp_local.py", "Yelp — Local Business Activity")
+
+    if not skip_trends:
+        run("sources/google_trends_survival.py", "Google Trends — Survival Mode Searches")
+        run("sources/google_trends_migration.py", "Google Trends — Migration Intent")
+
     run("compute_index.py", "Computing Composite Index + Context")
     run("compute_leadlag.py", "Computing Predictive Lead/Lag Analysis")
     run("compute_forecast.py", "Generating Forecasts from Lead/Lag")
