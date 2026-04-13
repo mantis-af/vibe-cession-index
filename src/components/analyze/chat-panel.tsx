@@ -39,14 +39,16 @@ export function ChatPanel({ messages, isLoading, onSend }: Props) {
             <Bot className="h-8 w-8 text-indigo-300 mb-3" />
             <h3 className="text-sm font-semibold text-foreground mb-1">Undercurrent Analyst</h3>
             <p className="text-xs text-muted-foreground max-w-xs leading-relaxed">
-              Ask me to analyze economic data across 50 US metros. I can search 543 series, compare cities, overlay indicators, and spot trends.
+              I have access to 1,500+ economic time series — labor markets, housing, financial conditions, commodities, international data, and more. Ask me anything.
             </p>
             <div className="mt-4 space-y-1.5">
               {[
-                "Compare Austin vs Denver housing over the last 2 years",
-                "Show me the S&P 500 vs consumer sentiment",
-                "Which metros have the worst affordability?",
-                "Overlay NYC unemployment with search anxiety",
+                "What's driving the divergence between Austin and Nashville right now?",
+                "Show me a full macro dashboard — labor, housing, inflation, and financial conditions",
+                "Is the yield curve signaling recession? Compare with historical patterns",
+                "Break down real wage growth by sector — who's winning, who's losing?",
+                "How do housing costs in SF compare to Miami? Include rent and home prices",
+                "What does Bitcoin's correlation with the S&P look like over the last 2 years?",
               ].map((suggestion) => (
                 <button
                   key={suggestion}
