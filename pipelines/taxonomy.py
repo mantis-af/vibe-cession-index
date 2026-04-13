@@ -21,6 +21,7 @@ TAXONOMY = {
             "claims": "Initial and continued unemployment claims",
             "hours": "Average weekly hours worked",
             "jolts": "Job openings, hires, quits, layoffs (JOLTS)",
+            "wages-metro": "Metro-level average weekly wages (QCEW)",
         },
     },
     "housing": {
@@ -31,6 +32,7 @@ TAXONOMY = {
             "starts": "Housing starts, building permits",
             "sales": "New and existing home sales",
             "affordability": "Housing affordability indices, cost burden",
+            "rental": "Rent prices, rent indices (Zillow ZORI, Apartment List, HUD FMR)",
             "vacancy": "Rental and homeowner vacancy rates",
             "mortgage": "Mortgage rates, applications",
             "construction": "Construction spending, workers",
@@ -69,6 +71,8 @@ TAXONOMY = {
             "savings": "Personal savings rate",
             "vehicles": "Auto and light truck sales",
             "debt-burden": "Debt service ratios, financial obligations",
+            "hardship": "Financial hardship, difficulty paying bills, food insecurity",
+            "fragility": "Debt burden, savings cushion, financial obligations",
         },
     },
     "production": {
@@ -125,6 +129,7 @@ TAXONOMY = {
             "profits": "Corporate profits, national income",
             "surveys": "Regional Fed surveys, NFIB small business",
             "construction": "Construction spending, workers",
+            "local": "Local business openings/closings, small business street-level health",
         },
     },
     "index": {
@@ -145,6 +150,8 @@ TAXONOMY = {
             "education": "Student loans, tuition costs",
             "healthcare": "Healthcare employment, spending, insurance costs",
             "social": "SNAP, transfer payments",
+            "safety-net": "SNAP enrollment, transfer payments, social services",
+            "mobility": "Migration intent, relocation patterns, transit ridership",
         },
     },
 }
@@ -412,6 +419,34 @@ def classify_series(series_id: str, name: str, old_category: str, scope: str,
         primary = "consumer.sentiment"
     elif "ai job" in name_lower or "ai ratio" in name_lower:
         primary = "labor.employment"
+
+    # Rental
+    elif "rent" in name_lower or "zori" in name_lower or "fmr" in name_lower:
+        primary = "housing.rental"
+    # Hardship
+    elif "hardship" in name_lower or "difficulty" in name_lower or "pulse" in name_lower:
+        primary = "consumer.hardship"
+    # Safety net
+    elif "snap" in name_lower or "food stamp" in name_lower:
+        primary = "demographics.safety-net"
+    # Transit
+    elif "transit" in name_lower or "ridership" in name_lower:
+        primary = "demographics.mobility"
+    # Local business
+    elif "yelp" in name_lower or "local business" in name_lower:
+        primary = "business.local"
+    # QCEW wages
+    elif "weekly wage" in name_lower or "qcew" in name_lower:
+        primary = "labor.wages-metro"
+    # Migration
+    elif "migration" in name_lower or "moving" in name_lower:
+        primary = "demographics.mobility"
+    # Survival
+    elif "survival" in name_lower or "sell plasma" in name_lower or "food bank" in name_lower:
+        primary = "consumer.hardship"
+    # Financial fragility
+    elif "fragil" in name_lower or "debt service" in name_lower or "financial obligation" in name_lower:
+        primary = "consumer.fragility"
 
     # Fallback
     else:
