@@ -48,3 +48,5 @@ src/data/dashboard_full.json
 next-env.d.ts
 __pycache__/
 data/undercurrent.db
+data/undercurrent.db-shm
+data/undercurrent.db-wal
