@@ -1,12 +1,13 @@
-import { METROS, NATIONAL_SUMMARY, NOWCAST_CHANNELS, GENERATED_AT } from "@/lib/load-data";
-import { loadDashboard } from "@/lib/dashboard-data";
+import { METROS, NATIONAL_SUMMARY, GENERATED_AT } from "@/lib/load-data";
+import { loadDashboard, loadAltSignals } from "@/lib/dashboard-data";
 import { Header } from "@/components/dashboard/header";
 import { IndexHero } from "@/components/index/hero";
 import { EconomicDashboard } from "@/components/index/dashboard";
-import { ChannelBreakdown } from "@/components/index/channel-breakdown";
+import { AltSignalPanel } from "@/components/index/alt-signals";
 import { MetroList } from "@/components/index/metro-list";
 
 const DASHBOARD = loadDashboard();
+const ALT_SIGNALS = loadAltSignals();
 
 export default function Home() {
   return (
@@ -19,13 +20,13 @@ export default function Home() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
-        {/* Economic Dashboard — real numbers, sparklines */}
+        {/* Economic Dashboard — real numbers, expanded charts */}
         <EconomicDashboard domains={DASHBOARD} />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 
-        {/* Nowcast Channels — alt-data estimates of official readings */}
-        <ChannelBreakdown channels={NOWCAST_CHANNELS} />
+        {/* Alt-data signals — what the real-time behavioral data is showing */}
+        <AltSignalPanel signals={ALT_SIGNALS} />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"><div className="h-px bg-zinc-100" /></div>
 

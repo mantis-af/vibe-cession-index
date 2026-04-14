@@ -15,8 +15,21 @@ export interface DashboardMetric {
   change: number | null;       // vs previous reading
   changePct: number | null;    // % change
   direction: "up" | "down" | "flat";
-  sparkline: number[];         // last 12 readings for mini chart
+  sparkline: number[];         // last 12 readings for chart
+  sparkDates: string[];        // dates for each sparkline point
   domain: string;
+}
+
+export interface AltSignalSeries {
+  key: string;
+  name: string;
+  description: string;
+  color: string;
+  unit: string;
+  data: Array<{ date: string; value: number }>;
+  latest: number;
+  change4w: number | null;     // 4-week change
+  direction: "up" | "down" | "flat";
 }
 
 export interface DashboardDomain {
@@ -83,7 +96,14 @@ export function loadDashboard(): DashboardDomain[] {
     const direction = Math.abs(changePct) < 0.1 ? "flat" : isPositive ? "up" : "down";
 
     // Sparkline: last 12 readings, oldest first
-    const sparkline = pts.slice(0, 12).reverse().map(p => p.value / divisor);
+    const sparkSlice = pts.slice(0, 12).reverse();
+    const sparkline = sparkSlice.map(p => p.value / divisor);
+    const sparkDates = sparkSlice.map(p => {
+      const d = p.date.length === 7 ? p.date : p.date.slice(0, 7);
+      const [y, m] = d.split("-");
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      return `${months[parseInt(m) - 1]} ${y.slice(2)}`;
+    });
 
     const metric: DashboardMetric = {
       id: def.id,
@@ -96,6 +116,7 @@ export function loadDashboard(): DashboardDomain[] {
       changePct: Math.round(changePct * 10) / 10,
       direction,
       sparkline,
+      sparkDates,
       domain: def.domain,
     };
 
@@ -112,4 +133,84 @@ export function loadDashboard(): DashboardDomain[] {
   }
 
   return domains;
+}
+
+// ─── Alt-data signals for the index page ───
+
+const ALT_SIGNAL_DEFS = [
+  {
+    key: "search_anxiety", name: "Search Anxiety Index",
+    description: "Google Trends ratio of distress vs aspiration searches across 50 metros",
+    sigPattern: "google_trends_anxiety", color: "#ef4444", unit: "z-score",
+  },
+  {
+    key: "initial_claims", name: "Initial Unemployment Claims",
+    description: "Weekly first-time unemployment filings averaged across metros",
+    sigPattern: "initial_claims", color: "#f59e0b", unit: "z-score",
+  },
+  {
+    key: "housing_inventory", name: "Housing Inventory",
+    description: "Active listings on the market — rising inventory signals softening demand",
+    sigPattern: "housing_inventory", color: "#8b5cf6", unit: "z-score",
+  },
+  {
+    key: "ai_job_ratio", name: "AI Job Search Ratio",
+    description: "AI-related vs traditional job searches — structural labor market shift",
+    sigPattern: "ai_job_ratio", color: "#6366f1", unit: "z-score",
+  },
+  {
+    key: "housing_dom", name: "Days on Market",
+    description: "How long homes sit before selling — early indicator of housing market health",
+    sigPattern: "housing_dom", color: "#22c55e", unit: "z-score",
+  },
+  {
+    key: "price_drops", name: "Price Reductions",
+    description: "Share of listings with price cuts — seller desperation signal",
+    sigPattern: "housing_price_drops", color: "#ec4899", unit: "z-score",
+  },
+];
+
+export function loadAltSignals(): AltSignalSeries[] {
+  const d = getDb();
+  const signals: AltSignalSeries[] = [];
+
+  for (const def of ALT_SIGNAL_DEFS) {
+    // Average z-scores across all metros per week
+    const rows = d.prepare(`
+      SELECT dp.date, AVG(dp.value) as avg_z
+      FROM datapoints dp JOIN series s ON dp.series_id = s.id
+      WHERE s.id LIKE ? AND s.scope = 'metro'
+      GROUP BY dp.date ORDER BY dp.date
+    `).all(`metro_%_sig_${def.sigPattern}`) as Array<{ date: string; avg_z: number }>;
+
+    if (rows.length < 10) continue;
+
+    // Last 52 weeks
+    const recent = rows.slice(-52);
+    const data = recent.map(r => ({
+      date: r.date,
+      value: Math.round(r.avg_z * 1000) / 1000,
+    }));
+
+    const latest = data[data.length - 1]?.value ?? 0;
+    const fourWeeksAgo = data.length >= 5 ? data[data.length - 5]?.value ?? 0 : 0;
+    const change4w = data.length >= 5 ? Math.round((latest - fourWeeksAgo) * 1000) / 1000 : null;
+    const direction = change4w === null ? "flat" as const
+      : Math.abs(change4w) < 0.05 ? "flat" as const
+      : change4w > 0 ? "up" as const : "down" as const;
+
+    signals.push({
+      key: def.key,
+      name: def.name,
+      description: def.description,
+      color: def.color,
+      unit: def.unit,
+      data,
+      latest,
+      change4w,
+      direction,
+    });
+  }
+
+  return signals;
 }
